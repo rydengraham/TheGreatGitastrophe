@@ -10,6 +10,5 @@ public class LoginTestPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_test);
-        System.out.println("Main push test");
     }
 }
