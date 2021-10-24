@@ -14,8 +14,8 @@ public class LoginTestPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_test);
 
-        final Button addButton = findViewById(R.id.accountButton);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        final Button accButton = findViewById(R.id.accountButton);
+        accButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent switchActivityIntent = new Intent(LoginTestPage.this, AccountSettings.class);
                 startActivity(switchActivityIntent);
