@@ -1,21 +1,47 @@
 package com.example.cmput_301_project;
 
+import android.graphics.Bitmap;
+
+import java.util.HashMap;
+import java.util.UUID;
+
 public class Account {
     // Identification Information
-    private String userName;
+    private String username;
     private String email;
     private String password;
-    private int id;
+    private String id;
+    // this might change later
+    // TODO: set to default pfp
+    private Bitmap pfp;
+
+    private HashMap<String, Habit> habitTable = new HashMap<String, Habit>();
 
     // Account Information
+    public Account(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.id = UUID.randomUUID().toString();
+    }
+//    public Account(String username, String email, String password, Bitmap pfp, HashMap<String, Habit> habitTable, String id) {
+//        this.username = username;
+//        this.email = email;
+//        this.password = password;
+//        this.id = id;
+//        this.pfp = pfp;
+//        this.habitTable = habitTable;
+//    }
+//    public Account() {}
+
     // TODO: Add User Habit Items
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = username;
     }
 
     public String getEmail() {
@@ -34,11 +60,23 @@ public class Account {
         this.password = password;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public HashMap<String, Habit> getHabitTable() {
+        return habitTable;
+    }
+
+    public void setHabitTable(HashMap<String, Habit> habitTable) {
+        this.habitTable = habitTable;
+    }
+
+    public Bitmap getPfp() {
+        return pfp;
+    }
+
+    public void setPfp(Bitmap pfp) {
+        this.pfp = pfp;
     }
 }
