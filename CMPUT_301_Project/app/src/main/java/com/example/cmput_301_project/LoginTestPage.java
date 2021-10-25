@@ -27,7 +27,7 @@ import java.util.Hashtable;
 import java.util.UUID;
 
 public class LoginTestPage extends AppCompatActivity {
-    HashMap<String, Account> accountData = new HashMap<>();
+    HashMap<String, Account> accountData = new HashMap<String, Account>();
 
     final String TAG = "Sample";
     Button addButton;
@@ -66,6 +66,7 @@ public class LoginTestPage extends AppCompatActivity {
         addButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println(accountData.size());
                 final String username = usernameEditText.getText().toString();
                 final String password = passwordEditText.getText().toString();
                 final String email = emailEditText.getText().toString();
@@ -73,6 +74,8 @@ public class LoginTestPage extends AppCompatActivity {
                 // TODO: check for duplicate emails, usernames, and ids
                 if (username.length() > 0 && password.length() > 0 && email.length() > 0) {
                     Account newAccount = new Account(username, email, password);
+                    System.out.println(newAccount.getId());
+                    System.out.println(newAccount == null);
                     accountData.put(newAccount.getId(), newAccount);
                     collectionReference
                             .document(newAccount.getId())
@@ -104,23 +107,10 @@ public class LoginTestPage extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
                 accountData.clear();
-//                ObjectMapper mapper = new ObjectMapper();
                 for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
                 {
-                    String idNum = doc.getId();
-                    System.out.println(doc.getData().get(idNum));
-//                    String userData = (String) doc.getData().get(idNum);
-                    accountData = (HashMap<String, Account>) doc.getData().get(idNum);
-//                    Log.d(TAG, String.valueOf(doc.getData().get(idNum);
-//                    HashMap<String, String> userAccount = (HashMap<String, String>) doc.getData().get(idNum);
-//                    String username = userAccount.get("username");
-//                    String email = userAccount.get("email");
-//                    String password = userAccount.get("password");
-//                    String id = userAccount.get("id");
-//                    Bitmap pfp = StringToBitMap(userAccount.get("pfp"));
-//                    HashMap<String, Habit> habitTable = (HashMap<String, Habit>) userAccount.get("habitTable");
-//                    accountData.put(idNum, account); // Adding the objects from firestore
-//                      accountData.put(id, new Account(username, email, password)); // Adding the objects from firestore
+                    Account account = doc.toObject(Account.class);
+                    accountData.put(account.getId(), account);
                 }
             }
         });

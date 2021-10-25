@@ -24,15 +24,8 @@ public class Account {
         this.password = password;
         this.id = UUID.randomUUID().toString();
     }
-//    public Account(String username, String email, String password, Bitmap pfp, HashMap<String, Habit> habitTable, String id) {
-//        this.username = username;
-//        this.email = email;
-//        this.password = password;
-//        this.id = id;
-//        this.pfp = pfp;
-//        this.habitTable = habitTable;
-//    }
-//    public Account() {}
+
+    public Account() {}
 
     // TODO: Add User Habit Items
 
