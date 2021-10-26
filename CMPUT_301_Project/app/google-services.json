@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1081091226351",
+    "project_id": "thegreatgitastrophe",
+    "storage_bucket": "thegreatgitastrophe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081091226351:android:fd00a5af14b5c2f2cdb91a",
+        "android_client_info": {
+          "package_name": "com.example.cmput_301_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081091226351-gi29coi20bhgo3rg7cgt6iblbrhsbq3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2us4DHgatCvTUvbH4qD3L1rOhWUfXa9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081091226351-gi29coi20bhgo3rg7cgt6iblbrhsbq3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
