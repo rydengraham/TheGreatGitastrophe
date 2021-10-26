@@ -18,8 +18,8 @@ public class AccountSettings extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        final Button button1 = findViewById(R.id.privViewToggle);
-        button1.setOnClickListener(new View.OnClickListener() {
+        final Button viewToggleButton = findViewById(R.id.privViewToggle);
+        viewToggleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // CHANGE SECOND CLASS TO REDIRECT PAGE
                 Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
@@ -27,8 +27,8 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
 
-        final Button button2 = findViewById(R.id.viewProfile);
-        button2.setOnClickListener(new View.OnClickListener() {
+        final Button viewProfileButton = findViewById(R.id.viewProfile);
+        viewProfileButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // CHANGE SECOND CLASS TO REDIRECT PAGE
                 Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
@@ -36,8 +36,8 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
 
-        final Button button3 = findViewById(R.id.changePassword);
-        button3.setOnClickListener(new View.OnClickListener() {
+        final Button changePassButton = findViewById(R.id.changePassword);
+        changePassButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // CHANGE SECOND CLASS TO REDIRECT PAGE
                 Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
@@ -45,8 +45,8 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
 
-        final Button button4 = findViewById(R.id.logout);
-        button4.setOnClickListener(new View.OnClickListener() {
+        final Button logoutButton = findViewById(R.id.logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // CHANGE SECOND CLASS TO REDIRECT PAGE
                 Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
