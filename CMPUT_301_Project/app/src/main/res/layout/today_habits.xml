@@ -10,7 +10,7 @@
         android:id="@+id/toDo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="ToDo"
         android:textSize="32dp"
@@ -23,7 +23,7 @@
     <ListView
         android:id="@+id/toDoList"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -50,7 +50,7 @@
     <ListView
         android:id="@+id/completedList"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
