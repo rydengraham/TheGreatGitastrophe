@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/eventHolder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:descendantFocusability="blocksDescendants">
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/textHolder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <TextView
@@ -18,18 +19,18 @@
             android:text="HabitName"
             android:textSize="32dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/completeHabitX"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.1"
             android:background="@drawable/circle_red"
             android:text="X" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/completeHabitC"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:text="\u2713"
             android:visibility="gone"
@@ -41,7 +42,8 @@
         android:id="@+id/commentHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:paddingTop="5dp">
 
         <EditText
             android:id="@+id/comment"
@@ -62,21 +64,29 @@
         android:orientation="horizontal"
         android:visibility="gone">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addPhotoButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginTop="5dp"
             android:text="Photo Icon">
 
-        </Button>
+        </androidx.appcompat.widget.AppCompatButton>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addLocationButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="2.5dp"
+            android:background="@android:color/holo_blue_light"
             android:text="Add Location">
 
-        </Button>
+        </androidx.appcompat.widget.AppCompatButton>
 
     </LinearLayout>
 
