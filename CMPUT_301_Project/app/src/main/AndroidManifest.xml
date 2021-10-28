@@ -18,7 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TodayHabits">
+        <activity
+            android:name=".TodayHabits"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".AccountSettings"
+            android:label="@string/app_name">
         </activity>
     </application>
 

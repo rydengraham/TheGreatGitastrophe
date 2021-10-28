@@ -58,6 +58,14 @@ public class LoginTestPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_test);
 
+        final Button accButton = findViewById(R.id.accountButton);
+        accButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent switchActivityIntent = new Intent(LoginTestPage.this, AccountSettings.class);
+                startActivity(switchActivityIntent);
+            }
+        });
+        
         addButton = findViewById(R.id.add_account_button);
         usernameEditText = findViewById(R.id.username_field);
         passwordEditText = findViewById(R.id.password_field);
@@ -129,4 +137,6 @@ public class LoginTestPage extends AppCompatActivity {
         });
 
     }
+
+
 }
