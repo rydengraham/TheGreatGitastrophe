@@ -10,12 +10,20 @@ public class HabitEvent {
     private Date date;
     private Bitmap image;
     private String comment;
+    private String title;
+    private TodayHabitViewHolder holder;
 
-    public HabitEvent(Date date, Bitmap image, String comment) {
+    public HabitEvent(Date date, Bitmap image, String comment, String title) {
         this.date = date;
         this.image = image;
         this.comment = comment;
         this.id = UUID.randomUUID().toString();
+        this.title = title;
+    }
+
+    public HabitEvent(String comment, String title) {
+        this.comment = comment;
+        this.title = title;
     }
 
     public String getId() {
@@ -44,5 +52,21 @@ public class HabitEvent {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public TodayHabitViewHolder getHolder() {
+        return holder;
+    }
+
+    public void setHolder(TodayHabitViewHolder holder) {
+        this.holder = holder;
     }
 }
