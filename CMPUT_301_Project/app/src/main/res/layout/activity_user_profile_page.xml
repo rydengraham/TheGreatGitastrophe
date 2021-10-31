@@ -7,8 +7,6 @@
     android:exported="true"
     tools:context=".UserProfilePage">
 
-    <!-- TODO: add a simple TV displaying "Habits from Last 30 Days:" -->
-
     <TextView
         android:id="@+id/usernameText"
         android:layout_width="0dp"
