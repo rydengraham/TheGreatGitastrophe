@@ -45,6 +45,7 @@ public class UserProfilePage extends AppCompatActivity {
         // create a list of completed habits and add them to the habit LV
         ListView habitList = findViewById(R.id.habitList);
 
+        // TODO: need to use a list of real recently-completed habits instead of examples here
         String []habits ={"Habit 1", "Habit 2", "Habit 3", "Habit 4", "Habit 5",
                 "Habit 6" ,"Habit 7", "Habit 8", "Habit 9", "Habit 10"};
 
