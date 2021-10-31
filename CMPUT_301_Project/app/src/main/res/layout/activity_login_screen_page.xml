@@ -8,6 +8,7 @@
     tools:context=".LoginScreenPage">
 
     <!-- TODO: replace placeholder drawable with actual logo -->
+
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="237dp"
@@ -118,8 +119,15 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:textColor="@color/black"
-            android:text="Register" />
+            android:onClick="onRegisterClick"
+            android:text="Register"
+            android:textColor="@color/black" />
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/signUpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
