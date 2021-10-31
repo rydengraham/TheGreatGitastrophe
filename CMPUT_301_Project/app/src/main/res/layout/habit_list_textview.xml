@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This layout is used for the habit text within the listview on the User Profile page.
+ When implementing the actual list of completed habits into the page, use this TextView-->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/habitListTV"
+    android:padding="2dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:textSize="32sp">
+
+</TextView>

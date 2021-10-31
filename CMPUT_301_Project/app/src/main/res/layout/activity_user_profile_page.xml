@@ -7,6 +7,29 @@
     android:exported="true"
     tools:context=".UserProfilePage">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completionPercText">
+
+        <ListView
+            android:id="@+id/habitList"
+            style="@style/Widget.AppCompat.ListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1">
+
+        </ListView>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/usernameText"
         android:layout_width="0dp"
@@ -49,7 +72,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/default_photo" />
 
-    <!-- TODO: find a way to make height = width (probably sub-layout) -->
     <TextView
         android:id="@+id/completionPercText"
         android:layout_width="237dp"
@@ -57,34 +79,24 @@
         android:layout_marginStart="128dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="128dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/circular_textview"
         android:gravity="center"
         android:text="X% of Habits Completed this Month"
         android:textColor="@android:color/white"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameText" />
 
-    <!-- TODO: LV of completed habits doesn't work in it's current state
-    <ListView
-        android:id="@+id/habitList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/completionPercText">
-
-    </ListView>
--->
-
     <FrameLayout
         android:id="@+id/settingsFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-46dp">
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

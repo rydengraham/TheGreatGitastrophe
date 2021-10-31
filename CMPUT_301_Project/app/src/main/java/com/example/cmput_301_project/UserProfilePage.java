@@ -43,14 +43,15 @@ public class UserProfilePage extends AppCompatActivity {
         // TODO: changes gradient of habit completion box depending on % of habits completed
 
         // create a list of completed habits and add them to the habit LV
-        /*ListView habitList = findViewById(R.id.habitList);
+        ListView habitList = findViewById(R.id.habitList);
 
-        String []habits ={"Wash dishes", "Homework", "Study", "Walk dog", "Make dinner"};
+        String []habits ={"Habit 1", "Habit 2", "Habit 3", "Habit 4", "Habit 5",
+                "Habit 6" ,"Habit 7", "Habit 8", "Habit 9", "Habit 10"};
 
         ArrayList<String> dataList = new ArrayList<>(Arrays.asList(habits));
-        ArrayAdapter<String> habitAdapter = new ArrayAdapter<>(this, R.layout.content, dataList);
+        ArrayAdapter<String> habitAdapter = new ArrayAdapter<>(this, R.layout.habit_list_textview, dataList);
 
-        habitList.setAdapter(habitAdapter);*/
+        habitList.setAdapter(habitAdapter);
     }
 
     public void onSettingsClick(View view) {
