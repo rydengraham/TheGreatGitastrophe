@@ -27,14 +27,12 @@ import android.widget.Toast;
  * Use the {@link SignUpFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SignUpFragment extends Fragment {
+public class SignUpFragment extends Fragment  implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -50,7 +48,6 @@ public class SignUpFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment SignUpFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static SignUpFragment newInstance(String param1, String param2) {
         SignUpFragment fragment = new SignUpFragment();
         Bundle args = new Bundle();
@@ -73,6 +70,25 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false);
+        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        Button signUpButton = (Button) view.findViewById(R.id.signUpButton);
+        Button exitButton = (Button) view.findViewById(R.id.cancelButton);
+        signUpButton.setOnClickListener(this);
+        exitButton.setOnClickListener(this);
+
+        return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.signUpButton:
+                // TODO: add code to create a new user account here
+                getActivity().onBackPressed();
+                break;
+            case R.id.cancelButton:
+                getActivity().onBackPressed();
+                break;
+        }
     }
 }

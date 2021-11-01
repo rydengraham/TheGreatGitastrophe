@@ -44,4 +44,8 @@ public class LoginScreenPage extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    public void onSignInClick(View view) {
+        // TODO: add functionality to check user credentials & redirect to main page here
+    }
 }

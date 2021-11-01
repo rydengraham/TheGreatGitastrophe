@@ -109,10 +109,10 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/black"
+            android:onClick="onSignInClick"
             android:text="Sign In" />
 
 
-        <!-- TODO: register button should redirect to account creation fragment -->
         <Button
             android:id="@+id/registerButton"
             android:layout_width="0dp"
