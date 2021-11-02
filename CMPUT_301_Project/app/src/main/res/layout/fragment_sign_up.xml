@@ -113,16 +113,16 @@
                     android:id="@+id/reenterPasswordTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100"
+                    android:layout_weight="1"
                     android:lines="2"
                     android:text="Re-Enter Password:"
-                    android:textSize="24sp" />
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/reenterPasswordEV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="32"
                     android:ems="10"
                     android:inputType="textPassword" />
             </LinearLayout>

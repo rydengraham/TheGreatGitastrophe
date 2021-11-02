@@ -3,6 +3,7 @@ package com.example.cmput_301_project;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,10 +43,14 @@ public class LoginScreenPage extends AppCompatActivity {
         transaction = manager.beginTransaction();
         transaction.add(R.id.signUpLayout, registerFragment);
         transaction.addToBackStack(null);
+        // execute transaction and open sign-up fragment
         transaction.commit();
     }
 
     public void onSignInClick(View view) {
-        // TODO: add functionality to check user credentials & redirect to main page here
+        // TODO: add functionality to check user credentials
+        // when 'sign in' button is pressed, open the temporary main page
+        Intent switchToMainPage = new Intent(LoginScreenPage.this, LoginTestPage.class);
+        startActivity(switchToMainPage);
     }
 }

@@ -71,6 +71,7 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        // add buttons for sign-up and exit and set their onClick listeners to current class
         Button signUpButton = (Button) view.findViewById(R.id.signUpButton);
         Button exitButton = (Button) view.findViewById(R.id.cancelButton);
         signUpButton.setOnClickListener(this);
@@ -81,12 +82,14 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        // override onClick depending on if the 'sign-up' or 'cancel' button is pressed
         switch(view.getId()) {
             case R.id.signUpButton:
                 // TODO: add code to create a new user account here
                 getActivity().onBackPressed();
                 break;
             case R.id.cancelButton:
+                // if the cancel button is pressed, close the fragment and return to login page
                 getActivity().onBackPressed();
                 break;
         }
