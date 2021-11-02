@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/pinputPromptsVLL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -36,6 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/createAccountTV">
 
             <LinearLayout
+                android:id="@+id/createEmailHLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -46,7 +48,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:text="Email:"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/createEmailEV"
@@ -58,6 +60,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/createUsernameHLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="32dp"
@@ -69,18 +72,19 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:text="Username:"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/createUsernameEV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="1.5"
                     android:ems="10"
                     android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/createPasswordHLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="32dp"
@@ -92,18 +96,19 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:text="Password:"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/createPasswordEV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="1.5"
                     android:ems="10"
                     android:inputType="textPassword" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/reenterPasswordHLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="32dp"
@@ -115,14 +120,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:lines="2"
-                    android:text="Re-Enter Password:"
-                    android:textSize="14sp" />
+                    android:paddingBottom="20dp"
+                    android:text="Re-Enter \nPassword:"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/reenterPasswordEV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="32"
+                    android:layout_weight="1.5"
                     android:ems="10"
                     android:inputType="textPassword" />
             </LinearLayout>
@@ -130,7 +136,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/fragmentNavButtonsHLL"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
