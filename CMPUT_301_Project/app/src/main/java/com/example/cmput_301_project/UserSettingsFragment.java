@@ -3,10 +3,12 @@ package com.example.cmput_301_project;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -29,13 +31,6 @@ import android.widget.Toast;
  */
 public class UserSettingsFragment extends Fragment implements View.OnClickListener {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     public UserSettingsFragment() {
         // Required empty public constructor
     }
@@ -43,16 +38,11 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment UserSettingsFragment.
      */
     public static UserSettingsFragment newInstance(String param1, String param2) {
         UserSettingsFragment fragment = new UserSettingsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,10 +50,6 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -91,11 +77,6 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String newName = editName.getText().toString();
                     // TODO: add code to change username using 'newName' as updated username
-                    /*
-                    TODO: probably best-practice to lower keyboard after 'Enter' is pressed,
-                     but android has some weird rules regarding this (relevant SO:
-                     https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-programmatically)
-                    */
                     return true;
                 }
                 return false;
@@ -109,7 +90,6 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         // depending on the view passed to onClick, execute some action
         switch (view.getId()) {
-            // TODO: this switch statement may have issues w Gradle8 (check warning for more info)
             case R.id.saveButton:
                 // if the save button is pressed, save changes and exit the fragment
                 // TODO: add code to update user profile data here
@@ -117,8 +97,19 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.exitButton:
                 // if the exit button is pressed, simply exit the fragment
-                // TODO: might be good to have a dialogue fragment prompt user to discard changes
-                getActivity().onBackPressed();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Exit Without Saving?");
+                builder.setMessage("Any changes you've made will be lost.");
+                // if the user chooses to exit, return to the user profile activity
+                builder.setPositiveButton("Exit", (dialog, which) -> {
+                    getActivity().onBackPressed();
+                });
+                // if the user chooses to stay on the fragment, simply close the dialog
+                builder.setNegativeButton("Go Back", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog confirmExitdialog = builder.create();
+                confirmExitdialog.show();
                 break;
             case R.id.editProfileTV:
                 // if the 'edit profile' textView is pressed, allow user to change their profile pic

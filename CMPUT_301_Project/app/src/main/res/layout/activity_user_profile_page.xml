@@ -13,7 +13,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="4dp"
         android:text="USERNAME"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/settingsButton"
@@ -60,15 +60,15 @@
         android:background="@drawable/circular_textview"
         android:gravity="center"
         android:text="X% of Habits Completed this Month"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/completedHabitsVLL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameText" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/completedHabitsVLL"
         android:layout_width="403dp"
         android:layout_height="287dp"
         android:orientation="vertical"
