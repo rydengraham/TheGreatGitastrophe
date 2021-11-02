@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CMPUT_301_Project">
         <activity
+            android:name=".LoginScreenPage"
+            android:exported="true" />
+        <activity
             android:name=".LoginTestPage"
             android:exported="true">
             <intent-filter>
@@ -20,25 +23,10 @@
         </activity>
         <activity
             android:name=".TodayHabits"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".AccountSettings"
-            android:label="@string/app_name">
-        </activity>
-    <activity
-        android:name=".MainPage"
-        android:label="@string/app_name"
-        android:exported="true">
-        <intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
-
-        </intent-filter>
-    </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
