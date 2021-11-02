@@ -18,12 +18,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  */
 public class NavBar extends Fragment {
 
-    private String mParam1;
-    private String mParam2;
-    static final int home = 0;
-    static final int habit = 1;
-    static final int friend = 2;
-    static final int settings = 3;
 
 
     public NavBar() {
@@ -41,10 +35,13 @@ public class NavBar extends Fragment {
 
         MainPage mainActivity = (MainPage) getActivity();
         View view = inflater.inflate(R.layout.fragment_nav_bar, container, false);
+        //Initialize bottomNavigation view
         bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             String name;
+            //Switch clause that sets alternates text depending on menu item selected
+
             switch (item.getItemId()) {
                 case R.id.home:
                     name = "HOME";
