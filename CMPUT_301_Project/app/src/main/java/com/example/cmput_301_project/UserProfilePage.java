@@ -6,11 +6,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -37,10 +39,12 @@ public class UserProfilePage extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("#");
         double habitsCompleted = ((double) completedHabits/totalHabits)*100;
         String habitPercent = df.format(habitsCompleted) + "% of habits completed this month";
-
-        ((TextView)findViewById(R.id.completionPercText)).setText(
-                habitPercent);
-        // TODO: changes gradient of habit completion box depending on % of habits completed
+        TextView habitPercentText = (TextView) findViewById(R.id.completionPercText);
+        habitPercentText.setText(habitPercent);
+        // TODO: change gradient of habit completion box depending on % of habits completed
+        // this method below works, maybe create a handful of if-statements & bring up
+        // tint problem at meeting?
+        //habitPercentText.getBackground().setTint(Color.parseColor("#000000"));
 
         // create a list of completed habits and add them to the habit LV
         ListView habitList = findViewById(R.id.habitList);
