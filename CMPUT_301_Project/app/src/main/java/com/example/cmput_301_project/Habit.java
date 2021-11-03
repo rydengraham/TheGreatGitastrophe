@@ -1,14 +1,16 @@
 package com.example.cmput_301_project;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Habit {
+public class Habit implements Serializable {
     private String id;
     private String habitName;
     private Date startDate;
     private String reason;
+
     // one bit per day of the week
     // 1 = Monday
     // 2 = Tuesday
@@ -17,6 +19,7 @@ public class Habit {
     // etc.
     // (so each day takes 1 bit, with the most significant bit unused)
     private byte weekdays;
+    private boolean isExpanded;
 
     private HashMap<String, HabitEvent> habitEventTable = new HashMap<String, HabitEvent>();
 
@@ -32,34 +35,43 @@ public class Habit {
         return id;
     }
 
+
     public String getHabitName() {
         return habitName;
     }
 
-    public void setHabitName(String habitName) {
-        this.habitName = habitName;
+    public byte getWeekdays() { return weekdays; }
+
+    public boolean isExpanded() {
+        return isExpanded;
     }
 
     public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
     public String getReason() {
         return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
     }
 
     public boolean getIsOnDayOfWeek(int day) {
         // 0 = Monday, 1 = Tuesday, 2 = Wednesday, etc.
         return ((weekdays >> day) & 1) == 1;
     }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
+    }
+
+    public void setHabitName(String habitName) {
+        this.habitName = habitName;
+    }
+
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
+
+    public void setReason(String reason) { this.reason = reason; }
+
+    public void setWeekdays(byte weekdays) { this.weekdays = weekdays; }
 
     public boolean setIsOnDayOfWeek(byte weekdays) {
         // only accept numbers in range
@@ -70,11 +82,6 @@ public class Habit {
         return false;
     }
 
-    public HashMap<String, HabitEvent> getHabitEventTable() {
-        return habitEventTable;
-    }
 
-    public void setHabitEventTable(HashMap<String, HabitEvent> habitEventTable) {
-        this.habitEventTable = habitEventTable;
-    }
+
 }

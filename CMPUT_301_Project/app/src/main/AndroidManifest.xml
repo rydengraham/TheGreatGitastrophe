@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CMPUT_301_Project">
         <activity
-            android:name=".LoginTestPage"
+            android:name=".HabitFragments"
+            android:exported="true" />
+        <activity
+            android:name=".MyHabits"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,9 +22,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".LoginTestPage"
+            android:exported="true" />
+        <activity
             android:name=".AccountSettings"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
