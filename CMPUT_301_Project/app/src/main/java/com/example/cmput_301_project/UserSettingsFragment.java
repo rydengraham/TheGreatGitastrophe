@@ -113,6 +113,7 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.editProfileTV:
                 // if the 'edit profile' textView is pressed, allow user to change their profile pic
+                System.out.println("edit photo");
                 // TODO: add code to change profile photo here
                 break;
         }
