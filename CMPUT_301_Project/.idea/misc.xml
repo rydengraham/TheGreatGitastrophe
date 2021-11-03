@@ -3,10 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ryden/AndroidStudioProjects/CMPUT_301_Project/CMPUT_301_Project/app/src/main/res/layout/login_test.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/Ryden/AndroidStudioProjects/CMPUT_301_Project/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/login_test.xml" value="0.3307291666666667" />
-        <entry key="..\:/Users/Ryden/AndroidStudioProjects/CMPUT_301_Project/app/src/main/res/layout/activity_main.xml" value="0.490036231884058" />
-        <entry key="..\:/Users/Ryden/AndroidStudioProjects/CMPUT_301_Project/app/src/main/res/layout/login_test.xml" value="0.483695652173913" />
+        <entry key="app/src/main/res/layout/fragment_nav_bar.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/login_test.xml" value="0.165" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.165" />
       </map>
     </option>
   </component>

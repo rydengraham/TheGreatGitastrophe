@@ -84,7 +84,19 @@ public class LoginTestPage extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         // TODO: add button here to navigate to user PP (wait until login page is merged)
+=======
+        // functionality for loginButton to go to LoginScreenPage
+        final Button loginScreenButton = findViewById(R.id.loginButton);
+        loginScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchActivityIntent = new Intent(LoginTestPage.this, LoginScreenPage.class);
+                startActivity(switchActivityIntent);
+            }
+        });
+>>>>>>> origin/main
 
         addButton.setOnClickListener( new View.OnClickListener() {
             @Override
