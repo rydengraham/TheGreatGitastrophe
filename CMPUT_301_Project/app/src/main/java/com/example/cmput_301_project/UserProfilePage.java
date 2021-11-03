@@ -26,7 +26,7 @@ public class UserProfilePage extends AppCompatActivity {
 
     // TODO: random values chosen need to be replaced w real complete/incomplete habits
     int totalHabits = 16;
-    int completedHabits = 4;
+    int completedHabits = 5;
     double habitRatio = (double) completedHabits/totalHabits;
     // define fragment manager and transaction for opening/closing settings fragment
     FragmentManager manager = getSupportFragmentManager();
