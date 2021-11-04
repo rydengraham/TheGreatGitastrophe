@@ -2,6 +2,8 @@ package com.example.cmput_301_project;
 
 import android.graphics.Bitmap;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -10,7 +12,7 @@ public class Account {
     private String username;
     private String email;
     private String password;
-    private String id;
+    private String id; // Used as password salt
     // this might change later
     // TODO: set to default pfp
     private Bitmap pfp;
@@ -21,11 +23,23 @@ public class Account {
     public Account(String username, String email, String password) {
         this.username = username;
         this.email = email;
-        this.password = password;
         this.id = UUID.randomUUID().toString();
+
+        try {
+            updatePassword(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
-    public Account() {}
+    public Account() { /* Required empty public constructor */ }
+
+    public void updatePassword(String rawPassword) throws NoSuchAlgorithmException {
+        MessageDigest hasher = MessageDigest.getInstance("SHA-256");
+        String toHash = rawPassword + this.id;
+        byte[] digest = hasher.digest(toHash.getBytes());
+        this.password = new String(digest);
+    }
 
     // TODO: Add User Habit Items
 
@@ -45,12 +59,9 @@ public class Account {
         this.email = email;
     }
 
+    // TODO: Change to internally check password
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getId() {

@@ -21,7 +21,7 @@ public class AccountSettings extends AppCompatActivity {
         final Button viewToggleButton = findViewById(R.id.privViewToggle);
         viewToggleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // CHANGE SECOND CLASS TO REDIRECT PAGE
+                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
                 Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
                 startActivity(switchActivityIntent);
             }
@@ -30,7 +30,7 @@ public class AccountSettings extends AppCompatActivity {
         final Button viewProfileButton = findViewById(R.id.viewProfile);
         viewProfileButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // CHANGE SECOND CLASS TO REDIRECT PAGE
+                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
                 Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
                 startActivity(switchActivityIntent);
             }
@@ -39,7 +39,7 @@ public class AccountSettings extends AppCompatActivity {
         final Button changePassButton = findViewById(R.id.changePassword);
         changePassButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // CHANGE SECOND CLASS TO REDIRECT PAGE
+                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
                 Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
                 startActivity(switchActivityIntent);
             }
@@ -48,7 +48,7 @@ public class AccountSettings extends AppCompatActivity {
         final Button logoutButton = findViewById(R.id.logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // CHANGE SECOND CLASS TO REDIRECT PAGE
+                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
                 Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
                 startActivity(switchActivityIntent);
             }

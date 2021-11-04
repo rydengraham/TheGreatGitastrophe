@@ -34,12 +34,15 @@ public class TodayHabits extends AppCompatActivity {
         completedList = findViewById(R.id.completedList);
         toDoEventsList = new ArrayList<HabitEvent>();
         completedEventsList = new ArrayList<HabitEvent>();
+
+        // Temporary list filling variables
         toDoEventsList.add(new HabitEvent("COMMENT", "TITLE"));
         toDoEventsList.add(new HabitEvent("COMMENT2", "TITLE2"));
         toDoEventsList.add(new HabitEvent("COMMENT3", "TITLE3"));
         toDoEventsList.add(new HabitEvent("COMMENT4", "TITLE4"));
         toDoEventsList.add(new HabitEvent("COMMENT5", "TITLE5"));
         toDoEventsList.add(new HabitEvent("COMMENT6", "TITLE6"));
+
         toDoAdapter = new TodayHabitsAdapter(this, R.layout.today_habits_content, toDoEventsList);
         completedAdapter = new TodayHabitsAdapter(this, R.layout.today_habits_content, completedEventsList);
         toDoList.setAdapter(toDoAdapter);

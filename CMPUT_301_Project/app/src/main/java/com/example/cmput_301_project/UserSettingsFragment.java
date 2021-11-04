@@ -31,9 +31,7 @@ import android.widget.Toast;
  */
 public class UserSettingsFragment extends Fragment implements View.OnClickListener {
 
-    public UserSettingsFragment() {
-        // Required empty public constructor
-    }
+    public UserSettingsFragment() { /* Required empty public constructor */ }
 
     /**
      * Use this factory method to create a new instance of

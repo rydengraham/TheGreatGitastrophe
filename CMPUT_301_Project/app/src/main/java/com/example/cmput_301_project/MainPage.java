@@ -23,7 +23,7 @@ public class MainPage extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
-        //initialize circular progress bar
+        // initialize circular progress bar
         progressBar= findViewById(R.id.progress_bar);
         // initialize updatebutton and friendbutton
         Button updateButton= findViewById(R.id.updateButton);
@@ -49,7 +49,7 @@ public class MainPage extends AppCompatActivity {
         });
 
     }
-    /*method to set the prog value i.e % of progress
+    /* method to set the prog value i.e % of progress
     bar filled out */
     public void updateProgress()
     {

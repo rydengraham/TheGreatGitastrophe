@@ -28,50 +28,35 @@ public class NavBar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        MainPage mainActivity = (MainPage) getActivity();
         View view = inflater.inflate(R.layout.fragment_nav_bar, container, false);
+
         // Initialize bottomNavigation view
         bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             String name;
-            // Switch clause that sets alternates text depending on menu item selected
 
+            // Switch clause that sets alternates text depending on menu item selected
             switch (item.getItemId()) {
                 case R.id.home:
-                    name = "HOME";
-                    mainActivity.textView.setText(name);
                     break;
 
                 case R.id.habits:
-                    name = "HABITS";
-                    mainActivity.textView.setText(name);
                     break;
 
                 case R.id.friends:
-                    name = "FRIENDS";
-                    mainActivity.textView.setText(name);
                     break;
 
                 case R.id.settings:
-                    name = "SETTINGS";
-                    mainActivity.textView.setText(name);
                     break;
 
                 default:
                     name = "";
             }
             return true;
-
         });
-
-
         return view;
-
-
     }
-
 }
 
 
