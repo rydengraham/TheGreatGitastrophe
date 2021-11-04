@@ -60,8 +60,12 @@ public class Account {
     }
 
     // TODO: Change to internally check password
-    public String getPassword() {
-        return password;
+    public boolean checkPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest hasher = MessageDigest.getInstance("SHA-256");
+        byte[] digest = hasher.digest(password.getBytes());
+        String candidatePassword = new String(digest);
+
+        return this.password.equals(candidatePassword);
     }
 
     public String getId() {
