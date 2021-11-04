@@ -29,6 +29,11 @@ import android.widget.Toast;
  */
 public class SignUpFragment extends Fragment  implements View.OnClickListener {
 
+    EditText emailField;
+    EditText usernameField;
+    EditText passwordField;
+    EditText recheckPasswordField;
+
     public SignUpFragment() { /* Required empty public constructor */ }
 
     /**
@@ -53,6 +58,12 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+
+        emailField = (EditText) view.findViewById(R.id.createEmailEV);
+        usernameField = (EditText) view.findViewById(R.id.createUsernameEV);
+        passwordField = (EditText) view.findViewById(R.id.createPasswordEV);
+        recheckPasswordField = (EditText) view.findViewById(R.id.reenterPasswordEV);
+
         // add buttons for sign-up and exit and set their onClick listeners to current class
         Button signUpButton = (Button) view.findViewById(R.id.signUpButton);
         Button exitButton = (Button) view.findViewById(R.id.cancelButton);
@@ -68,6 +79,10 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
         switch(view.getId()) {
             case R.id.signUpButton:
                 // TODO: add code to create a new user account here
+                System.out.println(emailField.getText());
+
+                AccountData.create().modifyAccount(new Account(usernameField.getText().toString(), emailField.getText().toString(), passwordField.getText().toString()));
+
                 getActivity().onBackPressed();
                 break;
             case R.id.cancelButton:

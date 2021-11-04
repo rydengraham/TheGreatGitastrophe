@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ryden/AndroidStudioProjects/CMPUT_301_Project/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/activity_login_screen_page.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/Ryden/AndroidStudioProjects/CMPUT_301_Project/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/fragment_sign_up.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/Ryden/AndroidStudioProjects/CMPUT_301_Project/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/today_habits.xml" value="0.31614583333333335" />
         <entry key="..\:/Users/gofoo/Documents/CMPUT 301 Project/CMPUT_301_Project/app/src/main/res/layout/main_page.xml" value="0.21714285714285714" />
-        <entry key="..\:/Users/gofoo/Documents/CMPUT 301 Project/CMPUT_301_Project/app/src/main/res/layout/today_habits.xml" value="0.14666666666666667" />
         <entry key="app/src/main/res/layout/fragment_nav_bar.xml" value="0.335" />
         <entry key="app/src/main/res/layout/login_test.xml" value="0.165" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.165" />
