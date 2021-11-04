@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
+
 android {
     compileSdk 31
 
@@ -27,6 +28,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+    task wrapper(type: Wrapper){
+        gradleVersion = '4.1.2'
+    }
+
 }
 
 dependencies {
@@ -39,6 +44,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'com.google.android.material:material:1.2.0'
     testImplementation 'junit:junit:4.+'
     implementation "io.grpc:grpc-okhttp:1.32.2"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

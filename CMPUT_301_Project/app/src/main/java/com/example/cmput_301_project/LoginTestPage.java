@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +37,7 @@ public class LoginTestPage extends AppCompatActivity {
     EditText passwordEditText;
     EditText emailEditText;
     FirebaseFirestore db;
+
 
     //From: https://stackoverflow.com/questions/23005948/convert-string-to-bitmap
     public Bitmap StringToBitMap(String encodedString){
@@ -69,8 +71,28 @@ public class LoginTestPage extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password_field);
         emailEditText = findViewById(R.id.email_field);
 
+
+
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("Users");
+
+        final Button todaysHabitsButton = findViewById(R.id.todaysHabitsButton);
+        todaysHabitsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent switchActivityIntent = new Intent(LoginTestPage.this, TodayHabits.class);
+                startActivity(switchActivityIntent);
+            }
+        });
+
+        // functionality for loginButton to go to LoginScreenPage
+        final Button loginScreenButton = findViewById(R.id.loginButton);
+        loginScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchActivityIntent = new Intent(LoginTestPage.this, LoginScreenPage.class);
+                startActivity(switchActivityIntent);
+            }
+        });
 
         addButton.setOnClickListener( new View.OnClickListener() {
             @Override
