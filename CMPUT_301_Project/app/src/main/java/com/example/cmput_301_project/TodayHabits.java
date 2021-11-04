@@ -10,11 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+/**
+ * Class that creates the page and sets up everything
+ */
 public class TodayHabits extends AppCompatActivity {
 
-    LinearLayout commentHolder;
-    LinearLayout photoLocationHolder;
-    Button completeGreenButton;
+    // Variable declaration
     ListView toDoList;
     ListView completedList;
     static ArrayList<HabitEvent> toDoEventsList;
@@ -22,16 +23,17 @@ public class TodayHabits extends AppCompatActivity {
     static TodayHabitsAdapter toDoAdapter;
     static TodayHabitsAdapter completedAdapter;
 
+    // On create method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set layout
         setContentView(R.layout.today_habits);
 
-        commentHolder = findViewById(R.id.commentHolder);
-        photoLocationHolder = findViewById(R.id.iconLocationHolder);
-        completeGreenButton = findViewById(R.id.completeHabitC);
+        // Find the listview
         toDoList = findViewById(R.id.toDoList);
         completedList = findViewById(R.id.completedList);
+        // Add test elements
         toDoEventsList = new ArrayList<HabitEvent>();
         completedEventsList = new ArrayList<HabitEvent>();
         toDoEventsList.add(new HabitEvent("COMMENT", "TITLE"));
@@ -40,6 +42,7 @@ public class TodayHabits extends AppCompatActivity {
         toDoEventsList.add(new HabitEvent("COMMENT4", "TITLE4"));
         toDoEventsList.add(new HabitEvent("COMMENT5", "TITLE5"));
         toDoEventsList.add(new HabitEvent("COMMENT6", "TITLE6"));
+        // Set up adapter for list view
         toDoAdapter = new TodayHabitsAdapter(this, R.layout.today_habits_content, toDoEventsList);
         completedAdapter = new TodayHabitsAdapter(this, R.layout.today_habits_content, completedEventsList);
         toDoList.setAdapter(toDoAdapter);
@@ -48,18 +51,34 @@ public class TodayHabits extends AppCompatActivity {
 
     }
 
+    /**
+     * Returns the ToDo array list
+     * @return
+     */
     public static ArrayList<HabitEvent> getToDoList(){
         return toDoEventsList;
     }
 
+    /**
+     * Returns the Completed array list
+     * @return
+     */
     public static ArrayList<HabitEvent> getCompleteList(){
         return completedEventsList;
     }
 
+    /**
+     * Returns the ToDo adapter
+     * @return
+     */
     public static TodayHabitsAdapter getToDoListAdapter(){
         return toDoAdapter;
     }
 
+    /**
+     * Returns the Completed adapter
+     * @return
+     */
     public static TodayHabitsAdapter getCompletedListAdapter(){
         return completedAdapter;
     }
