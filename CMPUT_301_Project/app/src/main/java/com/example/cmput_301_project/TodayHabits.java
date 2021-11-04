@@ -45,6 +45,7 @@ public class TodayHabits extends AppCompatActivity {
         toDoList.setAdapter(toDoAdapter);
         completedList.setAdapter(completedAdapter);
 
+
     }
 
     public static ArrayList<HabitEvent> getToDoList(){
