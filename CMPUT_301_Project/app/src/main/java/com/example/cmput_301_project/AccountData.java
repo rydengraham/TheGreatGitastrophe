@@ -71,6 +71,7 @@ public class AccountData {
                     for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         Account account = doc.toObject(Account.class);
+                        System.out.println("Load: " + account.getUserName() + " " + account.getEmail());
                         accountData.put(account.getId(), account);
                     }
                 }

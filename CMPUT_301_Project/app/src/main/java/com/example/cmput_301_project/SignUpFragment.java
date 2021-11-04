@@ -22,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.regex.Pattern;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SignUpFragment#newInstance} factory method to
@@ -32,7 +35,7 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
     EditText emailField;
     EditText usernameField;
     EditText passwordField;
-    EditText recheckPasswordField;
+    EditText reenterPasswordField;
 
     public SignUpFragment() { /* Required empty public constructor */ }
 
@@ -62,7 +65,7 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
         emailField = (EditText) view.findViewById(R.id.createEmailEV);
         usernameField = (EditText) view.findViewById(R.id.createUsernameEV);
         passwordField = (EditText) view.findViewById(R.id.createPasswordEV);
-        recheckPasswordField = (EditText) view.findViewById(R.id.reenterPasswordEV);
+        reenterPasswordField = (EditText) view.findViewById(R.id.reenterPasswordEV);
 
         // add buttons for sign-up and exit and set their onClick listeners to current class
         Button signUpButton = (Button) view.findViewById(R.id.signUpButton);
@@ -79,9 +82,44 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
         switch(view.getId()) {
             case R.id.signUpButton:
                 // TODO: add code to create a new user account here
-                System.out.println(emailField.getText());
+                HashMap<String, Account> accountData = AccountData.create().getAccountData();
 
-                AccountData.create().modifyAccount(new Account(usernameField.getText().toString(), emailField.getText().toString(), passwordField.getText().toString()));
+                String username = usernameField.getText().toString();
+                String email = emailField.getText().toString();
+                String password = passwordField.getText().toString();
+                String reenterPassword = reenterPasswordField.getText().toString();
+
+                if (username.length() == 0 || password.length() == 0 || email.length() == 0) {
+                    // TODO: open UI fragment to mention issue
+                    System.out.println("0 length");
+                    return;
+                }
+
+                for (Account existingAccount : accountData.values()) {
+                    System.out.println(existingAccount.getUserName() + " " + existingAccount.getEmail());
+                    if (existingAccount.getUserName().equals(username) || existingAccount.getEmail().equals(email)) {
+                        // TODO: open UI fragment to mention issue
+                        System.out.println("dupe name/mail");
+                        return;
+                    }
+                }
+
+                if (!password.equals(reenterPassword)) {
+                    // TODO: open UI fragment to mention issue
+                    System.out.println("no pass match");
+                    return;
+                }
+                // Regex from: https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
+                String emailRegex = "^(.+)@(.+)$";
+                Pattern pattern = Pattern.compile(emailRegex);
+
+                if (!pattern.matcher(email).matches()) {
+                    // TODO: open UI fragment to mention issue
+                    System.out.println("invalid email");
+                    return;
+                }
+
+                AccountData.create().modifyAccount(new Account(username, email, password));
 
                 getActivity().onBackPressed();
                 break;
