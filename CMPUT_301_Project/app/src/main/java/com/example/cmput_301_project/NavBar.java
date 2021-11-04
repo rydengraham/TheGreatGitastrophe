@@ -31,12 +31,12 @@ public class NavBar extends Fragment {
 
         MainPage mainActivity = (MainPage) getActivity();
         View view = inflater.inflate(R.layout.fragment_nav_bar, container, false);
-        //Initialize bottomNavigation view
+        // Initialize bottomNavigation view
         bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             String name;
-            //Switch clause that sets alternates text depending on menu item selected
+            // Switch clause that sets alternates text depending on menu item selected
 
             switch (item.getItemId()) {
                 case R.id.home:

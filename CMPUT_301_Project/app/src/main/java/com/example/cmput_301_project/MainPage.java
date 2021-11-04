@@ -22,7 +22,7 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainpage);
+        setContentView(R.layout.main_page);
         //initialize circular progress bar
         progressBar= findViewById(R.id.progress_bar);
         // initialize updatebutton and friendbutton
@@ -44,9 +44,7 @@ public class MainPage extends AppCompatActivity {
                 if(prog > 0){
                     prog  -= 10;
                     updateProgress();
-
                 }
-
             }
         });
 

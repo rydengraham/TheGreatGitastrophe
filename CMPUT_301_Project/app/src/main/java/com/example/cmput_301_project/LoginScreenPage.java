@@ -39,7 +39,7 @@ public class LoginScreenPage extends AppCompatActivity {
     public void onRegisterClick(View view) {
         // create a new settings fragment and display it on the appropriate frame
         Fragment registerFragment = new SignUpFragment();
-        //begin fragment transaction and add current activity to backstack
+        // begin fragment transaction and add current activity to backstack
         transaction = manager.beginTransaction();
         transaction.add(R.id.signUpLayout, registerFragment);
         transaction.addToBackStack(null);
