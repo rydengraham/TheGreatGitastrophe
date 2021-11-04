@@ -49,8 +49,8 @@ public class LoginScreenPage extends AppCompatActivity {
 
     public void onSignInClick(View view) {
         // TODO: add functionality to check user credentials
-        // when 'sign in' button is pressed, open the temporary main page
-        Intent switchToMainPage = new Intent(LoginScreenPage.this, LoginTestPage.class);
+        // when 'sign in' button is pressed, open the main page after verification
+        Intent switchToMainPage = new Intent(LoginScreenPage.this, MainPage.class);
         startActivity(switchToMainPage);
     }
 }

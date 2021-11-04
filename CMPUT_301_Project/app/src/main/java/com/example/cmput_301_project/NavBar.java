@@ -18,17 +18,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  */
 public class NavBar extends Fragment {
 
-
-
-    public NavBar() {
-        // Required empty public constructor
-    }
+    public NavBar() { /* Required empty public constructor */ }
 
     /**
      * @return A new instance of fragment NavBar.
      */
     BottomNavigationView bottomNavigationView;
-    //@Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
