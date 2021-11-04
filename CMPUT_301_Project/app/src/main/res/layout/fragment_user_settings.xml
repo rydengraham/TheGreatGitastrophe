@@ -9,36 +9,9 @@
     tools:context=".UserSettingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragmentCL"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/navButtonsHLL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <Button
-                android:id="@+id/saveButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/black"
-                android:text="Save and Exit" />
-
-            <Button
-                android:id="@+id/exitButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:text="Exit without Saving"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/settingsTitleTV"
@@ -108,6 +81,34 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="USERNAME" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navButtonsHLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentCL"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/black"
+                android:text="Save and Exit" />
+
+            <Button
+                android:id="@+id/exitButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="Exit without Saving"
+                android:textColor="@color/black" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
