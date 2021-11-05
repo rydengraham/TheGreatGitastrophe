@@ -21,6 +21,9 @@ public class AccountSettings extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        /**
+         * Used to toggle profile privacy settings
+         */
         final Button viewToggleButton = findViewById(R.id.privViewToggle);
         viewToggleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -37,6 +40,9 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
 
+        /**
+         * link to profile page
+         */
         final Button viewProfileButton = findViewById(R.id.viewProfile);
         viewProfileButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -45,6 +51,9 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
 
+        /**
+         * password change page link
+         */
         final Button changePassButton = findViewById(R.id.changePassword);
         changePassButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -61,6 +70,9 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
 
+        /**
+         * Allows for account deletion
+         */
         final Button deleteAccountButton = findViewById(R.id.delete);
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
