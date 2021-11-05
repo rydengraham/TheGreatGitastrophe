@@ -10,14 +10,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class MainPage extends AppCompatActivity {
 
     // textview represents text that changes depending on menu item clicked
     TextView textView;
-    // progValue is a textview represents the % of progress bar filled out
-    TextView progValue;
+    // progressText is a textview represents the % of progress bar filled out
+    TextView progressText;
     // amount of circular progress bar filled out
-    private int prog = 0;
+    private int progress = 0;
+    // progressBar references progress bar object
     ProgressBar progressBar;
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,32 +31,51 @@ public class MainPage extends AppCompatActivity {
         Button updateButton= findViewById(R.id.updateButton);
         Button friendButton= findViewById(R.id.friendbutton);
         textView= findViewById(R.id.btName);
-        progValue= findViewById(R.id.prg_value);
+        progressText= findViewById(R.id.prg_value);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent switchToTodayHabitsPage = new Intent(MainPage.this, TodayHabits.class);
                 startActivity(switchToTodayHabitsPage);
+
+                // progress bar can be filled up in 10 point increments
+                if(progress <= 90){
+                    progress += 10;
+                    updateProgress();
+                }
+
+            }
+        });
+        progressBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(progress <= 90) {
+                    progress += 10;
+                    updateProgress();
+                }
             }
         });
 
         friendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(prog > 0){
-                    prog  -= 10;
+                // decrement progress by -10 iff
+                if(progress > 0){
+                    progress  -= 10;
                     updateProgress();
                 }
             }
         });
 
     }
-    /* method to set the prog value i.e % of progress
-    bar filled out */
+
+    /**
+     * Method to set the progress value i.e % of progress
+     * bar filled out */
     public void updateProgress()
     {
-        progressBar.setProgress(prog);
-        progValue.setText(prog + "%");
+        progressBar.setProgress(progress);
+        progressText.setText(progress + "%");
     }
 
 
