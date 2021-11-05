@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Account {
@@ -17,13 +18,14 @@ public class Account {
     // TODO: set to default pfp
     private Bitmap pfp;
 
-    private HashMap<String, Habit> habitTable = new HashMap<String, Habit>();
+    private List<Habit> habitTable;
 
     // Account Information
     public Account(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.id = UUID.randomUUID().toString();
+        this.habitTable = new ArrayList<>();
 
         try {
             updatePassword(password);
@@ -86,13 +88,25 @@ public class Account {
         return id;
     }
 
-    public HashMap<String, Habit> getHabitTable() {
-        return habitTable;
+    public List<Habit> getHabitTable() {
+        return this.habitTable;
     }
 
-    public void setHabitTable(HashMap<String, Habit> habitTable) {
+    public void setHabitTable(List<Habit> habitTable) {
         this.habitTable = habitTable;
     }
+
+    public void addHabit(Habit newHabit) {
+        this.habitTable.add(newHabit);
+    }
+
+    public void deleteHabit(Habit newHabit) {
+        this.habitTable.remove(newHabit);
+    }
+
+//    public void updateHabit(Habit newHabit) {
+//        this.habitTable.add(newHabit);
+//    }
 
     public Bitmap getPfp() {
         return pfp;
