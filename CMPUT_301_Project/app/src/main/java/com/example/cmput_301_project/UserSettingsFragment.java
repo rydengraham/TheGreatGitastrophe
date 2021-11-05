@@ -1,28 +1,16 @@
 package com.example.cmput_301_project;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import java.util.HashMap;
 
@@ -124,6 +112,10 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
                 builder.setPositiveButton("Yes", (dialog, which) -> {
                     updatedAccount.setUserName(newUsername);
                     accountDataClass.modifyAccount(updatedAccount);
+                    // TODO: also update pfp on parent
+                    TextView usernameTextView = getActivity().findViewById(R.id.usernameText);
+                    Account activeUserAccount = AccountData.create().getActiveUserAccount();
+                    usernameTextView.setText(activeUserAccount.getUserName());
                     getActivity().onBackPressed();
                 });
                 // if the user chooses to stay on the fragment, simply close the dialog
