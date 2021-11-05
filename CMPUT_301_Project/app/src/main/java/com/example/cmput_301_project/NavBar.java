@@ -24,11 +24,8 @@ public class NavBar extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * @return A new instance of fragment NavBar.
-     */
     BottomNavigationView bottomNavigationView;
-    //@Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

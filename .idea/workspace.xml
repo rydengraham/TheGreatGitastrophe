@@ -13,11 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc8cb7ca-ab65-492b-b9a7-806c1de87df2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMPUT_301_Project/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/CMPUT_301_Project/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMPUT_301_Project/app/src/main/java/com/example/cmput_301_project/NavBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/CMPUT_301_Project/app/src/main/java/com/example/cmput_301_project/NavBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMPUT_301_Project/app/src/main/res/layout/fragment_nav_bar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CMPUT_301_Project/app/src/main/res/layout/fragment_nav_bar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMPUT_301_Project/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CMPUT_301_Project/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMPUT_301_Project/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CMPUT_301_Project/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Storyboard.svg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +55,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="memory.settings.postsync.last.time.stamp" value="1635814689132" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />

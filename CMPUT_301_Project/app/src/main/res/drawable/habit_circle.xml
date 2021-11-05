@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- reference for making a circular textView:
+    https://stackoverflow.com/questions/25203501/android-creating-a-circular-textview -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <solid android:color="#00FF00" />
+
+    <size
+        android:height="128dp"
+        android:width="128dp" />
+
+</shape>
