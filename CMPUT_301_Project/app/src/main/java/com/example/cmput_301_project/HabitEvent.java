@@ -13,15 +13,6 @@ public class HabitEvent {
     private TodayHabitViewHolder holder;
     private boolean completed;
 
-//    public HabitEvent(String date, Bitmap image, String comment, String title) {
-//        this.date = date;
-//        this.image = image;
-//        this.comment = comment;
-//        this.id = UUID.randomUUID().toString();
-//        this.title = title;
-//        this.completed = false;
-//    }
-
     public HabitEvent(String date, String title) {
         this.date = date;
         this.id = UUID.randomUUID().toString();
@@ -29,10 +20,6 @@ public class HabitEvent {
         this.title = title;
     }
 
-//    public HabitEvent(String comment, String title) {
-//        this.comment = comment;
-//        this.title = title;
-//    }
     public HabitEvent() {
         /* required empty constructor */
     }
