@@ -15,7 +15,6 @@ import java.util.Date;
 public class MyHabits extends AppCompatActivity implements HabitFragments.OnFragmentInteractionListener{
     private RecyclerView recyclerView;
     Account userAccount = AccountData.create().getActiveUserAccount();
-//    List<Habit> modelList = userAccount.getHabitTable();
     private Button removeButton;
     private Button cancelButton;
     private RecyclerViewAdapter recycleAdapter;
@@ -30,7 +29,6 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
         removeButton = (Button) findViewById(R.id.removeButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
         final Button addHabitButton = findViewById(R.id.addButton);
-//        mockItems();
         // Initialize adapter and set recycleView to it
         recycleAdapter = new RecyclerViewAdapter(this, false);
         recyclerView.setAdapter(recycleAdapter);
