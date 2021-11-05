@@ -93,7 +93,7 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                 String password = passwordField.getText().toString();
                 String reenterPassword = reenterPasswordField.getText().toString();
 
-                if (username.length() == 0 || password.length() == 0 || email.length() == 0) {
+                if (username.length() == 0 || password.length() == 0 || reenterPasswordField.length() == 0 || email.length() == 0) {
                     builder.setTitle("Missing Required Field");
                     builder.setMessage("");
                     builder.setNegativeButton("OK", null);
@@ -107,7 +107,6 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                 Pattern pattern = Pattern.compile(emailRegex);
 
                 if (!pattern.matcher(email).matches()) {
-                    // TODO: open UI fragment to mention issue
                     builder.setTitle("Invalid Email");
                     builder.setMessage("Emails must contain an '@' sign surrounded by characters");
                     builder.setNegativeButton("OK", null);
@@ -117,7 +116,6 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                 }
 
                 for (Account existingAccount : accountData.values()) {
-                    System.out.println(existingAccount.getUserName() + " " + existingAccount.getEmail());
                     if (existingAccount.getEmail().equals(email)) {
                         builder.setTitle("Invalid Email");
                         builder.setMessage("This email is already paired to an existing account");

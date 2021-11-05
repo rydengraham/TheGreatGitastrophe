@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UserSettingsFragment#newInstance} factory method to
@@ -31,6 +33,8 @@ import android.widget.Toast;
  */
 public class UserSettingsFragment extends Fragment implements View.OnClickListener {
 
+    AccountData accountDataClass = AccountData.create();
+    EditText usernameField;
     public UserSettingsFragment() { /* Required empty public constructor */ }
 
     /**
@@ -62,6 +66,8 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
         Button saveButton = (Button) view.findViewById(R.id.saveButton);
         Button exitButton = (Button) view.findViewById(R.id.exitButton);
         TextView editProfileTV = (TextView) view.findViewById(R.id.editProfileTV);
+        usernameField = (EditText) view.findViewById(R.id.editUsernamePT);
+        usernameField.setText(accountDataClass.getActiveUserAccount().getUserName());
         saveButton.setOnClickListener(this);
         exitButton.setOnClickListener(this);
         editProfileTV.setOnClickListener(this);
@@ -87,17 +93,47 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setCancelable(true);
         // depending on the view passed to onClick, execute some action
         switch (view.getId()) {
             case R.id.saveButton:
                 // if the save button is pressed, save changes and exit the fragment
                 // TODO: add code to update user profile data here
-                getActivity().onBackPressed();
+                HashMap<String, Account> accountData = accountDataClass.getAccountData();
+                String newUsername = usernameField.getText().toString();
+                Account updatedAccount = accountDataClass.getActiveUserAccount();
+                // TODO: add check if pfp was unmodified
+                if (updatedAccount.getUserName().equals(newUsername)) {
+                    getActivity().onBackPressed();
+                    break;
+                }
+                for (Account existingAccount : accountData.values()) {
+                    if (existingAccount.getUserName().equals(newUsername)) {
+                        builder.setTitle("Invalid Username");
+                        builder.setMessage("This username is already taken");
+                        builder.setNegativeButton("OK", null);
+                        AlertDialog alertBox = builder.create();
+                        alertBox.show();
+                        return;
+                    }
+                }
+                builder.setTitle("Update Account Info?");
+                builder.setMessage("Your old username could get taken");
+                // if the user chooses to exit, return to the user profile activity
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    updatedAccount.setUserName(newUsername);
+                    accountDataClass.modifyAccount(updatedAccount);
+                    getActivity().onBackPressed();
+                });
+                // if the user chooses to stay on the fragment, simply close the dialog
+                builder.setNegativeButton("Go Back", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog confirmUpdatedialog = builder.create();
+                confirmUpdatedialog.show();
                 break;
             case R.id.exitButton:
                 // if the exit button is pressed, simply exit the fragment
-                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-                builder.setCancelable(true);
                 builder.setTitle("Exit Without Saving?");
                 builder.setMessage("Any changes you've made will be lost");
                 // if the user chooses to exit, return to the user profile activity
