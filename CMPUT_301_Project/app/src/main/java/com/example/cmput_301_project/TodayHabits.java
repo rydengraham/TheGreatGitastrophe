@@ -1,3 +1,6 @@
+/**
+ * Today's habits page activity
+ */
 package com.example.cmput_301_project;
 
 

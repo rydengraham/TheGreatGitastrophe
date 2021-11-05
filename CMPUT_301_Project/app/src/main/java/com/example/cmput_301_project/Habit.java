@@ -1,3 +1,6 @@
+/**
+ * Class to represent the habits
+ */
 package com.example.cmput_301_project;
 
 import java.io.Serializable;

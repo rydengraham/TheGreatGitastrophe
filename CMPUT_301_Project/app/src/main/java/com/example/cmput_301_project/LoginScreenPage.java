@@ -1,3 +1,6 @@
+/**
+ * Log in screen page activity
+ */
 package com.example.cmput_301_project;
 
 import static androidx.core.content.ContextCompat.getSystemService;

@@ -1,3 +1,6 @@
+/**
+ * Adapter for recycler view used in habits
+ */
 package com.example.cmput_301_project;
 
 import android.app.Activity;

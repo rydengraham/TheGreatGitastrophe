@@ -1,3 +1,6 @@
+/**
+ * Main home page activity
+ */
 package com.example.cmput_301_project;
 
 
