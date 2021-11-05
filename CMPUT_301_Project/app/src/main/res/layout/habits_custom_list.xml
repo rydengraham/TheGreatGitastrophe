@@ -60,7 +60,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/reason"
@@ -96,8 +97,10 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="0.5"
+                        android:onClick="editHabitHandler"
                         android:text="Edit"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        android:visibility="visible" />
 
                     <Button
                         android:id="@+id/historyButton"

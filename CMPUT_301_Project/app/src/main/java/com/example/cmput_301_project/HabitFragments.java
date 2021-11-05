@@ -3,6 +3,7 @@ package com.example.cmput_301_project;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,8 +25,15 @@ import android.widget.ToggleButton;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * A {@link Fragment} subclass that helps create habit objects through dialog.
+ * Use the {@link HabitFragments#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class HabitFragments extends DialogFragment {
 
     private EditText habitTitle;
@@ -35,14 +43,18 @@ public class HabitFragments extends DialogFragment {
     private Button frequencyButton;
     private Button dateButton;
     private CalendarView calendarView;
+    private Date dateToSend;
 
 
-
+    /**
+     * Used in MyHabits class
+     */
     public interface OnFragmentInteractionListener{
         void onOkPressed(Habit newHabit);
 
-        void onOkPressed(Habit Retrieved_Habit, String name, String reason, Date date , Byte weekdays);
+        void onOkPressed(Habit retrivedHabit, String name, String reason, Date date , Byte weekdays);
     }
+
 
     @Override
     public void onAttach(Context context){
@@ -54,6 +66,11 @@ public class HabitFragments extends DialogFragment {
         }
     }
 
+    /**
+     * Used to help create a dialog that has a pre-existing habit object to edit
+     * @param habit
+     * @return
+     */
     static HabitFragments newInstance (Habit habit){
         Bundle args = new Bundle();
         args.putSerializable("habit", habit);
@@ -62,10 +79,14 @@ public class HabitFragments extends DialogFragment {
         return fragment;
     }
 
+    /**
+     * Used to fill out habit information in the fragment fields
+     * @param savedInstanceState
+     * @return
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        //return super.onCreateDialog(savedInstanceState);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_habit_fragments, null);
         habitTitle = view.findViewById(R.id.habitTitleEditText);
         startDate = view.findViewById(R.id.reasonEditText);
@@ -75,15 +96,17 @@ public class HabitFragments extends DialogFragment {
         calendarView = view.findViewById(R.id.calendarView2);
         calendarView.setVisibility(View.GONE);
         tableLayout.setVisibility(View.GONE);
+        dateToSend = new Date(calendarView.getDate());
 
 
-
+        // Toggles frequency view
         frequencyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tableLayout.setVisibility(tableLayout.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
             }
         });
+        // Toggles date view
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,19 +114,56 @@ public class HabitFragments extends DialogFragment {
                     calendarView.setVisibility(View.VISIBLE);
                 else
                     calendarView.setVisibility(View.GONE);
-                //calendarView.setVisibility(calendarView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            }
+        });
+
+        // Updates the date we need to send eventually when OK button is clicked
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                dateToSend = new Date(i-1900, i1, i2);
             }
         });
 
         Bundle args = getArguments();
+
+        // Handles an edit, that is if we get a habit to edit via bundle
         if (args != null) {
-            Habit Retrieved_Habit = (Habit)args.getSerializable("habit");
-            habitTitle.setText(Retrieved_Habit.getHabitName());
-            startDate.setText(Retrieved_Habit.getReason());
+            Habit retrivedHabit = (Habit)args.getSerializable("habit");
+            // Setting text and calendar according to retrivedHabit
+            habitTitle.setText(retrivedHabit.getHabitName());
+            startDate.setText(retrivedHabit.getReason());
+            long toConvert = retrivedHabit.getStartDate().getTime();
+            calendarView.setDate(toConvert);
+
+            // We check which check boxes need to be checked off.
+            CheckBox checkBox = view.findViewById(R.id.mondayBox);
+            if (retrivedHabit.getIsOnDayOfWeek(0))
+                checkBox.setChecked(true);
+            checkBox = view.findViewById(R.id.tuesdayBox);
+            if (retrivedHabit.getIsOnDayOfWeek(1))
+                checkBox.setChecked(true);
+            checkBox = view.findViewById(R.id.wednesdayBox);
+            if (retrivedHabit.getIsOnDayOfWeek(2))
+                checkBox.setChecked(true);
+            checkBox = view.findViewById(R.id.thursdayBox);
+            if (retrivedHabit.getIsOnDayOfWeek(3))
+                checkBox.setChecked(true);
+            checkBox = view.findViewById(R.id.fridayBox);
+            if (retrivedHabit.getIsOnDayOfWeek(4))
+                checkBox.setChecked(true);
+            checkBox = view.findViewById(R.id.saturdayBox);
+            if (retrivedHabit.getIsOnDayOfWeek(5))
+                checkBox.setChecked(true);
+            checkBox = view.findViewById(R.id.sundayBox);
+            if (retrivedHabit.getIsOnDayOfWeek(6))
+                checkBox.setChecked(true);
+
+            // Build Dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             return builder
                     .setView(view)
-                    .setTitle("Add Habit")
+                    .setTitle("Edit Habit")
                     .setNegativeButton("Cancel", null)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -111,10 +171,12 @@ public class HabitFragments extends DialogFragment {
 
                             String name = habitTitle.getText().toString();
                             String reason = startDate.getText().toString();
-                            Retrieved_Habit.setHabitName(habitTitle.getText().toString());
-                            Date date = new Date(calendarView.getDate());
+                            retrivedHabit.setHabitName(habitTitle.getText().toString());
+                            Date date = dateToSend;
                             byte weekdays = 0;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
+
+                            // add to weekday bit wise to reflect the checked boxes
                             if (checkBox.isChecked() == true)
                                 weekdays = (byte) (weekdays + 1);
                             checkBox = view.findViewById(R.id.tuesdayBox);
@@ -135,10 +197,16 @@ public class HabitFragments extends DialogFragment {
                             checkBox = view.findViewById(R.id.sundayBox);
                             if (checkBox.isChecked() == true)
                                 weekdays = (byte) (weekdays + 64);
-                            listener.onOkPressed(Retrieved_Habit, name,reason, date, weekdays);
+
+                            // Check if fields are empty
+                            if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
+                                Toast.makeText(getActivity(), "Invalid Habit Fields", Toast.LENGTH_SHORT).show();
+                            else
+                            listener.onOkPressed(retrivedHabit, name,reason, date, weekdays);
                         }
                     }).create();
         }
+        // Alternative scenario where we are adding in a new habit to list
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             return builder
@@ -151,7 +219,7 @@ public class HabitFragments extends DialogFragment {
 
                             String name = habitTitle.getText().toString();
                             String reason = startDate.getText().toString();
-                            Date date = new Date(calendarView.getDate());
+                            Date date = dateToSend;
                             byte weekdays = 0;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
                             if (checkBox.isChecked() == true)
@@ -174,8 +242,9 @@ public class HabitFragments extends DialogFragment {
                             checkBox = view.findViewById(R.id.sundayBox);
                             if (checkBox.isChecked() == true)
                                 weekdays = (byte) (weekdays + 64);
-                            if (weekdays == 0)
-                                Toast.makeText(getActivity(), "Missing Habit Fields.", Toast.LENGTH_SHORT).show();
+                            // Check if fields are missing
+                            if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
+                                Toast.makeText(getActivity(), "Invalid Habit Fields", Toast.LENGTH_SHORT).show();
                             else
                                 listener.onOkPressed(new Habit(name, date, reason,  weekdays));
                         }

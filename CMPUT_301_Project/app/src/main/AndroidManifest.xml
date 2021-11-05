@@ -13,7 +13,7 @@
             android:name=".LoginScreenPage"
             android:exported="true" />
         <activity
-            android:name=".LoginTestPage"
+            android:name=".MyHabits"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

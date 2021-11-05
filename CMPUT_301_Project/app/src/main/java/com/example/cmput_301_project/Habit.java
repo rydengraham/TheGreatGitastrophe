@@ -31,16 +31,14 @@ public class Habit implements Serializable {
         setIsOnDayOfWeek(weekdays);
     }
 
+    // GETTERS
     public String getId() {
         return id;
     }
 
-
     public String getHabitName() {
         return habitName;
     }
-
-    public byte getWeekdays() { return weekdays; }
 
     public boolean isExpanded() {
         return isExpanded;
@@ -59,6 +57,7 @@ public class Habit implements Serializable {
         return ((weekdays >> day) & 1) == 1;
     }
 
+    // SETTERS
     public void setExpanded(boolean expanded) {
         isExpanded = expanded;
     }
@@ -73,6 +72,7 @@ public class Habit implements Serializable {
 
     public void setWeekdays(byte weekdays) { this.weekdays = weekdays; }
 
+    // Checks to see if a day applies to a habit
     public boolean setIsOnDayOfWeek(byte weekdays) {
         // only accept numbers in range
         if (weekdays >= 0) {

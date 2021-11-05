@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="Title"
+                android:hint="Title (20 characters max)"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"></EditText>
 
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="Reason"
+                android:hint="Reason (30 characters max)"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"></EditText>
 
