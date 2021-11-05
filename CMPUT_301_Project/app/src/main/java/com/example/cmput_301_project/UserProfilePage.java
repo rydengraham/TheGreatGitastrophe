@@ -1,22 +1,19 @@
+/**
+ * User profile activity
+ */
 package com.example.cmput_301_project;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -31,11 +28,16 @@ public class UserProfilePage extends AppCompatActivity {
     // define fragment manager and transaction for opening/closing settings fragment
     FragmentManager manager = getSupportFragmentManager();
     FragmentTransaction transaction;
+    TextView usernameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile_page);
+
+        usernameTextView = findViewById(R.id.usernameText);
+        Account activeUserAccount = AccountData.create().getActiveUserAccount();
+        usernameTextView.setText(activeUserAccount.getUserName());
 
         // calculate the % of habits completed this month and update the habit complete TV
         DecimalFormat df = new DecimalFormat("#");
@@ -59,6 +61,7 @@ public class UserProfilePage extends AppCompatActivity {
         ArrayAdapter<String> habitAdapter = new ArrayAdapter<>(this, R.layout.habit_list_textview, dataList);
 
         habitList.setAdapter(habitAdapter);
+
     }
 
     public void onSettingsClick(View view) {

@@ -1,12 +1,17 @@
+/**
+ * Main home page activity
+ */
 package com.example.cmput_301_project;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -23,23 +28,22 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainpage);
-        //initialize circular progress bar
+        setContentView(R.layout.main_page);
+        // initialize circular progress bar
         progressBar= findViewById(R.id.progress_bar);
         // initialize updatebutton and friendbutton
         Button updateButton= findViewById(R.id.updateButton);
         Button friendButton= findViewById(R.id.friendbutton);
         textView= findViewById(R.id.btName);
         progressText= findViewById(R.id.prg_value);
+        updateProgress();
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // progress bar can be filled up in 10 point increments
-                if(progress <= 90){
-                    progress += 10;
-                    updateProgress();
-                }
-
+                Intent switchToTodayHabitsPage = new Intent(MainPage.this, TodayHabits.class);
+                progress = 0;
+                updateProgress();
+                startActivity(switchToTodayHabitsPage);
             }
         });
         progressBar.setOnClickListener(new View.OnClickListener() {
@@ -59,13 +63,22 @@ public class MainPage extends AppCompatActivity {
                 if(progress > 0){
                     progress  -= 10;
                     updateProgress();
-
                 }
 
+                // Standard TBD Alert Dialogue
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Page Does Not Exist");
+                builder.setMessage("This will be added in project part 4.");
+                builder.setNegativeButton("OK", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog alertBox = builder.create();
+                alertBox.show();
             }
         });
 
     }
+
     /**
      * Method to set the progress value i.e % of progress
      * bar filled out */

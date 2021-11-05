@@ -1,9 +1,7 @@
+/**
+ * Fragment used in the habits menu
+ */
 package com.example.cmput_301_project;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,17 +14,14 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.button.MaterialButtonToggleGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
-import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -47,12 +42,12 @@ public class HabitFragments extends DialogFragment {
 
 
     /**
-     * Used in MyHabits class
+     * Fragment interaction listener used in MyHabits class
      */
     public interface OnFragmentInteractionListener{
         void onOkPressed(Habit newHabit);
 
-        void onOkPressed(Habit retrivedHabit, String name, String reason, Date date , Byte weekdays);
+        void onOkPressed(Habit retrivedHabit, String name, String reason, Date date , int weekdays);
     }
 
 
@@ -173,30 +168,30 @@ public class HabitFragments extends DialogFragment {
                             String reason = startDate.getText().toString();
                             retrivedHabit.setHabitName(habitTitle.getText().toString());
                             Date date = dateToSend;
-                            byte weekdays = 0;
+                            int weekdays = 0;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
 
                             // add to weekday bit wise to reflect the checked boxes
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 1);
+                                weekdays = weekdays + 1;
                             checkBox = view.findViewById(R.id.tuesdayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 2);
+                                weekdays = weekdays + 2;
                             checkBox = view.findViewById(R.id.wednesdayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 4);
+                                weekdays = weekdays + 4;
                             checkBox = view.findViewById(R.id.thursdayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 8);
+                                weekdays = weekdays + 8;
                             checkBox = view.findViewById(R.id.fridayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 16);
+                                weekdays = weekdays + 16;
                             checkBox = view.findViewById(R.id.saturdayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 32);
+                                weekdays = weekdays + 32;
                             checkBox = view.findViewById(R.id.sundayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 64);
+                                weekdays = weekdays + 64;
 
                             // Check if fields are empty
                             if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
@@ -220,33 +215,33 @@ public class HabitFragments extends DialogFragment {
                             String name = habitTitle.getText().toString();
                             String reason = startDate.getText().toString();
                             Date date = dateToSend;
-                            byte weekdays = 0;
+                            int weekdays = 0;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 1);
+                                weekdays = weekdays + 1;
                             checkBox = view.findViewById(R.id.tuesdayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 2);
+                                weekdays = weekdays + 2;
                             checkBox = view.findViewById(R.id.wednesdayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 4);
+                                weekdays = weekdays + 4;
                             checkBox = view.findViewById(R.id.thursdayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 8);
+                                weekdays = weekdays + 8;
                             checkBox = view.findViewById(R.id.fridayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 16);
+                                weekdays = weekdays + 16;
                             checkBox = view.findViewById(R.id.saturdayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 32);
+                                weekdays = weekdays + 32;
                             checkBox = view.findViewById(R.id.sundayBox);
                             if (checkBox.isChecked() == true)
-                                weekdays = (byte) (weekdays + 64);
+                                weekdays = weekdays + 64;
                             // Check if fields are missing
                             if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
                                 Toast.makeText(getActivity(), "Invalid Habit Fields", Toast.LENGTH_SHORT).show();
                             else
-                                listener.onOkPressed(new Habit(name, date, reason,  weekdays));
+                                listener.onOkPressed(new Habit(name, date, reason, weekdays));
                         }
                     }).create();
         }

@@ -1,3 +1,6 @@
+/**
+ * Class to easily test our activities and fragments not in final build
+ */
 package com.example.cmput_301_project;
 
 import androidx.annotation.NonNull;
@@ -38,7 +41,11 @@ public class LoginTestPage extends AppCompatActivity {
     EditText emailEditText;
     FirebaseFirestore db;
 
-
+    /**
+     * Converts a string to a bitmap
+     * @param encodedString
+     * @return
+     */
     //From: https://stackoverflow.com/questions/23005948/convert-string-to-bitmap
     public Bitmap StringToBitMap(String encodedString){
         try{
@@ -106,7 +113,6 @@ public class LoginTestPage extends AppCompatActivity {
         addButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(accountData.size());
                 final String username = usernameEditText.getText().toString();
                 final String password = passwordEditText.getText().toString();
                 final String email = emailEditText.getText().toString();
@@ -114,8 +120,6 @@ public class LoginTestPage extends AppCompatActivity {
                 // TODO: check for duplicate emails, usernames, and ids
                 if (username.length() > 0 && password.length() > 0 && email.length() > 0) {
                     Account newAccount = new Account(username, email, password);
-                    System.out.println(newAccount.getId());
-                    System.out.println(newAccount == null);
                     accountData.put(newAccount.getId(), newAccount);
                     collectionReference
                             .document(newAccount.getId())

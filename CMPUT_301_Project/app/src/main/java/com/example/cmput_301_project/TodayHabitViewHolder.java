@@ -1,3 +1,6 @@
+/**
+ * Class to hold views for each of today's habits
+ */
 package com.example.cmput_301_project;
 
 import android.widget.LinearLayout;
@@ -31,7 +34,7 @@ public class TodayHabitViewHolder {
 
     /**
      * Returns the layout containing the comment
-     * @return
+     * @return Comment holder layout
      */
     public LinearLayout getCommentHolder() {
         return commentHolder;
@@ -47,7 +50,7 @@ public class TodayHabitViewHolder {
 
     /**
      * Returns the layout containing the icon and location buttons
-     * @return
+     * @return Icon and location holder
      */
     public LinearLayout getIconLocationHolder() {
         return iconLocationHolder;
@@ -63,7 +66,7 @@ public class TodayHabitViewHolder {
 
     /**
      * Returns the layout containing the whole layout
-     * @return
+     * @return Event holder
      */
     public LinearLayout getEventHolder() {
         return eventHolder;
@@ -79,7 +82,7 @@ public class TodayHabitViewHolder {
 
     /**
      * Returns the layout holding the text field
-     * @return
+     * @return Text holder
      */
     public LinearLayout getTextHolder() {
         return textHolder;
@@ -95,7 +98,7 @@ public class TodayHabitViewHolder {
 
     /**
      * Returns if the button in the layout is set to complete
-     * @return
+     * @return True if completed
      */
     public boolean getCompletedButton() {
         return completedButton;

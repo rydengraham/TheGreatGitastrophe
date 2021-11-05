@@ -1,26 +1,25 @@
 package com.example.cmput_301_project;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.Date;
-import java.util.List;
 
 /**
  * Class responsible for displaying recycle view of habits, and deleting habit items. Extends {@link AppCompatActivity} and implements {@link HabitFragments.OnFragmentInteractionListener}}
  */
 public class MyHabits extends AppCompatActivity implements HabitFragments.OnFragmentInteractionListener{
     private RecyclerView recyclerView;
-    List<Habit> modelList;
+    private Account userAccount = AccountData.create().getActiveUserAccount();
     private Button removeButton;
     private Button cancelButton;
+    private Button addHabitButton;
+    private TextView deleteText;
     private RecyclerViewAdapter recycleAdapter;
 
 
@@ -32,10 +31,10 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         removeButton = (Button) findViewById(R.id.removeButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
-        final Button addCityButton = findViewById(R.id.addButton);
-        mockItems();
+        deleteText = (TextView) findViewById(R.id.deleteText);
+        addHabitButton = findViewById(R.id.addButton);
         // Initialize adapter and set recycleView to it
-        recycleAdapter = new RecyclerViewAdapter(modelList, this, false);
+        recycleAdapter = new RecyclerViewAdapter(this, false);
         recyclerView.setAdapter(recycleAdapter);
 
         // If remove button is clicked enable delete mode
@@ -43,6 +42,9 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
             @Override
             public void onClick(View view) {
                 cancelButton.setVisibility(View.VISIBLE);
+                deleteText.setVisibility(View.VISIBLE);
+                addHabitButton.setVisibility(View.GONE);
+                removeButton.setVisibility(View.GONE);
                 recycleAdapter.setDelMode(true);
             }
         });
@@ -52,28 +54,22 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
             @Override
             public void onClick(View view) {
                 cancelButton.setVisibility(View.GONE);
+                deleteText.setVisibility(View.GONE);
+                addHabitButton.setVisibility(View.VISIBLE);
+                removeButton.setVisibility(View.VISIBLE);
                 recycleAdapter.setDelMode(false);
             }
         });
 
-        // If add City button is clicked create dialog fragment
-        addCityButton.setOnClickListener(new View.OnClickListener() {
+        // If add Habit button is clicked create dialog fragment
+        addHabitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new HabitFragments().show(getSupportFragmentManager(),"ADD_CITY");
+                new HabitFragments().show(getSupportFragmentManager(),"ADD_HABIT");
             }
         });
 
     }
-
-    /**
-     * Function for creating initial data
-     */
-    private void mockItems() {
-        modelList = new ArrayList<>();
-        modelList.add(new Habit("habitName", new Date(2000-1900, 11, 15), "reason", (byte) 1));
-    }
-
 
     /**
      * Function for adding new habit when pressing ok on Dialog fragment
@@ -81,8 +77,11 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
      */
     @Override
     public void onOkPressed(Habit newHabit) {
-        modelList.add(newHabit);
+//        modelList.add(newHabit);
+        userAccount.addHabit(newHabit);
+        userAccount.updateFirestore();
         recycleAdapter.notifyDataSetChanged();
+
 
     }
 
@@ -95,12 +94,15 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
      * @param weekdays
      */
     @Override
-    public void onOkPressed(Habit retrieved_habit,  String habitName, String reason, Date startDate, Byte weekdays) {
-         retrieved_habit.setHabitName(habitName);
-         retrieved_habit.setStartDate(startDate);
-         retrieved_habit.setReason(reason);
-         retrieved_habit.setWeekdays(weekdays);
-         recycleAdapter.notifyDataSetChanged();
+    public void onOkPressed(Habit retrieved_habit,  String habitName, String reason, Date startDate, int weekdays) {
+        int position = userAccount.getHabitTable().indexOf(retrieved_habit);
+        retrieved_habit.setHabitName(habitName);
+        retrieved_habit.setStartDate(startDate);
+        retrieved_habit.setReason(reason);
+        retrieved_habit.setWeekdays(weekdays);
+        userAccount.updateHabit(position, retrieved_habit);
+        userAccount.updateFirestore();
+        recycleAdapter.notifyDataSetChanged();
     }
 
 

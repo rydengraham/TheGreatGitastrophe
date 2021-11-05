@@ -51,8 +51,8 @@
 
     <TextView
         android:id="@+id/completionPercText"
-        android:layout_width="237dp"
-        android:layout_height="237dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="128dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="128dp"
@@ -61,7 +61,7 @@
         android:gravity="center"
         android:text="X% of Habits Completed this Month"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/completedHabitsVLL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +111,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_view"
+            android:name="com.example.cmput_301_project.NavBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
     </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

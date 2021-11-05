@@ -1,16 +1,17 @@
+/**
+ * Adapter for recycler view used in habits
+ */
 package com.example.cmput_301_project;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,25 +24,25 @@ import java.util.List;
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ItemVH> {
     private static final String TAG="Adapter";
+    Account userAccount = AccountData.create().getActiveUserAccount();
     List<Habit> habitList;
     Activity context;
     boolean delMode;
 
     /**
      * Constructor, Activity and delMode are essential for handling edits and deletions
-     * @param habitList
      * @param fm
      * @param delMode
      */
-    public RecyclerViewAdapter(List<Habit> habitList, Activity fm, boolean delMode) {
-        this.habitList = habitList;
+    public RecyclerViewAdapter(Activity fm, boolean delMode) {
+        this.habitList = userAccount.getHabitTable();
         this.context = fm;
         this.delMode = delMode;
     }
 
     /**
      * Returns whether or not deletion mode is used
-     * @return
+     * @return True if delete mode
      */
     public boolean isDelMode() {
         return delMode;
@@ -87,7 +88,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     /**
-     *  Gets count of items
+     * Gets count of items
+     * @return Size of habit list
      */
     @Override
     public int getItemCount() {
@@ -100,10 +102,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView habitTitleView, reasonView, startDateView, frequencyView;
         LinearLayout expandableLayout;
         Button editButton;
+        Button historyButton;
 
         /**
          *
-         * Constructor that finds the textviews and buttons needed to assign habit attributes to.
+         * Constructor that finds the textviews and buttons needed to assign habit attributes to
          * @param itemView
          */
         public ItemVH(View itemView) {
@@ -114,6 +117,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             frequencyView = itemView.findViewById(R.id.frequency);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             editButton = itemView.findViewById(R.id.editButton);
+            historyButton = itemView.findViewById(R.id.historyButton);
             // Give itemView a listener for expansion and deletion
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,7 +125,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     Habit habit = habitList.get(getAdapterPosition());
                     if (isDelMode())
                     {
-                        habitList.remove(getAdapterPosition());
+//                        habitList.remove(getAdapterPosition());
+                        userAccount.deleteHabit(habit);
+                        userAccount.updateFirestore();
                     }
                     else {
                         habit.setExpanded(!habit.isExpanded());
@@ -142,6 +148,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
+            // TODO: Connect this to the habit event list (does not exist for part 3)
+            // Give historyButton a placeholder interaction
+            historyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Standard TBD Alert Dialogue
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setCancelable(true);
+                    builder.setTitle("Page Does Not Exist");
+                    builder.setMessage("This will be added in project part 4.");
+                    builder.setNegativeButton("OK", null);
+                    // create the alert dialog and display it over the fragment
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                }
+            });
             
         }
     }

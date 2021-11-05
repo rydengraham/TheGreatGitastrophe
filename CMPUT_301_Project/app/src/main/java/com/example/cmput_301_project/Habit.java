@@ -1,8 +1,12 @@
+/**
+ * Class to represent the habits
+ */
 package com.example.cmput_301_project;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class Habit implements Serializable {
@@ -18,20 +22,57 @@ public class Habit implements Serializable {
     // 4 = Wednesday
     // etc.
     // (so each day takes 1 bit, with the most significant bit unused)
-    private byte weekdays;
+    private int weekdays;
     private boolean isExpanded;
 
-    private HashMap<String, HabitEvent> habitEventTable = new HashMap<String, HabitEvent>();
+    private List<HabitEvent> habitEventTable;
 
-    public Habit(String habitName, Date startDate, String reason, byte weekdays) {
+    public Habit(String habitName, Date startDate, String reason, int weekdays) {
         this.id = UUID.randomUUID().toString();
         this.habitName = habitName;
         this.startDate = startDate;
         this.reason = reason;
+        this.habitEventTable = new ArrayList<>();
         setIsOnDayOfWeek(weekdays);
     }
 
-    // GETTERS
+    public Habit() {
+        /* Required empty public constructor */
+    }
+
+    /**
+     * Adds a new habit event to the table
+     * @param newHabitEvent
+     */
+    public void addHabitEvent(HabitEvent newHabitEvent) {
+        this.habitEventTable.add(newHabitEvent);
+    }
+
+    /**
+     * Deletes a habit even from the table
+     * @param newHabitEvent
+     */
+    public void deleteHabitEvent(HabitEvent newHabitEvent) {
+        this.habitEventTable.remove(newHabitEvent);
+    }
+
+    /**
+     * Updates a habit event item at a given position
+     * @param position
+     * @param updatedHabitEvent
+     */
+    public void updateHabitEvent(int position, HabitEvent updatedHabitEvent) {
+        this.habitEventTable.set(position, updatedHabitEvent);
+    }
+
+    /**
+     * Getters/Setters
+     * @return
+     */
+    public List<HabitEvent> getHabitEventTable() {
+        return this.habitEventTable;
+    }
+
     public String getId() {
         return id;
     }
@@ -57,7 +98,10 @@ public class Habit implements Serializable {
         return ((weekdays >> day) & 1) == 1;
     }
 
-    // SETTERS
+    public void setHabitEventTable(List<HabitEvent> habitEventTable) {
+        this.habitEventTable = habitEventTable;
+    }
+
     public void setExpanded(boolean expanded) {
         isExpanded = expanded;
     }
@@ -70,10 +114,16 @@ public class Habit implements Serializable {
 
     public void setReason(String reason) { this.reason = reason; }
 
-    public void setWeekdays(byte weekdays) { this.weekdays = weekdays; }
+    public void setWeekdays(int weekdays) { this.weekdays = weekdays; }
 
-    // Checks to see if a day applies to a habit
-    public boolean setIsOnDayOfWeek(byte weekdays) {
+    public int getWeekdays() { return this.weekdays; }
+
+    /**
+     * Checks to see if a day applies to a habit
+     * @param weekdays
+     * @return
+     */
+    public boolean setIsOnDayOfWeek(int weekdays) {
         // only accept numbers in range
         if (weekdays >= 0) {
             this.weekdays = weekdays;

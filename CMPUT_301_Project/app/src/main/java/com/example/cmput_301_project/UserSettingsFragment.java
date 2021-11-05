@@ -1,28 +1,20 @@
+/**
+ * Fragment to show user settings
+ */
 package com.example.cmput_301_project;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,9 +23,9 @@ import android.widget.Toast;
  */
 public class UserSettingsFragment extends Fragment implements View.OnClickListener {
 
-    public UserSettingsFragment() {
-        // Required empty public constructor
-    }
+    private AccountData accountDataClass = AccountData.create();
+    EditText usernameField;
+    public UserSettingsFragment() { /* Required empty public constructor */ }
 
     /**
      * Use this factory method to create a new instance of
@@ -64,44 +56,80 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
         Button saveButton = (Button) view.findViewById(R.id.saveButton);
         Button exitButton = (Button) view.findViewById(R.id.exitButton);
         TextView editProfileTV = (TextView) view.findViewById(R.id.editProfileTV);
+        usernameField = (EditText) view.findViewById(R.id.editUsernamePT);
+        usernameField.setText(accountDataClass.getActiveUserAccount().getUserName());
         saveButton.setOnClickListener(this);
         exitButton.setOnClickListener(this);
         editProfileTV.setOnClickListener(this);
 
         // add functionality to the editName EditText to allow user to update their username
-        EditText editName = (EditText) view.findViewById(R.id.editUsernamePT);
-        editName.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                // if the event is a key-down on the 'Enter' button, if statement is true
-                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    String newName = editName.getText().toString();
-                    // TODO: add code to change username using 'newName' as updated username
-                    return true;
-                }
-                return false;
-            }
-        });
+//        EditText editName = (EditText) view.findViewById(R.id.editUsernamePT);
+//        editName.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+//                // if the event is a key-down on the 'Enter' button, if statement is true
+//                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
+//                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                    String newName = editName.getText().toString();
+//                    // TODO: add code to change username using 'newName' as updated username
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
         return view;
     }
 
     @Override
     public void onClick(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setCancelable(true);
         // depending on the view passed to onClick, execute some action
         switch (view.getId()) {
             case R.id.saveButton:
                 // if the save button is pressed, save changes and exit the fragment
                 // TODO: add code to update user profile data here
-                getActivity().onBackPressed();
+                HashMap<String, Account> accountData = accountDataClass.getAccountData();
+                String newUsername = usernameField.getText().toString();
+                Account updatedAccount = accountDataClass.getActiveUserAccount();
+                // TODO: add check if pfp was unmodified
+                if (updatedAccount.getUserName().equals(newUsername)) {
+                    getActivity().onBackPressed();
+                    break;
+                }
+                for (Account existingAccount : accountData.values()) {
+                    if (existingAccount.getUserName().equals(newUsername)) {
+                        builder.setTitle("Invalid Username");
+                        builder.setMessage("This username is already taken");
+                        builder.setNegativeButton("OK", null);
+                        AlertDialog alertBox = builder.create();
+                        alertBox.show();
+                        return;
+                    }
+                }
+                builder.setTitle("Update Account Info?");
+                builder.setMessage("Your old username could get taken");
+                // if the user chooses to exit, return to the user profile activity
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    updatedAccount.setUserName(newUsername);
+                    accountDataClass.modifyAccount(updatedAccount);
+                    // TODO: also update pfp on parent
+                    TextView usernameTextView = getActivity().findViewById(R.id.usernameText);
+                    Account activeUserAccount = AccountData.create().getActiveUserAccount();
+                    usernameTextView.setText(activeUserAccount.getUserName());
+                    getActivity().onBackPressed();
+                });
+                // if the user chooses to stay on the fragment, simply close the dialog
+                builder.setNegativeButton("Go Back", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog confirmUpdatedialog = builder.create();
+                confirmUpdatedialog.show();
                 break;
             case R.id.exitButton:
                 // if the exit button is pressed, simply exit the fragment
-                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-                builder.setCancelable(true);
                 builder.setTitle("Exit Without Saving?");
-                builder.setMessage("Any changes you've made will be lost.");
+                builder.setMessage("Any changes you've made will be lost");
                 // if the user chooses to exit, return to the user profile activity
                 builder.setPositiveButton("Exit", (dialog, which) -> {
                     getActivity().onBackPressed();
@@ -113,9 +141,16 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
                 confirmExitdialog.show();
                 break;
             case R.id.editProfileTV:
-                // if the 'edit profile' textView is pressed, allow user to change their profile pic
-                System.out.println("edit photo");
                 // TODO: add code to change profile photo here
+                // if the 'edit profile' textView is pressed, allow user to change their profile pic
+                // Standard TBD Alert Dialogue
+                builder.setCancelable(true);
+                builder.setTitle("This Is Not Connected Yet");
+                builder.setMessage("This will be added in project part 4");
+                builder.setNegativeButton("OK", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog alertBox = builder.create();
+                alertBox.show();
                 break;
         }
     }
