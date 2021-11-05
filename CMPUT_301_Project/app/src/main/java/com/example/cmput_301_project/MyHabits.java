@@ -64,16 +64,6 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
     }
 
     /**
-     * Function for creating initial data
-     */
-//    private void mockItems() {
-////        modelList = new ArrayList<>();
-////        modelList.add(new Habit("habitName", new Date(2000-1900, 11, 15), "reason", (byte) 1));
-////        userAccount.addHabit(newHabit);
-//    }
-
-
-    /**
      * Function for adding new habit when pressing ok on Dialog fragment
      * @param newHabit
      */
@@ -81,6 +71,7 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
     public void onOkPressed(Habit newHabit) {
 //        modelList.add(newHabit);
         userAccount.addHabit(newHabit);
+        userAccount.updateFirestore();
         recycleAdapter.notifyDataSetChanged();
 
 
@@ -95,12 +86,15 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
      * @param weekdays
      */
     @Override
-    public void onOkPressed(Habit retrieved_habit,  String habitName, String reason, Date startDate, Byte weekdays) {
-         retrieved_habit.setHabitName(habitName);
-         retrieved_habit.setStartDate(startDate);
-         retrieved_habit.setReason(reason);
-         retrieved_habit.setWeekdays(weekdays);
-         recycleAdapter.notifyDataSetChanged();
+    public void onOkPressed(Habit retrieved_habit,  String habitName, String reason, Date startDate, int weekdays) {
+        int position = userAccount.getHabitTable().indexOf(retrieved_habit);
+        retrieved_habit.setHabitName(habitName);
+        retrieved_habit.setStartDate(startDate);
+        retrieved_habit.setReason(reason);
+        retrieved_habit.setWeekdays(weekdays);
+        userAccount.updateHabit(position, retrieved_habit);
+        userAccount.updateFirestore();
+        recycleAdapter.notifyDataSetChanged();
     }
 
 

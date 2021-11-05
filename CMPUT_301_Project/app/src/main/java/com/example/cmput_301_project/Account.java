@@ -58,6 +58,10 @@ public class Account {
 
     // TODO: Add User Habit Items
 
+    public void updateFirestore() {
+        AccountData.create().modifyAccount(this);
+    }
+
     public String getPassword() {
         // Getter required only for firestore
         return password;
@@ -104,9 +108,9 @@ public class Account {
         this.habitTable.remove(newHabit);
     }
 
-//    public void updateHabit(Habit newHabit) {
-//        this.habitTable.add(newHabit);
-//    }
+    public void updateHabit(int position, Habit updatedHabit) {
+        this.habitTable.set(position, updatedHabit);
+    }
 
     public Bitmap getPfp() {
         return pfp;

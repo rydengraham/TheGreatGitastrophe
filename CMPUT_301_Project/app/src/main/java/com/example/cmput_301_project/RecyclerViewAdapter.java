@@ -20,19 +20,18 @@ import java.util.List;
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ItemVH> {
     private static final String TAG="Adapter";
+    Account userAccount = AccountData.create().getActiveUserAccount();
     List<Habit> habitList;
     Activity context;
     boolean delMode;
 
     /**
      * Constructor, Activity and delMode are essential for handling edits and deletions
-     * @param habitList
      * @param fm
      * @param delMode
      */
     public RecyclerViewAdapter(Activity fm, boolean delMode) {
-        this.habitList = AccountData.create().getActiveUserAccount().getHabitTable();
-        System.out.println(this.habitList);
+        this.habitList = userAccount.getHabitTable();
         this.context = fm;
         this.delMode = delMode;
     }
@@ -119,8 +118,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     Habit habit = habitList.get(getAdapterPosition());
                     if (isDelMode())
                     {
-                        habitList.remove(getAdapterPosition());
-
+//                        habitList.remove(getAdapterPosition());
+                        userAccount.deleteHabit(habit);
+                        userAccount.updateFirestore();
                     }
                     else {
                         habit.setExpanded(!habit.isExpanded());

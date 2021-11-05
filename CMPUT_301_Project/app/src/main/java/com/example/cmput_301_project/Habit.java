@@ -18,17 +18,21 @@ public class Habit implements Serializable {
     // 4 = Wednesday
     // etc.
     // (so each day takes 1 bit, with the most significant bit unused)
-    private byte weekdays;
+    private int weekdays;
     private boolean isExpanded;
 
     private HashMap<String, HabitEvent> habitEventTable = new HashMap<String, HabitEvent>();
 
-    public Habit(String habitName, Date startDate, String reason, byte weekdays) {
+    public Habit(String habitName, Date startDate, String reason, int weekdays) {
         this.id = UUID.randomUUID().toString();
         this.habitName = habitName;
         this.startDate = startDate;
         this.reason = reason;
         setIsOnDayOfWeek(weekdays);
+    }
+
+    public Habit() {
+        /* Required empty public constructor */
     }
 
     // GETTERS
@@ -70,10 +74,12 @@ public class Habit implements Serializable {
 
     public void setReason(String reason) { this.reason = reason; }
 
-    public void setWeekdays(byte weekdays) { this.weekdays = weekdays; }
+    public void setWeekdays(int weekdays) { this.weekdays = weekdays; }
+
+    public int getWeekdays() { return this.weekdays; }
 
     // Checks to see if a day applies to a habit
-    public boolean setIsOnDayOfWeek(byte weekdays) {
+    public boolean setIsOnDayOfWeek(int weekdays) {
         // only accept numbers in range
         if (weekdays >= 0) {
             this.weekdays = weekdays;
