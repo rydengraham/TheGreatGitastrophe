@@ -28,7 +28,7 @@
     <Button
         android:id="@+id/privViewToggle"
         android:layout_width="250dp"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:text="Private/Public View Toggle"
         android:backgroundTint="@android:color/holo_green_light"
@@ -40,8 +40,8 @@
     <Button
         android:id="@+id/viewProfile"
         android:layout_width="250dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
         android:text="View My Profile"
         android:backgroundTint="@android:color/holo_green_light"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,8 +52,8 @@
     <Button
         android:id="@+id/changePassword"
         android:layout_width="250dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
         android:text="Change Password"
         android:backgroundTint="@android:color/holo_green_light"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,8 +64,8 @@
     <Button
         android:id="@+id/logout"
         android:layout_width="250dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
         android:text="Logout"
         android:backgroundTint="@android:color/holo_green_light"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,14 +76,14 @@
     <Button
         android:id="@+id/delete"
         android:layout_width="250dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="96dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="@android:color/holo_green_light"
         android:text="Delete Account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changePassword" />
+        app:layout_constraintTop_toBottomOf="@+id/logout" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"

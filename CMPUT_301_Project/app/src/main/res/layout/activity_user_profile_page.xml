@@ -51,8 +51,8 @@
 
     <TextView
         android:id="@+id/completionPercText"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="128dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="128dp"
