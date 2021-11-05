@@ -38,21 +38,23 @@
             android:text="Add a Habit" />
 
         <Button
-            android:id="@+id/editHabitButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="6dp"
-            android:layout_weight="0.5"
-            android:text="Edit a Habit"
-            android:visibility="gone" />
-
-        <Button
             android:id="@+id/removeButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:layout_weight=".5"
             android:text="Remove a Habit" />
+
+        <TextView
+            android:id="@+id/deleteText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:layout_weight=".5"
+            android:visibility="gone"
+            android:gravity="center"
+            android:text="Click Any Habit to Delete It"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/cancelButton"

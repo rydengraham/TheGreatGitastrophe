@@ -3,6 +3,7 @@ package com.example.cmput_301_project;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,8 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
     Account userAccount = AccountData.create().getActiveUserAccount();
     private Button removeButton;
     private Button cancelButton;
+    private Button addHabitButton;
+    private TextView deleteText;
     private RecyclerViewAdapter recycleAdapter;
 
 
@@ -28,7 +31,8 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         removeButton = (Button) findViewById(R.id.removeButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
-        final Button addHabitButton = findViewById(R.id.addButton);
+        deleteText = (TextView) findViewById(R.id.deleteText);
+        addHabitButton = findViewById(R.id.addButton);
         // Initialize adapter and set recycleView to it
         recycleAdapter = new RecyclerViewAdapter(this, false);
         recyclerView.setAdapter(recycleAdapter);
@@ -38,6 +42,9 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
             @Override
             public void onClick(View view) {
                 cancelButton.setVisibility(View.VISIBLE);
+                deleteText.setVisibility(View.VISIBLE);
+                addHabitButton.setVisibility(View.GONE);
+                removeButton.setVisibility(View.GONE);
                 recycleAdapter.setDelMode(true);
             }
         });
@@ -47,6 +54,9 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
             @Override
             public void onClick(View view) {
                 cancelButton.setVisibility(View.GONE);
+                deleteText.setVisibility(View.GONE);
+                addHabitButton.setVisibility(View.VISIBLE);
+                removeButton.setVisibility(View.VISIBLE);
                 recycleAdapter.setDelMode(false);
             }
         });
