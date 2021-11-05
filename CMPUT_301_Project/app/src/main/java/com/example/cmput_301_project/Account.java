@@ -1,3 +1,6 @@
+/**
+ * Account data structure unique per user
+ */
 package com.example.cmput_301_project;
 
 import android.graphics.Bitmap;

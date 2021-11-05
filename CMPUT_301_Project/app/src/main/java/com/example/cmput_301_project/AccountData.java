@@ -1,6 +1,8 @@
+/**
+ * Singleton class used for firestore I/O
+ */
 package com.example.cmput_301_project;
 
-import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -47,6 +49,11 @@ public class AccountData {
         return singletonAccountData;
     }
 
+    /**
+     * UNUSED: For future pfp saving/conversion since firestore does not support bitmaps
+     * @param encodedString
+     * @return
+     */
     //From: https://stackoverflow.com/questions/23005948/convert-string-to-bitmap
     public Bitmap StringToBitMap(String encodedString){
         try{
@@ -68,6 +75,9 @@ public class AccountData {
         return accountData.get(activeUserId);
     }
 
+    /**
+     * Deletes active user account
+     */
     public void deleteActiveUserAccount() {
         accountData.remove(activeUserId);
         collectionReference
@@ -95,6 +105,10 @@ public class AccountData {
         this.activeUserId = activeUserId;
     }
 
+    /**
+     * Queries firestore for account info
+     * @return
+     */
     public HashMap<String, Account> getAccountData() {
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -111,6 +125,10 @@ public class AccountData {
         return accountData;
     }
 
+    /**
+     * Either adds or overrides a given account
+     * @param newAccount
+     */
     public void modifyAccount(Account newAccount) {
         // TODO: check for duplicate emails, usernames, and ids
         this.accountData.put(newAccount.getId(), newAccount);
