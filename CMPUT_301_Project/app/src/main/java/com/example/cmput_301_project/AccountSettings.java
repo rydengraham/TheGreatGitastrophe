@@ -30,8 +30,7 @@ public class AccountSettings extends AppCompatActivity {
         final Button viewProfileButton = findViewById(R.id.viewProfile);
         viewProfileButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-                Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
+                Intent switchActivityIntent = new Intent(AccountSettings.this, UserProfilePage.class);
                 startActivity(switchActivityIntent);
             }
         });
@@ -48,8 +47,8 @@ public class AccountSettings extends AppCompatActivity {
         final Button logoutButton = findViewById(R.id.logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-                Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
+                // TODO: LOGOUT USER
+                Intent switchActivityIntent = new Intent(AccountSettings.this, LoginScreenPage.class);
                 startActivity(switchActivityIntent);
             }
         });

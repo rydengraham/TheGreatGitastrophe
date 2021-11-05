@@ -20,5 +20,9 @@
         android:enabled="true"
         android:icon="@mipmap/ic_settings_foreground"
         android:title="More"/>
+    <item
+        android:id="@+id/uncheckedItem"
+        android:visible="false"
+        android:title="" />
 
 </menu>

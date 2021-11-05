@@ -32,6 +32,7 @@ public class MainPage extends AppCompatActivity {
         Button friendButton= findViewById(R.id.friendbutton);
         textView= findViewById(R.id.btName);
         progressText= findViewById(R.id.prg_value);
+        updateProgress();
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
