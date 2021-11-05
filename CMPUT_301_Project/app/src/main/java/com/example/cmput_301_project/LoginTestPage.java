@@ -41,7 +41,11 @@ public class LoginTestPage extends AppCompatActivity {
     EditText emailEditText;
     FirebaseFirestore db;
 
-
+    /**
+     * Converts a string to a bitmap
+     * @param encodedString
+     * @return
+     */
     //From: https://stackoverflow.com/questions/23005948/convert-string-to-bitmap
     public Bitmap StringToBitMap(String encodedString){
         try{

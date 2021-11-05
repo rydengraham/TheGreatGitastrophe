@@ -177,14 +177,11 @@ public class Account {
         ArrayList<HabitEvent> todoHabits = new ArrayList<>();
         int weekday = getWeekday();
         String today = getToday();
-        System.out.println("week: "+weekday);
 
         for (Habit currentHabit : this.habitTable) {
-            System.out.println("day: "+currentHabit.getIsOnDayOfWeek(weekday));
             if (currentHabit.getIsOnDayOfWeek(weekday)) {
                 boolean createTodayEvent = true;
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    System.out.println("name: "+event.getTitle());
                     if (event.getDate().equals(today) && !event.isCompleted()) {
                         todoHabits.add(event);
                         createTodayEvent = false;

@@ -40,19 +40,35 @@ public class Habit implements Serializable {
         /* Required empty public constructor */
     }
 
+    /**
+     * Adds a new habit event to the table
+     * @param newHabitEvent
+     */
     public void addHabitEvent(HabitEvent newHabitEvent) {
         this.habitEventTable.add(newHabitEvent);
     }
 
+    /**
+     * Deletes a habit even from the table
+     * @param newHabitEvent
+     */
     public void deleteHabitEvent(HabitEvent newHabitEvent) {
         this.habitEventTable.remove(newHabitEvent);
     }
 
+    /**
+     * Updates a habit event item at a given position
+     * @param position
+     * @param updatedHabitEvent
+     */
     public void updateHabitEvent(int position, HabitEvent updatedHabitEvent) {
         this.habitEventTable.set(position, updatedHabitEvent);
     }
 
-    // GETTERS
+    /**
+     * Getters/Setters
+     * @return
+     */
     public List<HabitEvent> getHabitEventTable() {
         return this.habitEventTable;
     }
@@ -82,7 +98,6 @@ public class Habit implements Serializable {
         return ((weekdays >> day) & 1) == 1;
     }
 
-    // SETTERS
     public void setHabitEventTable(List<HabitEvent> habitEventTable) {
         this.habitEventTable = habitEventTable;
     }
@@ -103,7 +118,11 @@ public class Habit implements Serializable {
 
     public int getWeekdays() { return this.weekdays; }
 
-    // Checks to see if a day applies to a habit
+    /**
+     * Checks to see if a day applies to a habit
+     * @param weekdays
+     * @return
+     */
     public boolean setIsOnDayOfWeek(int weekdays) {
         // only accept numbers in range
         if (weekdays >= 0) {
