@@ -1,7 +1,6 @@
 package com.example.cmput_301_project;
 
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,14 +38,9 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent switchToTodayHabitsPage = new Intent(MainPage.this, TodayHabits.class);
+                progress = 0;
+                updateProgress();
                 startActivity(switchToTodayHabitsPage);
-
-                // progress bar can be filled up in 10 point increments
-                if(progress <= 90){
-                    progress += 10;
-                    updateProgress();
-                }
-
             }
         });
         progressBar.setOnClickListener(new View.OnClickListener() {

@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -58,6 +59,17 @@ public class UserProfilePage extends AppCompatActivity {
         ArrayAdapter<String> habitAdapter = new ArrayAdapter<>(this, R.layout.habit_list_textview, dataList);
 
         habitList.setAdapter(habitAdapter);
+
+        // TODO: Integrate events
+        // Standard TBD Alert Dialogue
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("This Is Not Connected Yet");
+        builder.setMessage("Habit integration will be added in project part 4. Existing events are for GUI testing only. The gear icon in the top right takes you to the settings page");
+        builder.setNegativeButton("OK", null);
+        // create the alert dialog and display it over the fragment
+        AlertDialog alertBox = builder.create();
+        alertBox.show();
     }
 
     public void onSettingsClick(View view) {

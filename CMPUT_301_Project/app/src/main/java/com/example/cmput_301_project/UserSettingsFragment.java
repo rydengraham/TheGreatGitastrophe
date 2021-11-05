@@ -1,7 +1,6 @@
 package com.example.cmput_301_project;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,20 +60,20 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
         editProfileTV.setOnClickListener(this);
 
         // add functionality to the editName EditText to allow user to update their username
-        EditText editName = (EditText) view.findViewById(R.id.editUsernamePT);
-        editName.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                // if the event is a key-down on the 'Enter' button, if statement is true
-                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    String newName = editName.getText().toString();
-                    // TODO: add code to change username using 'newName' as updated username
-                    return true;
-                }
-                return false;
-            }
-        });
+//        EditText editName = (EditText) view.findViewById(R.id.editUsernamePT);
+//        editName.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+//                // if the event is a key-down on the 'Enter' button, if statement is true
+//                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
+//                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                    String newName = editName.getText().toString();
+//                    // TODO: add code to change username using 'newName' as updated username
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
         return view;
     }
@@ -139,9 +138,16 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
                 confirmExitdialog.show();
                 break;
             case R.id.editProfileTV:
-                // if the 'edit profile' textView is pressed, allow user to change their profile pic
-                System.out.println("edit photo");
                 // TODO: add code to change profile photo here
+                // if the 'edit profile' textView is pressed, allow user to change their profile pic
+                // Standard TBD Alert Dialogue
+                builder.setCancelable(true);
+                builder.setTitle("This Is Not Connected Yet");
+                builder.setMessage("This will be added in project part 4");
+                builder.setNegativeButton("OK", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog alertBox = builder.create();
+                alertBox.show();
                 break;
         }
     }
