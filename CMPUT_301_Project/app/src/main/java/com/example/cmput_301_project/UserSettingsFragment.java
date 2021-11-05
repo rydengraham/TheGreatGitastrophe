@@ -1,3 +1,6 @@
+/**
+ * Fragment to show user settings
+ */
 package com.example.cmput_301_project;
 
 import android.os.Bundle;

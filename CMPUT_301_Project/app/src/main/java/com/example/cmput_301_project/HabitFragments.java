@@ -1,3 +1,6 @@
+/**
+ * Fragment used in the habits menu
+ */
 package com.example.cmput_301_project;
 
 import android.app.AlertDialog;

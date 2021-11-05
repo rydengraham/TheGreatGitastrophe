@@ -1,3 +1,6 @@
+/**
+ * Nav bar fragment
+ */
 package com.example.cmput_301_project;
 
 import android.content.Intent;

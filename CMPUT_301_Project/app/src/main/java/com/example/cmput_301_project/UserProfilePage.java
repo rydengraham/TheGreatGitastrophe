@@ -1,3 +1,6 @@
+/**
+ * User profile activity
+ */
 package com.example.cmput_301_project;
 
 import android.graphics.Color;

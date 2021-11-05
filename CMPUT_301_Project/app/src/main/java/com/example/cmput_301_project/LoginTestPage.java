@@ -1,3 +1,6 @@
+/**
+ * Class to easily test our activities and fragments not in final build
+ */
 package com.example.cmput_301_project;
 
 import androidx.annotation.NonNull;

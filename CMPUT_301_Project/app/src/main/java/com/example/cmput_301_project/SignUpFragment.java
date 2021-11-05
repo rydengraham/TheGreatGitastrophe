@@ -1,3 +1,6 @@
+/**
+ * Fragment for user sign up
+ */
 package com.example.cmput_301_project;
 
 import static androidx.core.content.ContextCompat.getSystemService;

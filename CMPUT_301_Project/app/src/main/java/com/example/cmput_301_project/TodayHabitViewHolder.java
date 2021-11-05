@@ -1,3 +1,6 @@
+/**
+ * Class to hold views for each of today's habits
+ */
 package com.example.cmput_301_project;
 
 import android.widget.LinearLayout;

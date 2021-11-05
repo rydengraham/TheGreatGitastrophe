@@ -1,3 +1,6 @@
+/**
+ * Adapter for today's habits
+ */
 package com.example.cmput_301_project;
 
 import android.content.Context;
