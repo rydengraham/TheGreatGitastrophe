@@ -39,7 +39,7 @@ public class HabitFragments extends DialogFragment {
 
 
     /**
-     * Used in MyHabits class
+     * Fragment interaction listener used in MyHabits class
      */
     public interface OnFragmentInteractionListener{
         void onOkPressed(Habit newHabit);

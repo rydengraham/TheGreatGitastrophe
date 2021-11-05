@@ -39,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     /**
      * Returns whether or not deletion mode is used
-     * @return
+     * @return True if delete mode
      */
     public boolean isDelMode() {
         return delMode;
@@ -85,7 +85,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     /**
-     *  Gets count of items
+     * Gets count of items
+     * @return Size of habit list
      */
     @Override
     public int getItemCount() {
@@ -102,7 +103,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         /**
          *
-         * Constructor that finds the textviews and buttons needed to assign habit attributes to.
+         * Constructor that finds the textviews and buttons needed to assign habit attributes to
          * @param itemView
          */
         public ItemVH(View itemView) {
