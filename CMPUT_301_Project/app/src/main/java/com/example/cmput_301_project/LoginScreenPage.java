@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -61,14 +62,13 @@ public class LoginScreenPage extends AppCompatActivity {
     }
 
     public void onSignInClick(View view) throws NoSuchAlgorithmException {
-        // TODO: add functionality to check user credentials
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
 
         boolean validated = false;
         for (Account existingAccount : accountData.values()) {
             if (existingAccount.getUserName().equals(username) && existingAccount.checkPassword(password)) {
-                // TODO: open UI fragment to mention issue
+                // TODO: Set this account to be the active user
                 validated = true;
                 break;
             }
@@ -78,6 +78,15 @@ public class LoginScreenPage extends AppCompatActivity {
         if (validated) {
             Intent switchToMainPage = new Intent(LoginScreenPage.this, MainPage.class);
             startActivity(switchToMainPage);
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            builder.setCancelable(true);
+            builder.setTitle("Username/Password combination does not exist");
+            // if the user chooses to stay on the fragment, simply close the dialog
+            builder.setNegativeButton("OK", null);
+            // create the alert dialog and display it over the fragment
+            AlertDialog confirmDialogue = builder.create();
+            confirmDialogue.show();
         }
     }
 }

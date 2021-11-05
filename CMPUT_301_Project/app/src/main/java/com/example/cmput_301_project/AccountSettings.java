@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AccountSettings extends AppCompatActivity {
@@ -22,8 +23,17 @@ public class AccountSettings extends AppCompatActivity {
         viewToggleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-                Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
-                startActivity(switchActivityIntent);
+//                Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
+//                startActivity(switchActivityIntent);
+                // Standard TBD Alert Dialogue
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Page Does Not Exist");
+                builder.setMessage("This will be added in project part 4.");
+                builder.setNegativeButton("OK", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog alertBox = builder.create();
+                alertBox.show();
             }
         });
 
@@ -39,8 +49,17 @@ public class AccountSettings extends AppCompatActivity {
         changePassButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-                Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
-                startActivity(switchActivityIntent);
+//                Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
+//                startActivity(switchActivityIntent);
+                // Standard TBD Alert Dialogue
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Page Does Not Exist");
+                builder.setMessage("This will be added in project part 4.");
+                builder.setNegativeButton("OK", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog alertBox = builder.create();
+                alertBox.show();
             }
         });
 

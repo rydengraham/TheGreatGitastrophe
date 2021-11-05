@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -82,33 +83,22 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setCancelable(true);
         // override onClick depending on if the 'sign-up' or 'cancel' button is pressed
         switch(view.getId()) {
             case R.id.signUpButton:
-                // TODO: add code to create a new user account here
                 String username = usernameField.getText().toString();
                 String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
                 String reenterPassword = reenterPasswordField.getText().toString();
 
                 if (username.length() == 0 || password.length() == 0 || email.length() == 0) {
-                    // TODO: open UI fragment to mention issue
-                    System.out.println("0 length");
-                    return;
-                }
-
-                for (Account existingAccount : accountData.values()) {
-                    System.out.println(existingAccount.getUserName() + " " + existingAccount.getEmail());
-                    if (existingAccount.getUserName().equals(username) || existingAccount.getEmail().equals(email)) {
-                        // TODO: open UI fragment to mention issue
-                        System.out.println("dupe name/mail");
-                        return;
-                    }
-                }
-
-                if (!password.equals(reenterPassword)) {
-                    // TODO: open UI fragment to mention issue
-                    System.out.println("no pass match");
+                    builder.setTitle("Missing Required Field");
+                    builder.setMessage("");
+                    builder.setNegativeButton("OK", null);
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
                     return;
                 }
 
@@ -118,17 +108,63 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
 
                 if (!pattern.matcher(email).matches()) {
                     // TODO: open UI fragment to mention issue
-                    System.out.println("invalid email");
+                    builder.setTitle("Invalid Email");
+                    builder.setMessage("Emails must contain an '@' sign surrounded by characters");
+                    builder.setNegativeButton("OK", null);
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                    return;
+                }
+
+                for (Account existingAccount : accountData.values()) {
+                    System.out.println(existingAccount.getUserName() + " " + existingAccount.getEmail());
+                    if (existingAccount.getEmail().equals(email)) {
+                        builder.setTitle("Invalid Email");
+                        builder.setMessage("This email is already paired to an existing account");
+                        builder.setNegativeButton("OK", null);
+                        AlertDialog alertBox = builder.create();
+                        alertBox.show();
+                        return;
+                    }
+                    if (existingAccount.getUserName().equals(username)) {
+                        builder.setTitle("Invalid Username");
+                        builder.setMessage("This username is already taken");
+                        builder.setNegativeButton("OK", null);
+                        AlertDialog alertBox = builder.create();
+                        alertBox.show();
+                        return;
+                    }
+                }
+
+                if (!password.equals(reenterPassword)) {
+                    builder.setTitle("Passwords Do Not Match");
+                    builder.setNegativeButton("OK", null);
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
                     return;
                 }
 //                System.out.println("trying to add: " + username + " " + email + " " + password);
                 AccountData.create().modifyAccount(new Account(username, email, password));
+                builder.setTitle("Account Creation Successful");
+                builder.setNegativeButton("OK", null);
+                AlertDialog alertBox = builder.create();
+                alertBox.show();
 
                 getActivity().onBackPressed();
                 break;
             case R.id.cancelButton:
-                // if the cancel button is pressed, close the fragment and return to login page
-                getActivity().onBackPressed();
+                // if the cancel button is pressed, warn the user before exiting
+                builder.setTitle("Exit Without Saving?");
+                builder.setMessage("Any changes you've made will be lost.");
+                // if the user chooses to exit, return to the user profile activity
+                builder.setPositiveButton("Exit", (dialog, which) -> {
+                    getActivity().onBackPressed();
+                });
+                // if the user chooses to stay on the fragment, simply close the dialog
+                builder.setNegativeButton("Go Back", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog confirmExitdialog = builder.create();
+                confirmExitdialog.show();
                 break;
         }
     }

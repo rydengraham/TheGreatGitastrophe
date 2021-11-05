@@ -1,6 +1,7 @@
 package com.example.cmput_301_project;
 
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -65,6 +67,16 @@ public class MainPage extends AppCompatActivity {
                     progress  -= 10;
                     updateProgress();
                 }
+
+                // Standard TBD Alert Dialogue
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Page Does Not Exist");
+                builder.setMessage("This will be added in project part 4.");
+                builder.setNegativeButton("OK", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog alertBox = builder.create();
+                alertBox.show();
             }
         });
 
