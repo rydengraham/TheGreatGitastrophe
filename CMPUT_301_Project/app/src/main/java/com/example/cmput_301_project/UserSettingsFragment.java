@@ -99,7 +99,7 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
                 AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
                 builder.setCancelable(true);
                 builder.setTitle("Exit Without Saving?");
-                builder.setMessage("Any changes you've made will be lost.");
+                builder.setMessage("Any changes you've made will be lost");
                 // if the user chooses to exit, return to the user profile activity
                 builder.setPositiveButton("Exit", (dialog, which) -> {
                     getActivity().onBackPressed();

@@ -23,8 +23,6 @@ public class AccountSettings extends AppCompatActivity {
         viewToggleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-//                Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
-//                startActivity(switchActivityIntent);
                 // Standard TBD Alert Dialogue
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setCancelable(true);
@@ -49,8 +47,6 @@ public class AccountSettings extends AppCompatActivity {
         changePassButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-//                Intent switchActivityIntent = new Intent(AccountSettings.this, AccountSettings.class);
-//                startActivity(switchActivityIntent);
                 // Standard TBD Alert Dialogue
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setCancelable(true);
@@ -63,10 +59,33 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
 
+        final Button deleteAccountButton = findViewById(R.id.delete);
+        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
+                // Standard TBD Alert Dialogue
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Are You Sure You Want To Delete Your Account?");
+                builder.setMessage("This action cannot be undone");
+                // if the user chooses to exit, return to the user profile activity
+                builder.setPositiveButton("Delete Account", (dialog, which) -> {
+                    AccountData.create().deleteActiveUserAccount();
+                    Intent switchActivityIntent = new Intent(AccountSettings.this, LoginScreenPage.class);
+                    startActivity(switchActivityIntent);
+                });
+                // if the user chooses to stay on the fragment, simply close the dialog
+                builder.setNegativeButton("Cancel", null);
+                // create the alert dialog and display it over the fragment
+                AlertDialog confirmDeleteDialogue = builder.create();
+                confirmDeleteDialogue.show();
+            }
+        });
+
         final Button logoutButton = findViewById(R.id.logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // TODO: LOGOUT USER
+                AccountData.create().setActiveUserId("");
                 Intent switchActivityIntent = new Intent(AccountSettings.this, LoginScreenPage.class);
                 startActivity(switchActivityIntent);
             }

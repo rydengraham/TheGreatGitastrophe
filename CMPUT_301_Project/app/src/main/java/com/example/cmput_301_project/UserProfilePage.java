@@ -31,11 +31,16 @@ public class UserProfilePage extends AppCompatActivity {
     // define fragment manager and transaction for opening/closing settings fragment
     FragmentManager manager = getSupportFragmentManager();
     FragmentTransaction transaction;
+    TextView usernameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile_page);
+
+        usernameTextView = findViewById(R.id.usernameText);
+        Account activeUserAccount = AccountData.create().getActiveUserAccount();
+        usernameTextView.setText(activeUserAccount.getUserName());
 
         // calculate the % of habits completed this month and update the habit complete TV
         DecimalFormat df = new DecimalFormat("#");

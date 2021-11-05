@@ -25,7 +25,8 @@ import java.util.HashMap;
 public class AccountData {
     private static final String CLASSTAG = "AccountData";
     private static AccountData singletonAccountData;
-    HashMap<String, Account> accountData = new HashMap<String, Account>();
+    private HashMap<String, Account> accountData = new HashMap<String, Account>();
+    private String activeUserId = "";
 
 
     private final String TAG = "Sample";
@@ -59,24 +60,54 @@ public class AccountData {
         }
     }
 
-    public HashMap<String, Account> getAccountData() {
-//        if (accountData.isEmpty()) {
-            // fetch from firestore
+    public String getActiveUserId() {
+        return activeUserId;
+    }
 
-            collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                        FirebaseFirestoreException error) {
-                    accountData.clear();
-                    for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
-                    {
-                        Account account = doc.toObject(Account.class);
-                        accountData.put(account.getId(), account);
+    public Account getActiveUserAccount() {
+        return accountData.get(activeUserId);
+    }
+
+    public void deleteActiveUserAccount() {
+        accountData.remove(activeUserId);
+        collectionReference
+                .document(activeUserId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // These are a method which gets executed when the task is succeeded
+                        Log.d(TAG, "Data has been added successfully!");
                     }
-                }
-            });
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // These are a method which gets executed if there’s any problem
+                        Log.d(TAG, "Data could not be added!" + e.toString());
+                    }
+                });
+        setActiveUserId("");
+        return;
+    }
 
-//        }
+    public void setActiveUserId(String activeUserId) {
+        this.activeUserId = activeUserId;
+    }
+
+    public HashMap<String, Account> getAccountData() {
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+                accountData.clear();
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
+                {
+                    Account account = doc.toObject(Account.class);
+                    accountData.put(account.getId(), account);
+                }
+            }
+        });
         return accountData;
     }
 

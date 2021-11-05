@@ -73,6 +73,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changePassword" />
 
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="96dp"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="Delete Account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changePassword" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
         android:name="com.example.cmput_301_project.NavBar"
