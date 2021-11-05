@@ -51,6 +51,8 @@ public class LoginScreenPage extends AppCompatActivity {
     }
 
     public void onRegisterClick(View view) {
+        usernameField.setText("");
+        passwordField.setText("");
         // create a new settings fragment and display it on the appropriate frame
         Fragment registerFragment = new SignUpFragment();
         // begin fragment transaction and add current activity to backstack
@@ -78,6 +80,8 @@ public class LoginScreenPage extends AppCompatActivity {
 
         // when 'sign in' button is pressed, open the main page after verification
         if (validated) {
+            usernameField.setText("");
+            passwordField.setText("");
             Intent switchToMainPage = new Intent(LoginScreenPage.this, MainPage.class);
             startActivity(switchToMainPage);
         } else {
