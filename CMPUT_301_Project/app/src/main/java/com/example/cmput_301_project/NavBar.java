@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * create an instance of the navbar fragment.
  */
 public class NavBar extends Fragment {
 
