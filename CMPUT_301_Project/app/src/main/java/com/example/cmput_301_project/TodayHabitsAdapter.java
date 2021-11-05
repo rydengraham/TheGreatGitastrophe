@@ -41,7 +41,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
 
     /**
      * Returns the list size
-     * @return
+     * @return List size
      */
     @Override
     public int getCount() {
@@ -50,8 +50,8 @@ public class TodayHabitsAdapter extends BaseAdapter {
 
     /**
      * Returns the item at i
-     * @param i
-     * @return
+     * @param i index
+     * @return Habit event at index
      */
     @Override
     public HabitEvent getItem(int i) {
@@ -60,8 +60,8 @@ public class TodayHabitsAdapter extends BaseAdapter {
 
     /**
      * Returns the id of item i
-     * @param i
-     * @return
+     * @param i index
+     * @return Id at index
      */
     @Override
     public long getItemId(int i) {
@@ -207,7 +207,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
 
     /**
      * Used to make items interactive
-     * @return
+     * @return N/A
      */
     @Override
     public boolean areAllItemsEnabled()
@@ -218,7 +218,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
     /**
      * Used to make items interactive
      * @param arg0
-     * @return
+     * @return N/A
      */
     @Override
     public boolean isEnabled(int arg0)

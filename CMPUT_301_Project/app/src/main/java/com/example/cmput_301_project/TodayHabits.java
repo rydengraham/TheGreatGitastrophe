@@ -56,7 +56,7 @@ public class TodayHabits extends AppCompatActivity {
 
     /**
      * Returns the ToDo array list
-     * @return
+     * @return Array list containing ToDo events
      */
     public static ArrayList<HabitEvent> getToDoList(){
         return toDoEventsList;
@@ -64,7 +64,7 @@ public class TodayHabits extends AppCompatActivity {
 
     /**
      * Returns the Completed array list
-     * @return
+     * @return Array list containing Completed events
      */
     public static ArrayList<HabitEvent> getCompleteList(){
         return completedEventsList;
@@ -72,7 +72,7 @@ public class TodayHabits extends AppCompatActivity {
 
     /**
      * Returns the ToDo adapter
-     * @return
+     * @return Adapter for ToDo list
      */
     public static TodayHabitsAdapter getToDoListAdapter(){
         return toDoAdapter;
@@ -80,7 +80,7 @@ public class TodayHabits extends AppCompatActivity {
 
     /**
      * Returns the Completed adapter
-     * @return
+     * @return Adapter for ToDo list
      */
     public static TodayHabitsAdapter getCompletedListAdapter(){
         return completedAdapter;
