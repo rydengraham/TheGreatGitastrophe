@@ -1,6 +1,8 @@
+/**
+ * Menu page for additional account functions.
+ */
 package com.example.cmput_301_project;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
