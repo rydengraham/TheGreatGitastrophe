@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     /**
      * Returns whether or not deletion mode is used
-     * @return
+     * @return True if delete mode
      */
     public boolean isDelMode() {
         return delMode;
@@ -84,7 +85,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     /**
-     *  Gets count of items
+     * Gets count of items
+     * @return Size of habit list
      */
     @Override
     public int getItemCount() {
@@ -97,10 +99,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView habitTitleView, reasonView, startDateView, frequencyView;
         LinearLayout expandableLayout;
         Button editButton;
+        Button historyButton;
 
         /**
          *
-         * Constructor that finds the textviews and buttons needed to assign habit attributes to.
+         * Constructor that finds the textviews and buttons needed to assign habit attributes to
          * @param itemView
          */
         public ItemVH(View itemView) {
@@ -111,6 +114,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             frequencyView = itemView.findViewById(R.id.frequency);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             editButton = itemView.findViewById(R.id.editButton);
+            historyButton = itemView.findViewById(R.id.historyButton);
             // Give itemView a listener for expansion and deletion
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,6 +145,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
+            // TODO: Connect this to the habit event list (does not exist for part 3)
+            // Give historyButton a placeholder interaction
+            historyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Standard TBD Alert Dialogue
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setCancelable(true);
+                    builder.setTitle("Page Does Not Exist");
+                    builder.setMessage("This will be added in project part 4.");
+                    builder.setNegativeButton("OK", null);
+                    // create the alert dialog and display it over the fragment
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                }
+            });
             
         }
     }
