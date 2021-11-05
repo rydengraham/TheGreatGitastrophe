@@ -1,14 +1,16 @@
 package com.example.cmput_301_project;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Habit {
+public class Habit implements Serializable {
     private String id;
     private String habitName;
     private Date startDate;
     private String reason;
+
     // one bit per day of the week
     // 1 = Monday
     // 2 = Tuesday
@@ -17,6 +19,7 @@ public class Habit {
     // etc.
     // (so each day takes 1 bit, with the most significant bit unused)
     private byte weekdays;
+    private boolean isExpanded;
 
     private HashMap<String, HabitEvent> habitEventTable = new HashMap<String, HabitEvent>();
 
@@ -28,6 +31,7 @@ public class Habit {
         setIsOnDayOfWeek(weekdays);
     }
 
+    // GETTERS
     public String getId() {
         return id;
     }
@@ -36,24 +40,16 @@ public class Habit {
         return habitName;
     }
 
-    public void setHabitName(String habitName) {
-        this.habitName = habitName;
+    public boolean isExpanded() {
+        return isExpanded;
     }
 
     public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
     public String getReason() {
         return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
     }
 
     public boolean getIsOnDayOfWeek(int day) {
@@ -61,6 +57,22 @@ public class Habit {
         return ((weekdays >> day) & 1) == 1;
     }
 
+    // SETTERS
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
+    }
+
+    public void setHabitName(String habitName) {
+        this.habitName = habitName;
+    }
+
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
+
+    public void setReason(String reason) { this.reason = reason; }
+
+    public void setWeekdays(byte weekdays) { this.weekdays = weekdays; }
+
+    // Checks to see if a day applies to a habit
     public boolean setIsOnDayOfWeek(byte weekdays) {
         // only accept numbers in range
         if (weekdays >= 0) {
@@ -70,11 +82,6 @@ public class Habit {
         return false;
     }
 
-    public HashMap<String, HabitEvent> getHabitEventTable() {
-        return habitEventTable;
-    }
 
-    public void setHabitEventTable(HashMap<String, HabitEvent> habitEventTable) {
-        this.habitEventTable = habitEventTable;
-    }
+
 }
