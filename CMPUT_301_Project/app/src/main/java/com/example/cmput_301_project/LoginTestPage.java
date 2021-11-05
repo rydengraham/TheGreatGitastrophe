@@ -84,6 +84,15 @@ public class LoginTestPage extends AppCompatActivity {
             }
         });
 
+        // functionality for profile page button to open User Profile activity
+        final Button profilePageButton = findViewById(R.id.userProfileButton);
+        profilePageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchActivityIntent = new Intent(LoginTestPage.this, UserProfilePage.class);
+                startActivity(switchActivityIntent);
+            }
+        });
         // functionality for loginButton to go to LoginScreenPage
         final Button loginScreenButton = findViewById(R.id.loginButton);
         loginScreenButton.setOnClickListener(new View.OnClickListener() {
