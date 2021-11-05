@@ -37,6 +37,8 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
     EditText passwordField;
     EditText reenterPasswordField;
 
+    HashMap<String, Account> accountData;
+
     public SignUpFragment() { /* Required empty public constructor */ }
 
     /**
@@ -73,6 +75,8 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
         signUpButton.setOnClickListener(this);
         exitButton.setOnClickListener(this);
 
+        accountData = AccountData.create().getAccountData();
+
         return view;
     }
 
@@ -82,8 +86,6 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
         switch(view.getId()) {
             case R.id.signUpButton:
                 // TODO: add code to create a new user account here
-                HashMap<String, Account> accountData = AccountData.create().getAccountData();
-
                 String username = usernameField.getText().toString();
                 String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
@@ -118,7 +120,7 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                     System.out.println("invalid email");
                     return;
                 }
-
+//                System.out.println("trying to add: " + username + " " + email + " " + password);
                 AccountData.create().modifyAccount(new Account(username, email, password));
 
                 getActivity().onBackPressed();

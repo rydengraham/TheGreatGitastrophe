@@ -60,7 +60,7 @@ public class AccountData {
     }
 
     public HashMap<String, Account> getAccountData() {
-        if (accountData.isEmpty()) {
+//        if (accountData.isEmpty()) {
             // fetch from firestore
 
             collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -77,7 +77,7 @@ public class AccountData {
                 }
             });
 
-        }
+//        }
         return accountData;
     }
 

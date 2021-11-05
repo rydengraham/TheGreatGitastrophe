@@ -35,13 +35,40 @@ public class Account {
     public Account() { /* Required empty public constructor */ }
 
     public void updatePassword(String rawPassword) throws NoSuchAlgorithmException {
+        System.out.println("old password: " + this.password);
         MessageDigest hasher = MessageDigest.getInstance("SHA-256");
         String toHash = rawPassword + this.id;
         byte[] digest = hasher.digest(toHash.getBytes());
         this.password = new String(digest);
     }
 
+    // TODO: Change to internally check password
+    public Boolean checkPassword(String password) {
+        String candidatePassword = "";
+        try {
+            MessageDigest hasher = MessageDigest.getInstance("SHA-256");
+            String toHash = password + this.id;
+            byte[] digest = hasher.digest(toHash.getBytes());
+            candidatePassword = new String(digest);
+        } catch (NoSuchAlgorithmException e) {}
+
+        System.out.println(this.password);
+        System.out.println(candidatePassword);
+
+        return this.password.equals(candidatePassword);
+    }
+
     // TODO: Add User Habit Items
+
+    public String getPassword() {
+        // Getter required only for firestore
+        return password;
+    }
+
+    public void setPassword(String password) {
+        // Setter required only for firestore
+        this.password = password;
+    }
 
     public String getUserName() {
         return username;
@@ -57,15 +84,6 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    // TODO: Change to internally check password
-    public boolean checkPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest hasher = MessageDigest.getInstance("SHA-256");
-        byte[] digest = hasher.digest(password.getBytes());
-        String candidatePassword = new String(digest);
-
-        return this.password.equals(candidatePassword);
     }
 
     public String getId() {

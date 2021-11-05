@@ -36,22 +36,17 @@ public class LoginScreenPage extends AppCompatActivity {
     EditText usernameField;
     EditText passwordField;
 
+    HashMap<String, Account> accountData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen_page);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        usernameField = findViewById(R.id.usernameEV);
+        passwordField = findViewById(R.id.passwordEV);
 
-        usernameField = (EditText) view.findViewById(R.id.createUsernameEV);
-        passwordField = (EditText) view.findViewById(R.id.createPasswordEV);
-
-        return view;
+        accountData = AccountData.create().getAccountData();
     }
 
     public void onRegisterClick(View view) {
@@ -67,17 +62,11 @@ public class LoginScreenPage extends AppCompatActivity {
 
     public void onSignInClick(View view) throws NoSuchAlgorithmException {
         // TODO: add functionality to check user credentials
-        HashMap<String, Account> accountData = AccountData.create().getAccountData();
-
-        usernameField = (EditText) view.findViewById(R.id.createUsernameEV);
-        passwordField = (EditText) view.findViewById(R.id.createPasswordEV);
-
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
         System.out.println("login attempt: " + username + " " + password);
 
         boolean validated = false;
-
         for (Account existingAccount : accountData.values()) {
             System.out.println(existingAccount.getUserName() + " " + existingAccount.getEmail());
             if (existingAccount.getUserName().equals(username) && existingAccount.checkPassword(password)) {
@@ -86,6 +75,8 @@ public class LoginScreenPage extends AppCompatActivity {
                 break;
             }
         }
+
+        System.out.println("is validated: " + validated);
 
         // when 'sign in' button is pressed, open the main page after verification
         if (validated) {
