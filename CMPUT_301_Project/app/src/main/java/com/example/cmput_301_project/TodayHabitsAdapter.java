@@ -1,7 +1,6 @@
 package com.example.cmput_301_project;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 
@@ -187,7 +188,16 @@ public class TodayHabitsAdapter extends BaseAdapter {
                 addLocationButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Add link to add photo page
+                        // TODO: Add link to add photo page
+                        // Standard TBD Alert Dialogue
+                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                        builder.setCancelable(true);
+                        builder.setTitle("Page Does Not Exist");
+                        builder.setMessage("This will be added in project part 4.");
+                        builder.setNegativeButton("OK", null);
+                        // create the alert dialog and display it over the fragment
+                        AlertDialog alertBox = builder.create();
+                        alertBox.show();
                     }
                 });
             }
@@ -196,7 +206,16 @@ public class TodayHabitsAdapter extends BaseAdapter {
                 addPhotoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                      Add link to add location page
+                        // TODO: Add link to add location page
+                        // Standard TBD Alert Dialogue
+                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                        builder.setCancelable(true);
+                        builder.setTitle("Page Does Not Exist");
+                        builder.setMessage("This will be added in project part 4.");
+                        builder.setNegativeButton("OK", null);
+                        // create the alert dialog and display it over the fragment
+                        AlertDialog alertBox = builder.create();
+                        alertBox.show();
                     }
                 });
             }

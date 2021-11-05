@@ -21,7 +21,7 @@ import java.util.HashMap;
  */
 public class UserSettingsFragment extends Fragment implements View.OnClickListener {
 
-    AccountData accountDataClass = AccountData.create();
+    private AccountData accountDataClass = AccountData.create();
     EditText usernameField;
     public UserSettingsFragment() { /* Required empty public constructor */ }
 

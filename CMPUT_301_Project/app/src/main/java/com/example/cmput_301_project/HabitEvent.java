@@ -2,39 +2,58 @@ package com.example.cmput_301_project;
 
 import android.graphics.Bitmap;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class HabitEvent {
     private String id;
-    private Date date;
+    private String date;
     private Bitmap image;
     private String comment;
     private String title;
     private TodayHabitViewHolder holder;
+    private boolean completed;
 
-    public HabitEvent(Date date, Bitmap image, String comment, String title) {
+//    public HabitEvent(String date, Bitmap image, String comment, String title) {
+//        this.date = date;
+//        this.image = image;
+//        this.comment = comment;
+//        this.id = UUID.randomUUID().toString();
+//        this.title = title;
+//        this.completed = false;
+//    }
+
+    public HabitEvent(String date, String title) {
         this.date = date;
-        this.image = image;
-        this.comment = comment;
         this.id = UUID.randomUUID().toString();
+        this.completed = false;
         this.title = title;
     }
 
-    public HabitEvent(String comment, String title) {
-        this.comment = comment;
-        this.title = title;
+//    public HabitEvent(String comment, String title) {
+//        this.comment = comment;
+//        this.title = title;
+//    }
+    public HabitEvent() {
+        /* required empty constructor */
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public String getId() {
         return id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

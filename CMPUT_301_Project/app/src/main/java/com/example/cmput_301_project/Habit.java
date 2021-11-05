@@ -1,8 +1,9 @@
 package com.example.cmput_301_project;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class Habit implements Serializable {
@@ -21,13 +22,14 @@ public class Habit implements Serializable {
     private int weekdays;
     private boolean isExpanded;
 
-    private HashMap<String, HabitEvent> habitEventTable = new HashMap<String, HabitEvent>();
+    private List<HabitEvent> habitEventTable;
 
     public Habit(String habitName, Date startDate, String reason, int weekdays) {
         this.id = UUID.randomUUID().toString();
         this.habitName = habitName;
         this.startDate = startDate;
         this.reason = reason;
+        this.habitEventTable = new ArrayList<>();
         setIsOnDayOfWeek(weekdays);
     }
 
@@ -35,7 +37,23 @@ public class Habit implements Serializable {
         /* Required empty public constructor */
     }
 
+    public void addHabitEvent(HabitEvent newHabitEvent) {
+        this.habitEventTable.add(newHabitEvent);
+    }
+
+    public void deleteHabitEvent(HabitEvent newHabitEvent) {
+        this.habitEventTable.remove(newHabitEvent);
+    }
+
+    public void updateHabitEvent(int position, HabitEvent updatedHabitEvent) {
+        this.habitEventTable.set(position, updatedHabitEvent);
+    }
+
     // GETTERS
+    public List<HabitEvent> getHabitEventTable() {
+        return this.habitEventTable;
+    }
+
     public String getId() {
         return id;
     }
@@ -62,6 +80,10 @@ public class Habit implements Serializable {
     }
 
     // SETTERS
+    public void setHabitEventTable(List<HabitEvent> habitEventTable) {
+        this.habitEventTable = habitEventTable;
+    }
+
     public void setExpanded(boolean expanded) {
         isExpanded = expanded;
     }

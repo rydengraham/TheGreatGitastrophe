@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class MyHabits extends AppCompatActivity implements HabitFragments.OnFragmentInteractionListener{
     private RecyclerView recyclerView;
-    Account userAccount = AccountData.create().getActiveUserAccount();
+    private Account userAccount = AccountData.create().getActiveUserAccount();
     private Button removeButton;
     private Button cancelButton;
     private Button addHabitButton;

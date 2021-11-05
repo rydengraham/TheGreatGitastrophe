@@ -2,10 +2,9 @@ package com.example.cmput_301_project;
 
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -34,8 +33,8 @@ public class TodayHabits extends AppCompatActivity {
         toDoList = findViewById(R.id.toDoList);
         completedList = findViewById(R.id.completedList);
         // Add test elements
-        toDoEventsList = new ArrayList<HabitEvent>();
-        completedEventsList = new ArrayList<HabitEvent>();
+        toDoEventsList = new ArrayList<>();
+        completedEventsList = new ArrayList<>();
 
         // Temporary list filling variables
         toDoEventsList.add(new HabitEvent("COMMENT", "TITLE"));
@@ -51,6 +50,19 @@ public class TodayHabits extends AppCompatActivity {
         toDoList.setAdapter(toDoAdapter);
         completedList.setAdapter(completedAdapter);
 
+        // TODO: Implement Saving
+        // Standard TBD Alert Dialogue
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("This Is Not Connected Yet");
+        builder.setMessage("Habit integration will be added in project part 4. Existing events are for GUI testing only");
+        builder.setNegativeButton("OK", null);
+        // create the alert dialog and display it over the fragment
+        AlertDialog alertBox = builder.create();
+        alertBox.show();
+    }
+
+    public void update() {
 
     }
 

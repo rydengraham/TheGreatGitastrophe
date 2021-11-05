@@ -4,8 +4,12 @@ import android.graphics.Bitmap;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Account {
@@ -110,6 +114,96 @@ public class Account {
 
     public void updateHabit(int position, Habit updatedHabit) {
         this.habitTable.set(position, updatedHabit);
+    }
+
+    private int getWeekday() {
+        // Day of week getter from: https://stackoverflow.com/questions/5574673/what-is-the-easiest-way-to-get-the-current-day-of-the-week-in-android
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (day) {
+            case Calendar.MONDAY:
+                return 0;
+            case Calendar.TUESDAY:
+                return 1;
+            case Calendar.WEDNESDAY:
+                return 2;
+            case Calendar.THURSDAY:
+                return 3;
+            case Calendar.FRIDAY:
+                return 4;
+            case Calendar.SATURDAY:
+                return 5;
+            case Calendar.SUNDAY:
+                return 6;
+        }
+        return 7;
+    }
+
+    private String getToday() {
+        // Day getter from: https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        return df.format(c);
+    }
+
+    public ArrayList<HabitEvent> getTodoHabitEvents() {
+        ArrayList<HabitEvent> todoHabits = new ArrayList<>();
+        int weekday = getWeekday();
+        String today = getToday();
+        System.out.println("week: "+weekday);
+
+        for (Habit currentHabit : this.habitTable) {
+            System.out.println("day: "+currentHabit.getIsOnDayOfWeek(weekday));
+            if (currentHabit.getIsOnDayOfWeek(weekday)) {
+                boolean createTodayEvent = true;
+                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                    System.out.println("name: "+event.getTitle());
+                    if (event.getDate().equals(today) && !event.isCompleted()) {
+                        todoHabits.add(event);
+                        createTodayEvent = false;
+                        break;
+                    }
+                }
+                if (createTodayEvent) {
+                    HabitEvent newEvent = new HabitEvent(today, currentHabit.getHabitName());
+                    currentHabit.addHabitEvent(newEvent);
+                    todoHabits.add(newEvent);
+                }
+            }
+        }
+        return todoHabits;
+    }
+
+    public ArrayList<HabitEvent> getCompletedHabitEvents() {
+        ArrayList<HabitEvent> completedHabits = new ArrayList<>();
+        int weekday = getWeekday();
+        String today = getToday();
+
+        for (Habit currentHabit : this.habitTable) {
+            if (currentHabit.getIsOnDayOfWeek(weekday)) {
+                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                    if (event.getDate().equals(today) && event.isCompleted()) {
+                        completedHabits.add(event);
+                        break;
+                    }
+                }
+            }
+        }
+        return completedHabits;
+    }
+
+    public HabitEvent getHabitEvent(String date, String habitName) {
+        for (Habit currentHabit : this.habitTable) {
+            if (currentHabit.getHabitName().equals(habitName)) {
+                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                    if (event.getDate().equals(date)) {
+                        return event;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public Bitmap getPfp() {
