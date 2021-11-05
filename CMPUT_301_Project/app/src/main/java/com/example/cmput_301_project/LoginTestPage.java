@@ -106,7 +106,6 @@ public class LoginTestPage extends AppCompatActivity {
         addButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(accountData.size());
                 final String username = usernameEditText.getText().toString();
                 final String password = passwordEditText.getText().toString();
                 final String email = emailEditText.getText().toString();
@@ -114,8 +113,6 @@ public class LoginTestPage extends AppCompatActivity {
                 // TODO: check for duplicate emails, usernames, and ids
                 if (username.length() > 0 && password.length() > 0 && email.length() > 0) {
                     Account newAccount = new Account(username, email, password);
-                    System.out.println(newAccount.getId());
-                    System.out.println(newAccount == null);
                     accountData.put(newAccount.getId(), newAccount);
                     collectionReference
                             .document(newAccount.getId())

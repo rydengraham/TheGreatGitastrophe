@@ -111,6 +111,7 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                     System.out.println("no pass match");
                     return;
                 }
+
                 // Regex from: https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
                 String emailRegex = "^(.+)@(.+)$";
                 Pattern pattern = Pattern.compile(emailRegex);

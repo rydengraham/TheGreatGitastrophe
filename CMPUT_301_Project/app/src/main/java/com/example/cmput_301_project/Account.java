@@ -35,7 +35,6 @@ public class Account {
     public Account() { /* Required empty public constructor */ }
 
     public void updatePassword(String rawPassword) throws NoSuchAlgorithmException {
-        System.out.println("old password: " + this.password);
         MessageDigest hasher = MessageDigest.getInstance("SHA-256");
         String toHash = rawPassword + this.id;
         byte[] digest = hasher.digest(toHash.getBytes());
@@ -51,9 +50,6 @@ public class Account {
             byte[] digest = hasher.digest(toHash.getBytes());
             candidatePassword = new String(digest);
         } catch (NoSuchAlgorithmException e) {}
-
-        System.out.println(this.password);
-        System.out.println(candidatePassword);
 
         return this.password.equals(candidatePassword);
     }

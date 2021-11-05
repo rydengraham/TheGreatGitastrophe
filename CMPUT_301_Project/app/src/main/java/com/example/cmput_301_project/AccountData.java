@@ -71,7 +71,6 @@ public class AccountData {
                     for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         Account account = doc.toObject(Account.class);
-                        System.out.println("Load: " + account.getUserName() + " " + account.getEmail());
                         accountData.put(account.getId(), account);
                     }
                 }
@@ -82,11 +81,7 @@ public class AccountData {
     }
 
     public void modifyAccount(Account newAccount) {
-//        this.accountData.put(modifiedAccount.getId(), modifiedAccount);
         // TODO: check for duplicate emails, usernames, and ids
-//        Account newAccount = new Account(username, email, password);
-//        System.out.println(newAccount.getId());
-//        System.out.println(newAccount == null);
         this.accountData.put(newAccount.getId(), newAccount);
         collectionReference
                 .document(newAccount.getId())
@@ -106,12 +101,4 @@ public class AccountData {
                     }
                 });
     }
-
-    //    public HashMap<String, Account> getAccountData() {
-//
-//    }
-//
-//    public void setAccountData(HashMap<String, Account> accountData) {
-//        this.accountData = accountData;
-//    }
 }

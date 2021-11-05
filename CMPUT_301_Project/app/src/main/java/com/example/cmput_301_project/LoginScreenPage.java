@@ -64,19 +64,15 @@ public class LoginScreenPage extends AppCompatActivity {
         // TODO: add functionality to check user credentials
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
-        System.out.println("login attempt: " + username + " " + password);
 
         boolean validated = false;
         for (Account existingAccount : accountData.values()) {
-            System.out.println(existingAccount.getUserName() + " " + existingAccount.getEmail());
             if (existingAccount.getUserName().equals(username) && existingAccount.checkPassword(password)) {
                 // TODO: open UI fragment to mention issue
                 validated = true;
                 break;
             }
         }
-
-        System.out.println("is validated: " + validated);
 
         // when 'sign in' button is pressed, open the main page after verification
         if (validated) {
