@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,7 @@
             android:layout_marginTop="25dp"
             android:gravity="center"
             android:text="ToDo"
-            android:textSize="32dp"
+            android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,13 +27,14 @@
 
         <ListView
             android:id="@+id/toDoList"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="300dp"
+            android:layout_height="350dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toDo">
+            app:layout_constraintTop_toBottomOf="@+id/toDo"
+            android:nestedScrollingEnabled="true">
 
 
         </ListView>
@@ -44,7 +46,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Completed"
-            android:textSize="32dp"
+            android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toDoList">
@@ -53,13 +55,14 @@
 
         <ListView
             android:id="@+id/completedList"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="300dp"
+            android:layout_height="350dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/completed" />
+            app:layout_constraintTop_toBottomOf="@+id/completed"
+            android:nestedScrollingEnabled="true"/>
 
         <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/fragment_container_view"
@@ -71,4 +74,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

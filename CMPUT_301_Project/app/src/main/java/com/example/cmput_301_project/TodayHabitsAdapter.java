@@ -16,34 +16,65 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Custom adapter class for Today's Habits
+ */
 public class TodayHabitsAdapter extends BaseAdapter {
 
+    // Variable Declaration
     int resource;
     Context context;
     ArrayList<HabitEvent> habitList;
     TodayHabitViewHolder holder = null;
 
+    /**
+     * Constructor for the adapter
+     * @param context
+     * @param resource
+     * @param myList
+     */
     public TodayHabitsAdapter(Context context, int resource, ArrayList<HabitEvent> myList){
         this.resource = resource;
         this.context = context;
         habitList = myList;
     }
 
+    /**
+     * Returns the list size
+     * @return
+     */
     @Override
     public int getCount() {
         return habitList.size();
     }
 
+    /**
+     * Returns the item at i
+     * @param i
+     * @return
+     */
     @Override
     public HabitEvent getItem(int i) {
         return habitList.get(i);
     }
 
+    /**
+     * Returns the id of item i
+     * @param i
+     * @return
+     */
     @Override
     public long getItemId(int i) {
         return i;
     }
 
+    /**
+     * Main function to set the list item data
+     * @param i
+     * @param view
+     * @param viewGroup
+     * @return
+     */
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view=null;
@@ -53,6 +84,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
             vi = LayoutInflater.from(context);
             v = vi.inflate(resource, null);
         }
+        // Reference each item
         LinearLayout commentHolder = v.findViewById(R.id.commentHolder);
         LinearLayout iconLocationHolder = v.findViewById(R.id.iconLocationHolder);
         LinearLayout eventHolder = v.findViewById(R.id.eventHolder);
@@ -61,6 +93,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
         Button completedButtonC = (Button) v.findViewById(R.id.completeHabitC);
         Button addLocationButton = (Button) v.findViewById(R.id.addLocationButton);
         Button addPhotoButton = (Button) v.findViewById(R.id.addPhotoButton);
+        // Expand the view
         textHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +109,9 @@ public class TodayHabitsAdapter extends BaseAdapter {
                 }
             }
         });
+        // Set which item is selected
         HabitEvent selectedHabit = getItem(i);
+        // Create new holder if none
         if (selectedHabit.getHolder() == null){
             holder = new TodayHabitViewHolder(commentHolder, iconLocationHolder, eventHolder, textHolder, true);
         }
@@ -92,6 +127,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
             }
             if (comment != null) {
                 comment.setText(selectedHabit.getComment());
+                // Update comment in real time
                 comment.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -107,6 +143,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
                 });
             }
+            // Update completed button if clicked
             if (selectedHabit.getHolder().getCompletedButton()){
                 completedButtonX.setVisibility(View.VISIBLE);
                 completedButtonX.setBackgroundResource(R.drawable.circle_red);
@@ -145,6 +182,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
                 });
             }
+            // Need to implement later when we have backend
             if (addLocationButton != null){
                 addLocationButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -153,6 +191,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
                 });
             }
+            // Need to implement later when we have backend
             if (addPhotoButton != null){
                 addPhotoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -166,12 +205,21 @@ public class TodayHabitsAdapter extends BaseAdapter {
         return v;
     }
 
+    /**
+     * Used to make items interactive
+     * @return
+     */
     @Override
     public boolean areAllItemsEnabled()
     {
         return true;
     }
 
+    /**
+     * Used to make items interactive
+     * @param arg0
+     * @return
+     */
     @Override
     public boolean isEnabled(int arg0)
     {
