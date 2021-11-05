@@ -40,6 +40,11 @@ public class Account {
 
     public Account() { /* Required empty public constructor */ }
 
+    /**
+     * Hashes password and stores it
+     * @param rawPassword
+     * @throws NoSuchAlgorithmException
+     */
     public void updatePassword(String rawPassword) throws NoSuchAlgorithmException {
         MessageDigest hasher = MessageDigest.getInstance("SHA-256");
         String toHash = rawPassword + this.id;
@@ -47,7 +52,11 @@ public class Account {
         this.password = new String(digest);
     }
 
-    // TODO: Change to internally check password
+    /**
+     * Check if password is correct by matching hash
+     * @param password
+     * @return
+     */
     public Boolean checkPassword(String password) {
         String candidatePassword = "";
         try {
@@ -60,8 +69,10 @@ public class Account {
         return this.password.equals(candidatePassword);
     }
 
-    // TODO: Add User Habit Items
 
+    /**
+     * Forces a Firestore update for the active account
+     */
     public void updateFirestore() {
         AccountData.create().modifyAccount(this);
     }
@@ -116,6 +127,10 @@ public class Account {
         this.habitTable.set(position, updatedHabit);
     }
 
+    /**
+     * Gets the current day of the week
+     * @return
+     */
     private int getWeekday() {
         // Day of week getter from: https://stackoverflow.com/questions/5574673/what-is-the-easiest-way-to-get-the-current-day-of-the-week-in-android
         Calendar calendar = Calendar.getInstance();
@@ -139,6 +154,10 @@ public class Account {
         return 7;
     }
 
+    /**
+     * Gets a string of the current date
+     * @return
+     */
     private String getToday() {
         // Day getter from: https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
         Date c = Calendar.getInstance().getTime();
@@ -147,6 +166,10 @@ public class Account {
         return df.format(c);
     }
 
+    /**
+     * NOT YET IMPLEMENTED: Gets a list of habit events for today
+     * @return
+     */
     public ArrayList<HabitEvent> getTodoHabitEvents() {
         ArrayList<HabitEvent> todoHabits = new ArrayList<>();
         int weekday = getWeekday();
@@ -175,6 +198,10 @@ public class Account {
         return todoHabits;
     }
 
+    /**
+     * NOT YET IMPLEMENTED: Gets a list of completed habit events for today
+     * @return
+     */
     public ArrayList<HabitEvent> getCompletedHabitEvents() {
         ArrayList<HabitEvent> completedHabits = new ArrayList<>();
         int weekday = getWeekday();
@@ -193,6 +220,12 @@ public class Account {
         return completedHabits;
     }
 
+    /**
+     * NOT YET USED: Getter for habit events
+     * @param date
+     * @param habitName
+     * @return
+     */
     public HabitEvent getHabitEvent(String date, String habitName) {
         for (Habit currentHabit : this.habitTable) {
             if (currentHabit.getHabitName().equals(habitName)) {
