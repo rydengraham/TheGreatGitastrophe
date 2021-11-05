@@ -1,11 +1,10 @@
 package com.example.cmput_301_project;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Habit implements Serializable {
+public class Habit {
     private String id;
     private String habitName;
     private Date startDate;
@@ -19,7 +18,6 @@ public class Habit implements Serializable {
     // etc.
     // (so each day takes 1 bit, with the most significant bit unused)
     private byte weekdays;
-    private boolean isExpanded;
 
     private HashMap<String, HabitEvent> habitEventTable = new HashMap<String, HabitEvent>();
 
@@ -35,15 +33,8 @@ public class Habit implements Serializable {
         return id;
     }
 
-
     public String getHabitName() {
         return habitName;
-    }
-
-    public byte getWeekdays() { return weekdays; }
-
-    public boolean isExpanded() {
-        return isExpanded;
     }
 
     public Date getStartDate() {
@@ -57,10 +48,6 @@ public class Habit implements Serializable {
     public boolean getIsOnDayOfWeek(int day) {
         // 0 = Monday, 1 = Tuesday, 2 = Wednesday, etc.
         return ((weekdays >> day) & 1) == 1;
-    }
-
-    public void setExpanded(boolean expanded) {
-        isExpanded = expanded;
     }
 
     public void setHabitName(String habitName) {
@@ -82,6 +69,11 @@ public class Habit implements Serializable {
         return false;
     }
 
+    public HashMap<String, HabitEvent> getHabitEventTable() {
+        return habitEventTable;
+    }
 
-
+    public void setHabitEventTable(HashMap<String, HabitEvent> habitEventTable) {
+        this.habitEventTable = habitEventTable;
+    }
 }

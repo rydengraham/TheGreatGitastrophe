@@ -27,18 +27,6 @@
         <activity
             android:name=".AccountSettings"
             android:label="@string/app_name" />
-        <activity
-            android:name=".HabitFragments"
-            android:exported="true" />
-        <activity
-            android:name=".MyHabits"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
