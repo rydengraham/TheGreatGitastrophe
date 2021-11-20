@@ -23,7 +23,7 @@ public class TodayHabits extends AppCompatActivity {
     static ArrayList<HabitEvent> completedEventsList;
     static TodayHabitsAdapter toDoAdapter;
     static TodayHabitsAdapter completedAdapter;
-    AccountData accountData;
+    static AccountData accountData;
 
     // On create method
     @Override
@@ -103,5 +103,4 @@ public class TodayHabits extends AppCompatActivity {
     public static TodayHabitsAdapter getCompletedListAdapter(){
         return completedAdapter;
     }
-
 }

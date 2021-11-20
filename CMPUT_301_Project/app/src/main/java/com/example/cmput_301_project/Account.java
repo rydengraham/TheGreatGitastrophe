@@ -182,10 +182,10 @@ public class Account {
                 boolean createTodayEvent = true;
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
                     if (event.getDate().equals(today)) {
-                        if (!event.isCompleted()) {
-                            todoHabits.add(event);
+                        if (event.isCompleted()) {
+                            completedHabits.add(new HabitEvent(event));
                         } else {
-                            completedHabits.add(event);
+                            todoHabits.add(new HabitEvent(event));
                         }
                         createTodayEvent = false;
                         break;
@@ -194,7 +194,7 @@ public class Account {
                 if (createTodayEvent) {
                     HabitEvent newEvent = new HabitEvent(today, currentHabit.getHabitName());
                     currentHabit.addHabitEvent(newEvent);
-                    todoHabits.add(newEvent);
+                    todoHabits.add(new HabitEvent(newEvent));
                 }
             }
         }
@@ -226,15 +226,15 @@ public class Account {
 
     /**
      * NOT YET USED: Getter for habit events
-     * @param date
+     * @param id
      * @param habitName
      * @return
      */
-    public HabitEvent getHabitEvent(String date, String habitName) {
+    public HabitEvent getHabitEvent(String id, String habitName) {
         for (Habit currentHabit : this.habitTable) {
             if (currentHabit.getHabitName().equals(habitName)) {
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getDate().equals(date)) {
+                    if (event.getId() == id) {
                         return event;
                     }
                 }

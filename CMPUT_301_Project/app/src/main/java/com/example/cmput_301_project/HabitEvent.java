@@ -7,7 +7,7 @@ import android.graphics.Bitmap;
 
 import java.util.UUID;
 
-public class HabitEvent {
+public class HabitEvent{
     private String id;
     private String date;
     private Bitmap image;
@@ -21,6 +21,16 @@ public class HabitEvent {
         this.id = UUID.randomUUID().toString();
         this.completed = false;
         this.title = title;
+    }
+
+    public HabitEvent(HabitEvent otherHabitEvent) {
+        this.date = otherHabitEvent.getDate();
+        this.id = otherHabitEvent.getId();
+        this.completed = otherHabitEvent.isCompleted();
+        this.title = otherHabitEvent.getTitle();
+        this.image = otherHabitEvent.getImage();
+        this.comment = otherHabitEvent.getComment();
+        this.holder = otherHabitEvent.getHolder();
     }
 
     public HabitEvent() {
