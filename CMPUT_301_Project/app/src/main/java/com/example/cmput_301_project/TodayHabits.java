@@ -7,7 +7,6 @@ package com.example.cmput_301_project;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ public class TodayHabits extends AppCompatActivity {
     static ArrayList<HabitEvent> completedEventsList;
     static TodayHabitsAdapter toDoAdapter;
     static TodayHabitsAdapter completedAdapter;
+    AccountData accountData;
 
     // On create method
     @Override
@@ -31,6 +31,7 @@ public class TodayHabits extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Set layout
         setContentView(R.layout.today_habits);
+        accountData = AccountData.create();
 
         // Find the listview
         toDoList = findViewById(R.id.toDoList);
@@ -39,13 +40,15 @@ public class TodayHabits extends AppCompatActivity {
         toDoEventsList = new ArrayList<>();
         completedEventsList = new ArrayList<>();
 
+        accountData.getActiveUserAccount().getTodayHabitEvents(toDoEventsList, completedEventsList);
+
         // Temporary list filling variables
-        toDoEventsList.add(new HabitEvent("COMMENT", "TITLE"));
-        toDoEventsList.add(new HabitEvent("COMMENT2", "TITLE2"));
-        toDoEventsList.add(new HabitEvent("COMMENT3", "TITLE3"));
-        toDoEventsList.add(new HabitEvent("COMMENT4", "TITLE4"));
-        toDoEventsList.add(new HabitEvent("COMMENT5", "TITLE5"));
-        toDoEventsList.add(new HabitEvent("COMMENT6", "TITLE6"));
+//        toDoEventsList.add(new HabitEvent("COMMENT", "TITLE"));
+//        toDoEventsList.add(new HabitEvent("COMMENT2", "TITLE2"));
+//        toDoEventsList.add(new HabitEvent("COMMENT3", "TITLE3"));
+//        toDoEventsList.add(new HabitEvent("COMMENT4", "TITLE4"));
+//        toDoEventsList.add(new HabitEvent("COMMENT5", "TITLE5"));
+//        toDoEventsList.add(new HabitEvent("COMMENT6", "TITLE6"));
 
         // Set up adapter for list view
         toDoAdapter = new TodayHabitsAdapter(this, R.layout.today_habits_content, toDoEventsList);
@@ -55,14 +58,14 @@ public class TodayHabits extends AppCompatActivity {
 
         // TODO: Implement Saving
         // Standard TBD Alert Dialogue
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle("This Is Not Connected Yet");
-        builder.setMessage("Habit integration will be added in project part 4. Existing events are for GUI testing only");
-        builder.setNegativeButton("OK", null);
-        // create the alert dialog and display it over the fragment
-        AlertDialog alertBox = builder.create();
-        alertBox.show();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setCancelable(true);
+//        builder.setTitle("This Is Not Connected Yet");
+//        builder.setMessage("Habit integration will be added in project part 4. Existing events are for GUI testing only");
+//        builder.setNegativeButton("OK", null);
+//        // create the alert dialog and display it over the fragment
+//        AlertDialog alertBox = builder.create();
+//        alertBox.show();
     }
 
     public void update() {

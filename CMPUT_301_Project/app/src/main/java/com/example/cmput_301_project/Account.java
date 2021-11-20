@@ -173,8 +173,7 @@ public class Account {
      * NOT YET IMPLEMENTED: Gets a list of habit events for today
      * @return
      */
-    public ArrayList<HabitEvent> getTodoHabitEvents() {
-        ArrayList<HabitEvent> todoHabits = new ArrayList<>();
+    public void getTodayHabitEvents(ArrayList<HabitEvent> todoHabits, ArrayList<HabitEvent> completedHabits) {
         int weekday = getWeekday();
         String today = getToday();
 
@@ -182,8 +181,12 @@ public class Account {
             if (currentHabit.getIsOnDayOfWeek(weekday)) {
                 boolean createTodayEvent = true;
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getDate().equals(today) && !event.isCompleted()) {
-                        todoHabits.add(event);
+                    if (event.getDate().equals(today)) {
+                        if (!event.isCompleted()) {
+                            todoHabits.add(event);
+                        } else {
+                            completedHabits.add(event);
+                        }
                         createTodayEvent = false;
                         break;
                     }
@@ -195,30 +198,31 @@ public class Account {
                 }
             }
         }
-        return todoHabits;
+        this.updateFirestore();
+        return;
     }
 
     /**
      * NOT YET IMPLEMENTED: Gets a list of completed habit events for today
      * @return
      */
-    public ArrayList<HabitEvent> getCompletedHabitEvents() {
-        ArrayList<HabitEvent> completedHabits = new ArrayList<>();
-        int weekday = getWeekday();
-        String today = getToday();
-
-        for (Habit currentHabit : this.habitTable) {
-            if (currentHabit.getIsOnDayOfWeek(weekday)) {
-                for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getDate().equals(today) && event.isCompleted()) {
-                        completedHabits.add(event);
-                        break;
-                    }
-                }
-            }
-        }
-        return completedHabits;
-    }
+//    public ArrayList<HabitEvent> getCompletedHabitEvents() {
+//        ArrayList<HabitEvent> completedHabits = new ArrayList<>();
+//        int weekday = getWeekday();
+//        String today = getToday();
+//
+//        for (Habit currentHabit : this.habitTable) {
+//            if (currentHabit.getIsOnDayOfWeek(weekday)) {
+//                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+//                    if (event.getDate().equals(today) && event.isCompleted()) {
+//                        completedHabits.add(event);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        return completedHabits;
+//    }
 
     /**
      * NOT YET USED: Getter for habit events
