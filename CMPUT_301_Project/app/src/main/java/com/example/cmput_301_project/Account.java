@@ -170,7 +170,7 @@ public class Account {
     }
 
     /**
-     * NOT YET IMPLEMENTED: Gets a list of habit events for today
+     * Gets a list of habit events for today, both completed and todo.
      * @return
      */
     public void getTodayHabitEvents(ArrayList<HabitEvent> todoHabits, ArrayList<HabitEvent> completedHabits) {
@@ -203,29 +203,7 @@ public class Account {
     }
 
     /**
-     * NOT YET IMPLEMENTED: Gets a list of completed habit events for today
-     * @return
-     */
-//    public ArrayList<HabitEvent> getCompletedHabitEvents() {
-//        ArrayList<HabitEvent> completedHabits = new ArrayList<>();
-//        int weekday = getWeekday();
-//        String today = getToday();
-//
-//        for (Habit currentHabit : this.habitTable) {
-//            if (currentHabit.getIsOnDayOfWeek(weekday)) {
-//                for(HabitEvent event : currentHabit.getHabitEventTable()) {
-//                    if (event.getDate().equals(today) && event.isCompleted()) {
-//                        completedHabits.add(event);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        return completedHabits;
-//    }
-
-    /**
-     * NOT YET USED: Getter for habit events
+     * Getter for habit events, for editing.
      * @param id
      * @param habitName
      * @return
