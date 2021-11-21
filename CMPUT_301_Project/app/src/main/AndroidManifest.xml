@@ -18,9 +18,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginTestPage"
-            android:exported="true" />
-        <activity
             android:name=".TodayHabits"
             />
         <activity
