@@ -66,15 +66,6 @@ public class MainPage extends AppCompatActivity {
                 }
                 Intent switchToAddFriendsPage = new Intent(MainPage.this, MyFriends.class);
                 startActivity(switchToAddFriendsPage);
-                // Standard TBD Alert Dialogue
-//                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-//                builder.setCancelable(true);
-//                builder.setTitle("Page Does Not Exist");
-//                builder.setMessage("This will be added in project part 4.");
-//                builder.setNegativeButton("OK", null);
-//                // create the alert dialog and display it over the fragment
-//                AlertDialog alertBox = builder.create();
-//                alertBox.show();
             }
         });
 
