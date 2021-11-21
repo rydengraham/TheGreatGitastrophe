@@ -143,6 +143,9 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                         selectedHabit.setComment(comment.getText().toString());
+                        Account userAccount = AccountData.create().getActiveUserAccount();
+                        userAccount.getHabitEvent(selectedHabit.getId(), selectedHabit.getTitle()).setComment(selectedHabit.getComment());
+                        userAccount.updateFirestore();
                     }
 
                     @Override
