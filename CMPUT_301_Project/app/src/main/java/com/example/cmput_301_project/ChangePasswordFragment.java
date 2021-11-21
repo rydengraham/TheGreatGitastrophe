@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 /**
@@ -55,13 +56,12 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_change_password, container, false);
 
-        // setup save, exit, and edit photo buttons to use onClickListeners
-        // referencing: https://stackoverflow.com/questions/18711433/button-listener-for-button-in-fragment-in-android
         Button saveButton = (Button) view.findViewById(R.id.saveButton);
         Button exitButton = (Button) view.findViewById(R.id.exitButton);
         oldPasswordField = (EditText) view.findViewById(R.id.oldPasswordET);
         newPasswordField = (EditText) view.findViewById(R.id.newPasswordET);
         reenterPasswordField = (EditText) view.findViewById(R.id.reenterPasswordET);
+
         saveButton.setOnClickListener(this);
         exitButton.setOnClickListener(this);
 
@@ -75,43 +75,71 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
         // depending on the view passed to onClick, execute some action
         switch (view.getId()) {
             case R.id.saveButton:
-                // if the save button is pressed, save changes and exit the fragment
-                // TODO: add code to update user profile data here
-//                HashMap<String, Account> accountData = accountDataClass.getAccountData();
-////                String newUsername = usernameField.getText().toString();
-//                Account updatedAccount = accountDataClass.getActiveUserAccount();
-//                // TODO: add check if pfp was unmodified
-//                if (updatedAccount.getUserName().equals(newUsername)) {
-//                    getActivity().onBackPressed();
-//                    break;
-//                }
-//                for (Account existingAccount : accountData.values()) {
-//                    if (existingAccount.getUserName().equals(newUsername)) {
-//                        builder.setTitle("Invalid Username");
-//                        builder.setMessage("This username is already taken");
-//                        builder.setNegativeButton("OK", null);
-//                        AlertDialog alertBox = builder.create();
-//                        alertBox.show();
-//                        return;
-//                    }
-//                }
-//                builder.setTitle("Update Account Info?");
-//                builder.setMessage("Your old username could get taken");
-//                // if the user chooses to exit, return to the user profile activity
-//                builder.setPositiveButton("Yes", (dialog, which) -> {
-//                    updatedAccount.setUserName(newUsername);
-//                    accountDataClass.modifyAccount(updatedAccount);
-//                    // TODO: also update pfp on parent
-//                    TextView usernameTextView = getActivity().findViewById(R.id.usernameText);
-//                    Account activeUserAccount = AccountData.create().getActiveUserAccount();
-//                    usernameTextView.setText(activeUserAccount.getUserName());
-//                    getActivity().onBackPressed();
-//                });
-//                // if the user chooses to stay on the fragment, simply close the dialog
-//                builder.setNegativeButton("Go Back", null);
-//                // create the alert dialog and display it over the fragment
-//                AlertDialog confirmUpdatedialog = builder.create();
-//                confirmUpdatedialog.show();
+                String oldPassword = oldPasswordField.getText().toString();
+                String newPassword = newPasswordField.getText().toString();
+                String reenterPassword = reenterPasswordField.getText().toString();
+
+                // Old password verification
+                if (!AccountData.create().getActiveUserAccount().checkPassword(oldPassword)) {
+                    builder.setTitle("Old Password Is Incorrect");
+                    builder.setMessage("");
+                    builder.setNegativeButton("OK", null);
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                    return;
+                }
+
+                // Empty field verification
+                if (oldPasswordField.length() == 0 || newPasswordField.length() == 0 || reenterPasswordField.length() == 0) {
+                    builder.setTitle("Missing Required Field");
+                    builder.setMessage("");
+                    builder.setNegativeButton("OK", null);
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                    return;
+                }
+
+                // Empty field verification
+                if (oldPassword.equals(newPassword)) {
+                    builder.setTitle("New Password Cannot Be The Same As Old Password");
+                    builder.setMessage("");
+                    builder.setNegativeButton("OK", null);
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                    return;
+                }
+
+                if (newPassword.equals(reenterPassword)) {
+                    try {
+                        // Password update + Firestore
+                        AccountData.create().getActiveUserAccount().updatePassword(newPassword);
+                        AccountData.create().getActiveUserAccount().updateFirestore();
+
+                        builder.setTitle("Password Updated Successfully");
+                        builder.setMessage("");
+                        builder.setNegativeButton("OK", null);
+                        AlertDialog alertBox = builder.create();
+                        alertBox.show();
+
+                        getActivity().onBackPressed();
+                    } catch (NoSuchAlgorithmException e) {
+                        System.err.println("Error: Password failed to update");
+                        builder.setTitle("Password Failed To Update");
+                        builder.setMessage("");
+                        builder.setNegativeButton("OK", null);
+                        AlertDialog alertBox = builder.create();
+                        alertBox.show();
+                        return;
+                    }
+                } else {
+                    // New passwords match verification
+                    builder.setTitle("New Passwords Do Not Match");
+                    builder.setMessage("");
+                    builder.setNegativeButton("OK", null);
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                    return;
+                }
                 break;
             case R.id.exitButton:
                 // if the exit button is pressed, simply exit the fragment
@@ -129,5 +157,4 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
                 break;
         }
     }
-
 }
