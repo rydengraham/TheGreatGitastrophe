@@ -4,6 +4,7 @@
 package com.example.cmput_301_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +155,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View view) {
                     // Standard TBD Alert Dialogue
+                    FragmentActivity activity = (FragmentActivity)(context);
+                    Intent switchActivityIntent = new Intent(activity, HabitEventHistory.class);
+                    context.startActivity(switchActivityIntent);
+                    /*
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setCancelable(true);
                     builder.setTitle("Page Does Not Exist");
@@ -162,6 +167,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     // create the alert dialog and display it over the fragment
                     AlertDialog alertBox = builder.create();
                     alertBox.show();
+                    */
                 }
             });
             

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class HabitFragments extends DialogFragment {
     private Button dateButton;
     private CalendarView calendarView;
     private Date dateToSend;
+    private Switch publicSwitcher;
 
 
     /**
@@ -47,7 +49,7 @@ public class HabitFragments extends DialogFragment {
     public interface OnFragmentInteractionListener{
         void onOkPressed(Habit newHabit);
 
-        void onOkPressed(Habit retrivedHabit, String name, String reason, Date date , int weekdays);
+        void onOkPressed(Habit retrivedHabit, String name, String reason, Date date , int weekdays, boolean publicHabit);
     }
 
 
@@ -92,6 +94,7 @@ public class HabitFragments extends DialogFragment {
         calendarView.setVisibility(View.GONE);
         tableLayout.setVisibility(View.GONE);
         dateToSend = new Date(calendarView.getDate());
+        publicSwitcher = view.findViewById(R.id.privateSwitch);
 
 
         // Toggles frequency view
@@ -169,6 +172,7 @@ public class HabitFragments extends DialogFragment {
                             retrivedHabit.setHabitName(habitTitle.getText().toString());
                             Date date = dateToSend;
                             int weekdays = 0;
+                            boolean publicHabit = false;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
 
                             // add to weekday bit wise to reflect the checked boxes
@@ -193,11 +197,15 @@ public class HabitFragments extends DialogFragment {
                             if (checkBox.isChecked() == true)
                                 weekdays = weekdays + 64;
 
+                            if (publicSwitcher.isChecked())
+                                publicHabit = true;
+                            else
+                                publicHabit = false;
                             // Check if fields are empty
                             if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
                                 Toast.makeText(getActivity(), "Invalid Habit Fields", Toast.LENGTH_SHORT).show();
                             else
-                            listener.onOkPressed(retrivedHabit, name,reason, date, weekdays);
+                            listener.onOkPressed(retrivedHabit, name,reason, date, weekdays, publicHabit);
                         }
                     }).create();
         }
@@ -216,6 +224,7 @@ public class HabitFragments extends DialogFragment {
                             String reason = startDate.getText().toString();
                             Date date = dateToSend;
                             int weekdays = 0;
+                            boolean publicHabit = false;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
                             if (checkBox.isChecked() == true)
                                 weekdays = weekdays + 1;
@@ -237,11 +246,15 @@ public class HabitFragments extends DialogFragment {
                             checkBox = view.findViewById(R.id.sundayBox);
                             if (checkBox.isChecked() == true)
                                 weekdays = weekdays + 64;
+                            if (publicSwitcher.isChecked())
+                                publicHabit = true;
+                            else
+                                publicHabit = false;
                             // Check if fields are missing
                             if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
                                 Toast.makeText(getActivity(), "Invalid Habit Fields", Toast.LENGTH_SHORT).show();
                             else
-                                listener.onOkPressed(new Habit(name, date, reason, weekdays));
+                                listener.onOkPressed(new Habit(name, date, reason, weekdays, publicHabit));
                         }
                     }).create();
         }

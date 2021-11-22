@@ -14,6 +14,7 @@ public class Habit implements Serializable {
     private String habitName;
     private Date startDate;
     private String reason;
+    private Boolean isPublic;
 
     // one bit per day of the week
     // 1 = Monday
@@ -27,12 +28,13 @@ public class Habit implements Serializable {
 
     private List<HabitEvent> habitEventTable;
 
-    public Habit(String habitName, Date startDate, String reason, int weekdays) {
+    public Habit(String habitName, Date startDate, String reason, int weekdays, boolean isPublic) {
         this.id = UUID.randomUUID().toString();
         this.habitName = habitName;
         this.startDate = startDate;
         this.reason = reason;
         this.habitEventTable = new ArrayList<>();
+        this.isPublic = isPublic;
         setIsOnDayOfWeek(weekdays);
     }
 
@@ -50,6 +52,14 @@ public class Habit implements Serializable {
 
     public void updateHabitEvent(int position, HabitEvent updatedHabitEvent) {
         this.habitEventTable.set(position, updatedHabitEvent);
+    }
+
+    public Boolean getPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(Boolean aPublic) {
+        isPublic = aPublic;
     }
 
     // GETTERS

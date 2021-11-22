@@ -94,12 +94,13 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
      * @param weekdays
      */
     @Override
-    public void onOkPressed(Habit retrieved_habit,  String habitName, String reason, Date startDate, int weekdays) {
+    public void onOkPressed(Habit retrieved_habit,  String habitName, String reason, Date startDate, int weekdays, boolean publicHabit) {
         int position = userAccount.getHabitTable().indexOf(retrieved_habit);
         retrieved_habit.setHabitName(habitName);
         retrieved_habit.setStartDate(startDate);
         retrieved_habit.setReason(reason);
         retrieved_habit.setWeekdays(weekdays);
+        retrieved_habit.setPublic(publicHabit);
         userAccount.updateHabit(position, retrieved_habit);
         userAccount.updateFirestore();
         recycleAdapter.notifyDataSetChanged();
