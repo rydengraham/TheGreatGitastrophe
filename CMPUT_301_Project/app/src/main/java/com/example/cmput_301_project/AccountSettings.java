@@ -106,6 +106,11 @@ public class AccountSettings extends AppCompatActivity {
         });
     }
 
+    /**
+     * NOT YET IMPLEMENTED
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected (MenuItem item){
         finish();
         return true;

@@ -144,7 +144,6 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                     alertBox.show();
                     return;
                 }
-//                System.out.println("trying to add: " + username + " " + email + " " + password);
                 AccountData.create().modifyAccount(new Account(username, email, password));
                 builder.setTitle("Account Creation Successful");
                 builder.setNegativeButton("OK", null);
