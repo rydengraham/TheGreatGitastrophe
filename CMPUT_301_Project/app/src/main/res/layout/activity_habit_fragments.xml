@@ -228,7 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Public Habit (If enabled your habit and habit progress will be visible to your friends)" />
+                android:text="Public Habit " />
 
         </LinearLayout>
     </ScrollView>

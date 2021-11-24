@@ -71,9 +71,6 @@ public class Habit implements Serializable {
         return isPublic;
     }
 
-    public void setPublic(Boolean aPublic) {
-        isPublic = aPublic;
-    }
 
     // GETTERS
     /**
@@ -127,7 +124,10 @@ public class Habit implements Serializable {
 
     public void setWeekdays(int weekdays) { this.weekdays = weekdays; }
 
-    public int getWeekdays() { return this.weekdays; }
+    public void setPublic(Boolean isPublic) {
+        this.isPublic = isPublic;
+    }
+
 
     /**
      * Checks to see if a day applies to a habit

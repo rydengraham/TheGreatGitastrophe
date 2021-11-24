@@ -154,20 +154,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             historyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Standard TBD Alert Dialogue
                     FragmentActivity activity = (FragmentActivity)(context);
                     Intent switchActivityIntent = new Intent(activity, HabitEventHistory.class);
                     context.startActivity(switchActivityIntent);
-                    /*
-                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setCancelable(true);
-                    builder.setTitle("Page Does Not Exist");
-                    builder.setMessage("This will be added in project part 4.");
-                    builder.setNegativeButton("OK", null);
-                    // create the alert dialog and display it over the fragment
-                    AlertDialog alertBox = builder.create();
-                    alertBox.show();
-                    */
                 }
             });
             

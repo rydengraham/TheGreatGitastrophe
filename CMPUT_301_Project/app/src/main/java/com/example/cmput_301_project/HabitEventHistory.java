@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +18,7 @@ public class HabitEventHistory extends AppCompatActivity {
     List<HabitEvent> test;
     private Button cancelButton;
     private Button delButton;
+    private TextView delText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class HabitEventHistory extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         cancelButton = (Button) findViewById(R.id.cancelEventDeletion);
         delButton = (Button) findViewById(R.id.removeHabitEventButton);
+        delText = findViewById(R.id.deleteHabitEventText);
         mockData();
         eventHabitAdapter = new EventHabitAdapter(test,this, false);
         recyclerView.setAdapter(eventHabitAdapter);
@@ -34,6 +37,8 @@ public class HabitEventHistory extends AppCompatActivity {
             public void onClick(View view) {
                 eventHabitAdapter.setDelMode(true);
                 cancelButton.setVisibility(View.VISIBLE);
+                delButton.setVisibility(View.GONE);
+                delText.setVisibility(View.VISIBLE);
 
             }
         });
@@ -43,6 +48,8 @@ public class HabitEventHistory extends AppCompatActivity {
             public void onClick(View view) {
                 eventHabitAdapter.setDelMode(false);
                 cancelButton.setVisibility(View.GONE);
+                delButton.setVisibility(View.VISIBLE);
+                delText.setVisibility(View.GONE);
             }
         });
 

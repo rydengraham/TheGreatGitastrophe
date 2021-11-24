@@ -2,6 +2,8 @@ package com.example.cmput_301_project;
 
 import android.app.Activity;
 import android.media.metrics.Event;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,8 +129,26 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                     }
                     else {
                         habit.setExpanded(!habit.isExpanded());
+                        commentView.setText(habit.getComment());
                     }
                     notifyDataSetChanged();
+
+                }
+            });
+            commentView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    HabitEvent habit = habitEventList.get(getAdapterPosition());
+                    habit.setComment(charSequence.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
 
                 }
             });
