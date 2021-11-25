@@ -24,6 +24,18 @@
         <entry key="..\:/Users/Ryden/AndroidStudioProjects/CMPUT_301_Project/app/src/main/res/layout/login_test.xml" value="0.483695652173913" />
         <entry key="..\:/Users/Ryden/Documents/School/2021-2022/CMPUT 301/Project/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/activity_login_screen_page.xml" value="0.268" />
         <entry key="..\:/Users/Ryden/Documents/School/2021-2022/CMPUT 301/Project/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/main_page.xml" value="0.36" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/activity_habit_event_history.xml" value="0.264" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/activity_habit_fragments.xml" value="0.2" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/activity_login_screen_page.xml" value="0.1" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/activity_my_habits.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/activity_user_profile_page.xml" value="0.1" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/fragment_nav_bar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/fragment_sign_up.xml" value="0.1" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/fragment_user_settings.xml" value="0.1" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/habit_event_custom_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/habit_list_textview.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/habits_custom_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yazan/AndroidStudioProjects/TheGreatGitastrophe/CMPUT_301_Project/app/src/main/res/layout/today_habits.xml" value="0.1" />
       </map>
     </option>
   </component>
