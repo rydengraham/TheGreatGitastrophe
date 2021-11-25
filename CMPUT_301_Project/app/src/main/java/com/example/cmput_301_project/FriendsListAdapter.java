@@ -115,8 +115,19 @@ public class FriendsListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if (delMode){
-                    MyFriends.getFriendsList().remove(friendName);
-                    MyFriends.getFriendsListAdapter().notifyDataSetChanged();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setCancelable(true);
+                    builder.setTitle("Remove Friend?");
+                    builder.setMessage("Are you sure you want to remove this friend?");
+                    builder.setPositiveButton("Remove", ((dialog, which) -> {
+                        // change status of follow button to prompt user to follow
+                        MyFriends.getFriendsList().remove(friendName);
+                        MyFriends.getFriendsListAdapter().notifyDataSetChanged();
+                    }));
+                    builder.setNegativeButton("Cancel", null);
+                    // create the alert dialog and display it over the fragment
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
                 }
                 else{
                     Intent switchToFriendProfile = new Intent(context, AddFriends.class);
