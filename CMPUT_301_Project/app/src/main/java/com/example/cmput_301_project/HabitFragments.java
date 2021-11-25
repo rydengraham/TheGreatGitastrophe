@@ -34,6 +34,7 @@ import java.util.List;
  * Use the {@link HabitFragments#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class HabitFragments extends DialogFragment{
 
     private EditText habitTitle;
@@ -73,23 +74,23 @@ public class HabitFragments extends DialogFragment{
     public boolean checkFields(){
         String name = habitTitle.getText().toString();
         String reason = startDate.getText().toString();
-        int weekdays = 0;
+        boolean hasWeekdaySelected = false;
         if (monday.isChecked() == true)
-            weekdays = weekdays + 1;
+            hasWeekdaySelected = true;
         if (tuesday.isChecked() == true)
-            weekdays = weekdays + 2;
+            hasWeekdaySelected = true;
         if (wednesday.isChecked() == true)
-            weekdays = weekdays + 4;
+            hasWeekdaySelected = true;
         if (thursday.isChecked() == true)
-            weekdays = weekdays + 8;
+            hasWeekdaySelected = true;
         if (friday.isChecked() == true)
-            weekdays = weekdays + 16;
+            hasWeekdaySelected = true;
         if (saturday.isChecked() == true)
-            weekdays = weekdays + 32;
+            hasWeekdaySelected = true;
         if (sunday.isChecked() == true)
-            weekdays = weekdays + 64;
+            hasWeekdaySelected = true;
         // Check if fields are missing
-        if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
+        if (hasWeekdaySelected == false || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
             return false;
         else
             return true;
