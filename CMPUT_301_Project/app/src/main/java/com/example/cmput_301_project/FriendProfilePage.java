@@ -3,6 +3,7 @@ package com.example.cmput_301_project;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -77,7 +78,9 @@ public class FriendProfilePage extends AppCompatActivity {
      * @param view current view containing habitListButton
      */
     public void onDetailedHabitsClick(View view) {
-        // TODO: add code to go to detailed habits list here
+        // create new intent to navigate to FriendDetailedHabitsPage
+        Intent switchToFriendHabitPage = new Intent(FriendProfilePage.this, FriendDetailedHabitsPage.class);
+        startActivity(switchToFriendHabitPage);
     }
 
     /**
