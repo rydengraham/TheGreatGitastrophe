@@ -29,6 +29,7 @@
             />
         <activity
             android:name=".FriendProfilePage"
+            android:label="CMPUT_301_Project"
             android:exported="true"
             />
         <activity
