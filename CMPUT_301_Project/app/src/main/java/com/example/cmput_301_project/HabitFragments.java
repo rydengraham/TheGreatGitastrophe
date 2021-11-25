@@ -35,7 +35,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-public class HabitFragments extends DialogFragment{
+public class HabitFragments extends DialogFragment {
 
     private EditText habitTitle;
     private EditText startDate;
