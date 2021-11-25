@@ -101,6 +101,10 @@ public class Habit implements Serializable {
         return reason;
     }
 
+    public int getWeekdays() {
+        return weekdays;
+    }
+
     public boolean getIsOnDayOfWeek(int day) {
         // 0 = Monday, 1 = Tuesday, 2 = Wednesday, etc.
         return ((weekdays >> day) & 1) == 1;

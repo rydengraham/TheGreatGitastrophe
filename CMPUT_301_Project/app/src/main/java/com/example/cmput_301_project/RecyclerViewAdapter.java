@@ -126,14 +126,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     Habit habit = habitList.get(getAdapterPosition());
                     if (isDelMode())
                     {
-//                        habitList.remove(getAdapterPosition());
+                        habitList.remove(getAdapterPosition());
                         userAccount.deleteHabit(habit);
                         userAccount.updateFirestore();
                     }
                     else {
                         habit.setExpanded(!habit.isExpanded());
                     }
-                    notifyItemChanged(getAdapterPosition());
+                    notifyDataSetChanged();
 
                 }
             });

@@ -8,6 +8,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,14 +25,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A {@link Fragment} subclass that helps create habit objects through dialog.
  * Use the {@link HabitFragments#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HabitFragments extends DialogFragment {
+public class HabitFragments extends DialogFragment{
 
     private EditText habitTitle;
     private EditText startDate;
@@ -41,6 +45,9 @@ public class HabitFragments extends DialogFragment {
     private CalendarView calendarView;
     private Date dateToSend;
     private Switch publicSwitcher;
+    private CheckBox monday,tuesday,wednesday,thursday,friday,saturday,sunday;
+    private Integer weekday;
+
 
 
     /**
@@ -61,6 +68,31 @@ public class HabitFragments extends DialogFragment {
         } else {
             throw new RuntimeException((context.toString()) + "must implement OnFragementInteractionListener." );
         }
+    }
+
+    public boolean checkFields(){
+        String name = habitTitle.getText().toString();
+        String reason = startDate.getText().toString();
+        int weekdays = 0;
+        if (monday.isChecked() == true)
+            weekdays = weekdays + 1;
+        if (tuesday.isChecked() == true)
+            weekdays = weekdays + 2;
+        if (wednesday.isChecked() == true)
+            weekdays = weekdays + 4;
+        if (thursday.isChecked() == true)
+            weekdays = weekdays + 8;
+        if (friday.isChecked() == true)
+            weekdays = weekdays + 16;
+        if (saturday.isChecked() == true)
+            weekdays = weekdays + 32;
+        if (sunday.isChecked() == true)
+            weekdays = weekdays + 64;
+        // Check if fields are missing
+        if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
+            return false;
+        else
+            return true;
     }
 
     /**
@@ -95,6 +127,16 @@ public class HabitFragments extends DialogFragment {
         tableLayout.setVisibility(View.GONE);
         dateToSend = new Date(calendarView.getDate());
         publicSwitcher = view.findViewById(R.id.privateSwitch);
+        monday = view.findViewById(R.id.mondayBox);
+        tuesday = view.findViewById(R.id.tuesdayBox);
+        wednesday = view.findViewById(R.id.wednesdayBox);
+        thursday = view.findViewById(R.id.wednesdayBox);
+        friday = view.findViewById(R.id.fridayBox);
+        saturday = view.findViewById(R.id.saturdayBox);
+        sunday = view.findViewById(R.id.sundayBox);
+        weekday = 0;
+        Dialog test;
+
 
 
         // Toggles frequency view
@@ -123,11 +165,12 @@ public class HabitFragments extends DialogFragment {
             }
         });
 
+
         Bundle args = getArguments();
 
         // Handles an edit, that is if we get a habit to edit via bundle
         if (args != null) {
-            Habit retrivedHabit = (Habit)args.getSerializable("habit");
+            Habit retrivedHabit = (Habit) args.getSerializable("habit");
             // Setting text and calendar according to retrivedHabit
             habitTitle.setText(retrivedHabit.getHabitName());
             startDate.setText(retrivedHabit.getReason());
@@ -159,7 +202,7 @@ public class HabitFragments extends DialogFragment {
 
             // Build Dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            return builder
+            test = builder
                     .setView(view)
                     .setTitle("Edit Habit")
                     .setNegativeButton("Cancel", null)
@@ -202,17 +245,16 @@ public class HabitFragments extends DialogFragment {
                             else
                                 publicHabit = false;
                             // Check if fields are empty
-                            if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
-                                Toast.makeText(getActivity(), "Invalid Habit Fields", Toast.LENGTH_SHORT).show();
-                            else
-                            listener.onOkPressed(retrivedHabit, name,reason, date, weekdays, publicHabit);
+                            listener.onOkPressed(retrivedHabit, name, reason, date, weekdays, publicHabit);
                         }
                     }).create();
+            test.show();
+            ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+
         }
-        // Alternative scenario where we are adding in a new habit to list
-        else {
+            else{
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            return builder
+            test = builder
                     .setView(view)
                     .setTitle("Add Habit")
                     .setNegativeButton("Cancel", null)
@@ -226,6 +268,8 @@ public class HabitFragments extends DialogFragment {
                             int weekdays = 0;
                             boolean publicHabit = false;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
+
+                            // add to weekday bit wise to reflect the checked boxes
                             if (checkBox.isChecked() == true)
                                 weekdays = weekdays + 1;
                             checkBox = view.findViewById(R.id.tuesdayBox);
@@ -246,18 +290,137 @@ public class HabitFragments extends DialogFragment {
                             checkBox = view.findViewById(R.id.sundayBox);
                             if (checkBox.isChecked() == true)
                                 weekdays = weekdays + 64;
+
                             if (publicSwitcher.isChecked())
                                 publicHabit = true;
                             else
                                 publicHabit = false;
-                            // Check if fields are missing
-                            if (weekdays == 0 || name.isEmpty() || reason.isEmpty() || name.length() >= 20 || reason.length() >= 30)
-                                Toast.makeText(getActivity(), "Invalid Habit Fields", Toast.LENGTH_SHORT).show();
-                            else
-                                listener.onOkPressed(new Habit(name, date, reason, weekdays, publicHabit));
+                            // Check if fields are empty
+                            listener.onOkPressed(new Habit(name, date, reason, weekdays, publicHabit));
                         }
                     }).create();
+            test.show();
+            ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
         }
+
+            startDate.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+            habitTitle.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+            monday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            });
+            tuesday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            });
+            wednesday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            });
+            thursday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            });
+            friday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            });
+            saturday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            });
+            sunday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean test2 = checkFields();
+                    if (test2)
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    else
+                        ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            });
+
+
+
+            return test;
+        }
+        // Alternative scenario where we are adding in a new habit to list
 
 
 
@@ -265,7 +428,4 @@ public class HabitFragments extends DialogFragment {
     }
 
 
-
-
-}
 
