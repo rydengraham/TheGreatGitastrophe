@@ -130,7 +130,7 @@ public class FriendsListAdapter extends BaseAdapter {
                     alertBox.show();
                 }
                 else{
-                    Intent switchToFriendProfile = new Intent(context, AddFriends.class);
+                    Intent switchToFriendProfile = new Intent(context, FriendProfilePage.class);
                     context.startActivity(switchToFriendProfile);
                 }
             }
