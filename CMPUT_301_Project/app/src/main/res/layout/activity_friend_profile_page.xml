@@ -60,7 +60,7 @@
             android:text="X% of Habits Completed this Month"
             android:textColor="@color/black"
             android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/friendsCompletedHabitsVLL"
+            app:layout_constraintBottom_toTopOf="@+id/completedHabitsVLL"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usernameText" />
@@ -88,10 +88,9 @@
         app:layout_constraintTop_toBottomOf="@+id/habitInfoHLL" />
 
     <LinearLayout
-        android:id="@+id/friendsCompletedHabitsVLL"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:id="@+id/friendCompletedHabitsVLL"
+        android:layout_width="403dp"
+        android:layout_height="287dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,5 +121,28 @@
 
         </ListView>
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/settingsFrame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_view"
+            android:name="com.example.cmput_301_project.NavBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
