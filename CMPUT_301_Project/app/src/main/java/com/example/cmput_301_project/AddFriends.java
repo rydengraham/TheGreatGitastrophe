@@ -43,11 +43,10 @@ public class AddFriends extends AppCompatActivity {
         pendingFriendsAdapter = new PendingFriendsAdapter(this, R.layout.add_friend_custom_list, pendingFriendsList);
         pendingFriendsView.setAdapter(pendingFriendsAdapter);
 
-        // If cancel button is clicked disable delete mode
         addFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO implelent with back end to read edit text and add to friends list.
             }
         });
 

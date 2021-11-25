@@ -92,7 +92,7 @@ public class PendingFriendsAdapter extends BaseAdapter {
         textHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent switchToFriendProfile = new Intent(context, MyFriends.class);
+                Intent switchToFriendProfile = new Intent(context, FriendProfilePage.class);
                 context.startActivity(switchToFriendProfile);
             }
         });
@@ -109,7 +109,6 @@ public class PendingFriendsAdapter extends BaseAdapter {
                     AddFriends.getPendingListAdapter().notifyDataSetChanged();
                 }
             });
-
             declineButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {

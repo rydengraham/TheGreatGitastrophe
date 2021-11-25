@@ -64,6 +64,7 @@ public class MainPage extends AppCompatActivity {
                     progress  -= 10;
                     updateProgress();
                 }
+                // Switch to Friends Page
                 Intent switchToAddFriendsPage = new Intent(MainPage.this, MyFriends.class);
                 startActivity(switchToAddFriendsPage);
             }

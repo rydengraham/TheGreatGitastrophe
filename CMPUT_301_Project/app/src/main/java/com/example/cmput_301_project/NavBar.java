@@ -62,6 +62,7 @@ public class NavBar extends Fragment {
                     break;
 
                 case R.id.friends:
+                    // Switch to Friends Page
                     Intent switchToAddFriendsPage = new Intent(view.getContext(), MyFriends.class);
                     startActivity(switchToAddFriendsPage);
                     break;
