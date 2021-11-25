@@ -5,15 +5,17 @@ package com.example.cmput_301_project;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class HabitEvent {
+public class HabitEvent implements Serializable {
     private String id;
     private String date;
     private Bitmap image;
     private String comment;
     private String title;
     private TodayHabitViewHolder holder;
+    private boolean isExpanded;
     private boolean completed;
 
     public HabitEvent(String date, String title) {
@@ -57,6 +59,14 @@ public class HabitEvent {
 
     public String getComment() {
         return comment;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
     public void setComment(String comment) {
