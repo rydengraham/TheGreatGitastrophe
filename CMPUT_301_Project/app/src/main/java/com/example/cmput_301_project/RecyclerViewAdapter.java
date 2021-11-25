@@ -4,6 +4,7 @@
 package com.example.cmput_301_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,14 +126,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     Habit habit = habitList.get(getAdapterPosition());
                     if (isDelMode())
                     {
-//                        habitList.remove(getAdapterPosition());
+                        habitList.remove(getAdapterPosition());
                         userAccount.deleteHabit(habit);
                         userAccount.updateFirestore();
                     }
                     else {
                         habit.setExpanded(!habit.isExpanded());
                     }
-                    notifyItemChanged(getAdapterPosition());
+                    notifyDataSetChanged();
 
                 }
             });
@@ -153,15 +154,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             historyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Standard TBD Alert Dialogue
-                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setCancelable(true);
-                    builder.setTitle("Page Does Not Exist");
-                    builder.setMessage("This will be added in project part 4.");
-                    builder.setNegativeButton("OK", null);
-                    // create the alert dialog and display it over the fragment
-                    AlertDialog alertBox = builder.create();
-                    alertBox.show();
+                    FragmentActivity activity = (FragmentActivity)(context);
+                    Intent switchActivityIntent = new Intent(activity, HabitEventHistory.class);
+                    context.startActivity(switchActivityIntent);
                 }
             });
             
