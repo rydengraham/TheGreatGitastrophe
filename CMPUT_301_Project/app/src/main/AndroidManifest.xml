@@ -24,6 +24,10 @@
             android:name=".TodayHabits"
             />
         <activity
+            android:name=".FriendProfilePage"
+            android:exported="true"
+            />
+        <activity
             android:name=".MyHabits"
             />
         <activity

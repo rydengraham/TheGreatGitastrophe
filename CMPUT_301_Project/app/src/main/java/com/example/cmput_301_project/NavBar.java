@@ -62,15 +62,10 @@ public class NavBar extends Fragment {
                     break;
 
                 case R.id.friends:
-                    // Standard TBD Alert Dialogue
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-                    builder.setCancelable(true);
-                    builder.setTitle("Page Does Not Exist");
-                    builder.setMessage("This will be added in project part 4.");
-                    builder.setNegativeButton("OK", null);
-                    // create the alert dialog and display it over the fragment
-                    AlertDialog alertBox = builder.create();
-                    alertBox.show();
+
+                    // TODO: replace this code w code to move to main friends page when implemented
+                    Intent switchtoFriendsPage = new Intent(getActivity(), FriendProfilePage.class);
+                    startActivity(switchtoFriendsPage);
                     break;
 
                 case R.id.settings:
