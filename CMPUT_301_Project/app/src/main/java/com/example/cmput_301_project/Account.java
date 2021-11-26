@@ -4,13 +4,18 @@
 package com.example.cmput_301_project;
 
 import android.graphics.Bitmap;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -72,6 +77,41 @@ public class Account {
         return this.password.equals(candidatePassword);
     }
 
+    public int[] getHabitCompletionRateInLastThirtyDays(String habitId) {
+        // Index 0 = Total, 1 = Completed
+        int[] completionRate = {0, 0};
+
+        // Date variables
+        Date today = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(today);
+        calendar.add(Calendar.DAY_OF_MONTH, -30);
+        Date thirtyDaysAgo = calendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+
+        for (Habit habit : habitTable) {
+            if (habit.getId().equals(habitId)) {
+                for (HabitEvent event : habit.getHabitEventTable()) {
+                    if (!event.isDeleted()) {
+                        try {
+                            Date eventDate = df.parse(event.getDate());
+                            if (eventDate.before(today) && eventDate.after(thirtyDaysAgo)) {
+                                completionRate[0]++;
+                                if (event.isCompleted()) {
+                                    completionRate[1]++;
+                                }
+                            }
+                        } catch (ParseException e) {
+                            System.err.println("Error!");
+                        }
+                    }
+                }
+                return completionRate;
+            }
+        }
+
+        return completionRate;
+    }
 
     /**
      * Forces a Firestore update for the active account
@@ -170,11 +210,10 @@ public class Account {
     }
 
     /**
-     * NOT YET IMPLEMENTED: Gets a list of habit events for today
+     * Gets a list of habit events for today, both completed and todo.
      * @return
      */
-    public ArrayList<HabitEvent> getTodoHabitEvents() {
-        ArrayList<HabitEvent> todoHabits = new ArrayList<>();
+    public void getTodayHabitEvents(ArrayList<HabitEvent> todoHabits, ArrayList<HabitEvent> completedHabits) {
         int weekday = getWeekday();
         String today = getToday();
 
@@ -182,61 +221,109 @@ public class Account {
             if (currentHabit.getIsOnDayOfWeek(weekday)) {
                 boolean createTodayEvent = true;
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getDate().equals(today) && !event.isCompleted()) {
-                        todoHabits.add(event);
-                        createTodayEvent = false;
+                    if (event.getDate().equals(today)) {
+                        if (!event.isDeleted()) {
+                            if (event.isCompleted()) {
+                                completedHabits.add(new HabitEvent(event));
+                            } else {
+                                todoHabits.add(new HabitEvent(event));
+                            }
+                        }
                         break;
                     }
                 }
-                if (createTodayEvent) {
-                    HabitEvent newEvent = new HabitEvent(today, currentHabit.getHabitName());
-                    currentHabit.addHabitEvent(newEvent);
-                    todoHabits.add(newEvent);
-                }
             }
         }
-        return todoHabits;
+        return;
     }
 
     /**
-     * NOT YET IMPLEMENTED: Gets a list of completed habit events for today
+     * Gets a list of habit events for a particular habit.
      * @return
      */
-    public ArrayList<HabitEvent> getCompletedHabitEvents() {
-        ArrayList<HabitEvent> completedHabits = new ArrayList<>();
-        int weekday = getWeekday();
-        String today = getToday();
-
+    public void getHabitEventsForHabit(ArrayList<HabitEvent> eventList, String habitId) {
         for (Habit currentHabit : this.habitTable) {
-            if (currentHabit.getIsOnDayOfWeek(weekday)) {
+            if (currentHabit.getId().equals(habitId)) {
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getDate().equals(today) && event.isCompleted()) {
-                        completedHabits.add(event);
-                        break;
+                    if (!event.isDeleted()) {
+                        eventList.add(event);
                     }
                 }
+                break;
             }
         }
-        return completedHabits;
+        return;
     }
 
     /**
-     * NOT YET USED: Getter for habit events
-     * @param date
+     * Creates habit events for previous days the user missed.
+     * @return
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void backfillHabitEvents() {
+        Date today = Calendar.getInstance().getTime();
+        for (Habit currentHabit : this.habitTable) {
+            Calendar start = Calendar.getInstance();
+            start.setTime(currentHabit.getStartDate());
+
+            Calendar end = Calendar.getInstance();
+            end.setTime(today);
+            List<HabitEvent> eventList = currentHabit.getHabitEventTable();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+
+            while( !start.after(end)){
+                String targetDay = df.format(start.getTime());
+                int weekday = start.get(Calendar.DAY_OF_WEEK);
+                if (currentHabit.getIsOnDayOfWeek((weekday + 5) % 7)) {
+                    if (!eventList.stream().anyMatch(e -> e.getDate().equals(targetDay))) {
+                        HabitEvent newEvent = new HabitEvent(targetDay, currentHabit.getHabitName());
+                        currentHabit.addHabitEvent(newEvent);
+                    }
+                }
+
+                start.add(Calendar.DATE, 1);
+            }
+        }
+        this.updateFirestore();
+        return;
+    }
+
+    /**
+     * Getter for habit events, for editing.
+     * @param id
      * @param habitName
      * @return
      */
-    public HabitEvent getHabitEvent(String date, String habitName) {
+    public HabitEvent getHabitEvent(String id, String habitName) {
         for (Habit currentHabit : this.habitTable) {
             if (currentHabit.getHabitName().equals(habitName)) {
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getDate().equals(date)) {
+                    if (event.getId() == id && !event.isDeleted()) {
                         return event;
                     }
                 }
             }
         }
         return null;
+    }
+
+    /**
+     * Removes a habit event.
+     * @return
+     */
+    public void deleteHabitEvent(HabitEvent eventToDelete, String habitId) {
+        for (Habit currentHabit : this.habitTable) {
+            if (currentHabit.getId().equals(habitId)) {
+                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                    if (event.equals(eventToDelete)) {
+                        event.setDeleted(true);
+                        return;
+                    }
+                }
+                break;
+            }
+        }
+        return;
     }
 
     public Bitmap getPfp() {

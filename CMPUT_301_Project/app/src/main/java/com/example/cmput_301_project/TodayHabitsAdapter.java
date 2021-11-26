@@ -118,6 +118,9 @@ public class TodayHabitsAdapter extends BaseAdapter {
         // Create new holder if none
         if (selectedHabit.getHolder() == null){
             holder = new TodayHabitViewHolder(commentHolder, iconLocationHolder, eventHolder, textHolder, true);
+            if (selectedHabit.isCompleted()) {
+                holder.setCompletedButton(false);
+            }
         }
         else{
             holder = selectedHabit.getHolder();
@@ -140,6 +143,9 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                         selectedHabit.setComment(comment.getText().toString());
+                        Account userAccount = AccountData.create().getActiveUserAccount();
+                        userAccount.getHabitEvent(selectedHabit.getId(), selectedHabit.getTitle()).setComment(selectedHabit.getComment());
+                        userAccount.updateFirestore();
                     }
 
                     @Override
@@ -169,6 +175,9 @@ public class TodayHabitsAdapter extends BaseAdapter {
                         TodayHabits.getCompletedListAdapter().notifyDataSetChanged();
                         InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        Account userAccount = AccountData.create().getActiveUserAccount();
+                        userAccount.getHabitEvent(selectedHabit.getId(), selectedHabit.getTitle()).setCompleted(true);
+                        userAccount.updateFirestore();
                     }
                 });
             }
@@ -183,6 +192,9 @@ public class TodayHabitsAdapter extends BaseAdapter {
                         TodayHabits.getCompletedListAdapter().notifyDataSetChanged();
                         InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        Account userAccount = AccountData.create().getActiveUserAccount();
+                        userAccount.getHabitEvent(selectedHabit.getId(), selectedHabit.getTitle()).setCompleted(false);
+                        userAccount.updateFirestore();
                     }
                 });
             }

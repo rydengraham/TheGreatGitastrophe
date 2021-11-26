@@ -3,6 +3,7 @@
  */
 package com.example.cmput_301_project;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -19,12 +21,14 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class UserProfilePage extends AppCompatActivity {
+public class UserProfilePage extends AppCompatActivity implements VerifyPasswordFragment.OnPasswordVerify {
 
     // TODO: random values chosen need to be replaced w real complete/incomplete habits
     int totalHabits = 16;
     int completedHabits = 5;
     double habitRatio = (double) completedHabits/totalHabits;
+
+    boolean passwordVerified = false;
     // define fragment manager and transaction for opening/closing settings fragment
     FragmentManager manager = getSupportFragmentManager();
     FragmentTransaction transaction;
@@ -65,13 +69,8 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
     public void onSettingsClick(View view) {
-        // create a new settings fragment and display it on the appropriate frame
-        Fragment userSettings = new UserSettingsFragment();
-        // begin fragment transaction and add current activity to backstack
-        transaction = manager.beginTransaction();
-        transaction.add(R.id.settingsFrame, userSettings);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        passwordVerified = false;
+        new VerifyPasswordFragment().show(getSupportFragmentManager(),"VERIFY_PASSWORD");
     }
 
     /**
@@ -86,6 +85,26 @@ public class UserProfilePage extends AppCompatActivity {
          * 0% = red, 100% = green, x% = hue between red and green
          */
         return Color.HSVToColor(new float[]{(float) step, 1f, 1f});
+    }
+
+    public void onPasswordVerify(boolean verified, Context context) {
+        if (verified) {
+            Fragment userSettings = new UserSettingsFragment();
+            // begin fragment transaction and add current activity to backstack
+            transaction = manager.beginTransaction();
+            transaction.add(R.id.settingsFrame, userSettings);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setCancelable(true);
+            builder.setTitle("Password Is Incorrect");
+            builder.setMessage("");
+            builder.setNegativeButton("OK", null);
+            AlertDialog alertBox = builder.create();
+            alertBox.show();
+            return;
+        }
     }
 
 }
