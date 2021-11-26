@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
@@ -17,7 +17,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/linearLayout"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:fillViewport="true">
+
+        <ListView
+            android:id="@+id/pendingFriendList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+        </ListView>
+
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -30,44 +41,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/addButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="6dp"
-            android:layout_weight="0.5"
-            android:text="Add a Habit" />
-
-        <Button
-            android:id="@+id/removeButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="6dp"
-            android:layout_weight=".5"
-            android:text="Remove a Habit" />
-
         <TextView
             android:id="@+id/deleteText"
-            android:layout_width="match_parent"
+            android:layout_width="5dp"
             android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:layout_weight=".5"
-            android:visibility="gone"
             android:gravity="center"
-            android:text="Click Any Habit to Delete It"
+            android:text="Id to Add"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="match_parent"
+        <EditText
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
-            android:layout_marginEnd="0dp"
-            android:layout_weight=".5"
-            android:text="Cancel"
-            android:visibility="gone" />
+            android:layout_weight="1">
+
+        </EditText>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addFriendButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center"
+            android:text="\u2713"
+            android:background="@drawable/circle_green" />
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pending Requests"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.355"
+        android:textSize="32sp" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"

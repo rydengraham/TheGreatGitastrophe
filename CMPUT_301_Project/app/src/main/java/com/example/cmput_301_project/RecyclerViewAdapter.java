@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -156,6 +155,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 public void onClick(View view) {
                     FragmentActivity activity = (FragmentActivity)(context);
                     Intent switchActivityIntent = new Intent(activity, HabitEventHistory.class);
+                    Habit habit = habitList.get(getAdapterPosition());
+                    switchActivityIntent.putExtra("habitId", habit.getId());
                     context.startActivity(switchActivityIntent);
                 }
             });

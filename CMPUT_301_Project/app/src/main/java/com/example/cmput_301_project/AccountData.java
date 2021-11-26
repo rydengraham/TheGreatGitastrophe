@@ -71,6 +71,10 @@ public class AccountData {
         return activeUserId;
     }
 
+    public void setActiveUserId(String activeUserId) {
+        this.activeUserId = activeUserId;
+    }
+
     public Account getActiveUserAccount() {
         return accountData.get(activeUserId);
     }
@@ -99,10 +103,6 @@ public class AccountData {
                 });
         setActiveUserId("");
         return;
-    }
-
-    public void setActiveUserId(String activeUserId) {
-        this.activeUserId = activeUserId;
     }
 
     /**

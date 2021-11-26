@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
@@ -16,11 +16,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/linearLayout"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layout_constraintTop_toTopOf="@id/headerLayout"
+        android:fillViewport="true">
+
+        <ListView
+            android:id="@+id/friendList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+        </ListView>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friends"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerLayout"
+        app:layout_constraintVertical_bias="0.355" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/headerLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -31,34 +53,34 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/addButton"
+            android:id="@+id/addApproveButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:layout_weight="0.5"
-            android:text="Add a Habit" />
+            android:text="Add/Approve" />
 
         <Button
-            android:id="@+id/removeButton"
+            android:id="@+id/removeFriendButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:layout_weight=".5"
-            android:text="Remove a Habit" />
+            android:text="Remove" />
 
         <TextView
-            android:id="@+id/deleteText"
+            android:id="@+id/deleteFriendText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:layout_weight=".5"
             android:visibility="gone"
             android:gravity="center"
-            android:text="Click Any Habit to Delete It"
-            android:textSize="20sp" />
+            android:text="Click Any Friend to Remove Them"
+            android:textSize="16sp" />
 
         <Button
-            android:id="@+id/cancelButton"
+            android:id="@+id/cancelDeleteButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="6dp"

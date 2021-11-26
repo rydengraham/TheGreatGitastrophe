@@ -62,10 +62,9 @@ public class NavBar extends Fragment {
                     break;
 
                 case R.id.friends:
-
-                    // TODO: replace this code w code to move to main friends page when implemented
-                    Intent switchtoFriendsPage = new Intent(getActivity(), FriendProfilePage.class);
-                    startActivity(switchtoFriendsPage);
+                    // Switch to Friends Page
+                    Intent switchToAddFriendsPage = new Intent(view.getContext(), MyFriends.class);
+                    startActivity(switchToAddFriendsPage);
                     break;
 
                 case R.id.settings:
