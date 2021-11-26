@@ -31,7 +31,6 @@
     </androidx.core.widget.NestedScrollView>
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Friends"
@@ -77,7 +76,7 @@
             android:layout_weight=".5"
             android:visibility="gone"
             android:gravity="center"
-            android:text="Click Any Habit to Delete It"
+            android:text="Click Any Friend to Remove Them"
             android:textSize="16sp" />
 
         <Button
