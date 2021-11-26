@@ -96,6 +96,7 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
      * @param startDate
      * @param weekdays
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onOkPressed(Habit retrieved_habit,  String habitName, String reason, Date startDate, int weekdays, boolean publicHabit) {
         int position = userAccount.getHabitTable().indexOf(retrieved_habit);
@@ -105,6 +106,7 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
         retrieved_habit.setWeekdays(weekdays);
         retrieved_habit.setPublic(publicHabit);
         userAccount.updateHabit(position, retrieved_habit);
+        userAccount.backfillHabitEvents();
         userAccount.updateFirestore();
         recycleAdapter.notifyDataSetChanged();
     }

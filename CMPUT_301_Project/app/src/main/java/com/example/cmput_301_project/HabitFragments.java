@@ -131,7 +131,7 @@ public class HabitFragments extends DialogFragment {
         monday = view.findViewById(R.id.mondayBox);
         tuesday = view.findViewById(R.id.tuesdayBox);
         wednesday = view.findViewById(R.id.wednesdayBox);
-        thursday = view.findViewById(R.id.wednesdayBox);
+        thursday = view.findViewById(R.id.thursdayBox);
         friday = view.findViewById(R.id.fridayBox);
         saturday = view.findViewById(R.id.saturdayBox);
         sunday = view.findViewById(R.id.sundayBox);
@@ -251,7 +251,6 @@ public class HabitFragments extends DialogFragment {
                     }).create();
             test.show();
             ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-
         }
             else{
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -302,9 +301,7 @@ public class HabitFragments extends DialogFragment {
                     }).create();
             test.show();
             ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-
         }
-
             startDate.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

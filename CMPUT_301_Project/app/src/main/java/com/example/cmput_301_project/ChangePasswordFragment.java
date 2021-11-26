@@ -99,7 +99,7 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
                     return;
                 }
 
-                // Empty field verification
+                // Distinct old and new password verification
                 if (oldPassword.equals(newPassword)) {
                     builder.setTitle("New Password Cannot Be The Same As Old Password");
                     builder.setMessage("");

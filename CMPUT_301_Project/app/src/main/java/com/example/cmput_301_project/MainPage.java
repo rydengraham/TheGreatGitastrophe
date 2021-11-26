@@ -25,8 +25,10 @@ public class MainPage extends AppCompatActivity {
     private int progress = 0;
     // progressBar references progress bar object
     ProgressBar progressBar;
-    protected void onCreate(Bundle savedInstanceState) {
 
+    Account userAccount;
+
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
         // initialize circular progress bar
@@ -36,6 +38,13 @@ public class MainPage extends AppCompatActivity {
         Button friendButton= findViewById(R.id.friendbutton);
         textView= findViewById(R.id.btName);
         progressText= findViewById(R.id.prg_value);
+        userAccount = AccountData.create().getActiveUserAccount();
+
+        // Percent completed habits per month graphic update
+//        for (Habit habit : userAccount.getHabitTable()) {
+//
+//        }
+        progress = 1;
         updateProgress();
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -71,10 +71,6 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
     public void onSettingsClick(View view) {
         passwordVerified = false;
         new VerifyPasswordFragment().show(getSupportFragmentManager(),"VERIFY_PASSWORD");
-        // create a new settings fragment and display it on the appropriate frame
-        if (passwordVerified) {
-
-        }
     }
 
     /**
