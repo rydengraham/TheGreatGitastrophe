@@ -35,6 +35,12 @@
             android:name=".MyHabits"
             />
         <activity
+            android:name=".MyFriends"
+            />
+        <activity
+            android:name=".AddFriends"
+            />
+        <activity
             android:name=".UserProfilePage"
             android:exported="true"
             android:label="@string/app_name"
