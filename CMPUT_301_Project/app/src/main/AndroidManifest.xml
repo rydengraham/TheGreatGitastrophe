@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CMPUT_301_Project">
         <activity
+            android:name=".LocationActivity"
+            android:exported="true" />
+        <activity
             android:name=".HabitEventHistory"
             android:exported="true" />
         <activity
@@ -24,22 +27,13 @@
         <activity
             android:name=".LoginTestPage"
             android:exported="true" />
-        <activity
-            android:name=".TodayHabits"
-            />
+        <activity android:name=".TodayHabits" />
         <activity
             android:name=".FriendProfilePage"
-            android:exported="true"
-            />
-        <activity
-            android:name=".MyHabits"
-            />
-        <activity
-            android:name=".MyFriends"
-            />
-        <activity
-            android:name=".AddFriends"
-            />
+            android:exported="true" />
+        <activity android:name=".MyHabits" />
+        <activity android:name=".MyFriends" />
+        <activity android:name=".AddFriends" />
         <activity
             android:name=".UserProfilePage"
             android:exported="true"

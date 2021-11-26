@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">CMPUT_301_Project</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="api_key"> AIzaSyDdmY9XQ9l5JWcSJy1aAcxpzRiiOTMIxyg </string>
+    <string name="get_location">Get Location</string>
+    <string name="location_permission_denied">Application can\'t access get location</string>
+    <string name="no_location">This application can\'t access the get location</string>
+    <string name="service_not_available">Service not available</string>
+    <string name="no_address_found">No address found</string>
+    <string name="map_id">c25f4d9f4e91d60e</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_temp">temp</string>
     <!-- Strings used for fragments for navigation -->
