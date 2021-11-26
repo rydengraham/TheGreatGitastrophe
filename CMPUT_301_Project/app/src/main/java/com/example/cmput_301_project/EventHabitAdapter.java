@@ -146,6 +146,7 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     HabitEvent habit = habitEventList.get(getAdapterPosition());
                     habit.setComment(charSequence.toString());
+                    userAccount.updateFirestore();
                 }
 
                 @Override
