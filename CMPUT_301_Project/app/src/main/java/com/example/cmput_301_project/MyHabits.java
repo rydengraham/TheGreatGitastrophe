@@ -5,9 +5,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -69,6 +72,9 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
             }
         });
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
     }
 
     /**
@@ -105,6 +111,25 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
         userAccount.updateFirestore();
         recycleAdapter.notifyDataSetChanged();
     }
+
+    /**
+     * This allows the reordering and moving of Habit list item elements
+     */
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+            Collections.swap(userAccount.getHabitTable(), fromPosition, toPosition);
+            recyclerView.getAdapter().notifyItemMoved(fromPosition,toPosition);
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
 
 
 }
