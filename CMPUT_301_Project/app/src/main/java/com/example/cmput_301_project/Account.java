@@ -10,10 +10,12 @@ import androidx.annotation.RequiresApi;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -75,6 +77,41 @@ public class Account {
         return this.password.equals(candidatePassword);
     }
 
+    public int[] getHabitCompletionRateInLastThirtyDays(String habitId) {
+        // Index 0 = Total, 1 = Completed
+        int[] completionRate = {0, 0};
+
+        // Date variables
+        Date today = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(today);
+        calendar.add(Calendar.DAY_OF_MONTH, -30);
+        Date thirtyDaysAgo = calendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+
+        for (Habit habit : habitTable) {
+            if (habit.getId().equals(habitId)) {
+                for (HabitEvent event : habit.getHabitEventTable()) {
+                    if (!event.isDeleted()) {
+                        try {
+                            Date eventDate = df.parse(event.getDate());
+                            if (eventDate.before(today) && eventDate.after(thirtyDaysAgo)) {
+                                completionRate[0]++;
+                                if (event.isCompleted()) {
+                                    completionRate[1]++;
+                                }
+                            }
+                        } catch (ParseException e) {
+                            System.err.println("Error!");
+                        }
+                    }
+                }
+                return completionRate;
+            }
+        }
+
+        return completionRate;
+    }
 
     /**
      * Forces a Firestore update for the active account

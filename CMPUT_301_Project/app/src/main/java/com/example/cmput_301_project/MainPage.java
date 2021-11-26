@@ -25,6 +25,8 @@ public class MainPage extends AppCompatActivity {
     private int progress = 0;
     // progressBar references progress bar object
     ProgressBar progressBar;
+    int progressMaxCounter = 0, progressCurrentCounter = 0;
+    int[] progressRate = new int[2];
 
     Account userAccount;
 
@@ -41,38 +43,32 @@ public class MainPage extends AppCompatActivity {
         userAccount = AccountData.create().getActiveUserAccount();
 
         // Percent completed habits per month graphic update
-//        for (Habit habit : userAccount.getHabitTable()) {
-//
-//        }
-        progress = 1;
+        for (Habit habit : userAccount.getHabitTable()) {
+            progressRate = userAccount.getHabitCompletionRateInLastThirtyDays(habit.getId());
+            progressCurrentCounter += progressRate[1];
+            progressMaxCounter += progressRate[0];
+            System.out.println(progressCurrentCounter);
+            System.out.println(progressMaxCounter);
+        }
+
+        progress = 100 * progressCurrentCounter / progressMaxCounter;
         updateProgress();
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent switchToTodayHabitsPage = new Intent(MainPage.this, TodayHabits.class);
-                progress = 0;
                 updateProgress();
                 startActivity(switchToTodayHabitsPage);
             }
         });
         progressBar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(progress <= 90) {
-                    progress += 10;
-                    updateProgress();
-                }
-            }
+            public void onClick(View view) { }
         });
 
         friendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // decrement progress by -10 iff
-                if(progress > 0){
-                    progress  -= 10;
-                    updateProgress();
-                }
                 // Switch to Friends Page
                 Intent switchToAddFriendsPage = new Intent(MainPage.this, MyFriends.class);
                 startActivity(switchToAddFriendsPage);
