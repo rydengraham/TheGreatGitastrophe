@@ -1,10 +1,12 @@
 package com.example.cmput_301_project;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -75,10 +77,11 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
      * Function for adding new habit when pressing ok on Dialog fragment
      * @param newHabit
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onOkPressed(Habit newHabit) {
-//        modelList.add(newHabit);
         userAccount.addHabit(newHabit);
+        userAccount.backfillHabitEvents();
         userAccount.updateFirestore();
         recycleAdapter.notifyDataSetChanged();
 

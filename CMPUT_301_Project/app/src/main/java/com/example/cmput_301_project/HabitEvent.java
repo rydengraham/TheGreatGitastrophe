@@ -17,6 +17,7 @@ public class HabitEvent implements Serializable {
     private TodayHabitViewHolder holder;
     private boolean isExpanded;
     private boolean completed;
+    private boolean isDeleted;
 
     public HabitEvent(String date, String title) {
         this.date = date;
@@ -37,6 +38,14 @@ public class HabitEvent implements Serializable {
 
     public HabitEvent() {
         /* required empty constructor */
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public boolean isCompleted() {

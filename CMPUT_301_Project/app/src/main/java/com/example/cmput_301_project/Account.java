@@ -4,6 +4,9 @@
 package com.example.cmput_301_project;
 
 import android.graphics.Bitmap;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -182,20 +185,66 @@ public class Account {
                 boolean createTodayEvent = true;
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
                     if (event.getDate().equals(today)) {
-                        if (event.isCompleted()) {
-                            completedHabits.add(new HabitEvent(event));
-                        } else {
-                            todoHabits.add(new HabitEvent(event));
+                        if (!event.isDeleted()) {
+                            if (event.isCompleted()) {
+                                completedHabits.add(new HabitEvent(event));
+                            } else {
+                                todoHabits.add(new HabitEvent(event));
+                            }
                         }
-                        createTodayEvent = false;
                         break;
                     }
                 }
-                if (createTodayEvent) {
-                    HabitEvent newEvent = new HabitEvent(today, currentHabit.getHabitName());
-                    currentHabit.addHabitEvent(newEvent);
-                    todoHabits.add(new HabitEvent(newEvent));
+            }
+        }
+        return;
+    }
+
+    /**
+     * Gets a list of habit events for a particular habit.
+     * @return
+     */
+    public void getHabitEventsForHabit(ArrayList<HabitEvent> eventList, String habitId) {
+        for (Habit currentHabit : this.habitTable) {
+            if (currentHabit.getId().equals(habitId)) {
+                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                    if (!event.isDeleted()) {
+                        eventList.add(event);
+                    }
                 }
+                break;
+            }
+        }
+        return;
+    }
+
+    /**
+     * Creates habit events for previous days the user missed.
+     * @return
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void backfillHabitEvents() {
+        Date today = Calendar.getInstance().getTime();
+        for (Habit currentHabit : this.habitTable) {
+            Calendar start = Calendar.getInstance();
+            start.setTime(currentHabit.getStartDate());
+
+            Calendar end = Calendar.getInstance();
+            end.setTime(today);
+            List<HabitEvent> eventList = currentHabit.getHabitEventTable();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+
+            while( !start.after(end)){
+                String targetDay = df.format(start.getTime());
+                int weekday = start.get(Calendar.DAY_OF_WEEK);
+                if (currentHabit.getIsOnDayOfWeek((weekday + 5) % 7)) {
+                    if (!eventList.stream().anyMatch(e -> e.getDate().equals(targetDay))) {
+                        HabitEvent newEvent = new HabitEvent(targetDay, currentHabit.getHabitName());
+                        currentHabit.addHabitEvent(newEvent);
+                    }
+                }
+
+                start.add(Calendar.DATE, 1);
             }
         }
         this.updateFirestore();
@@ -212,13 +261,32 @@ public class Account {
         for (Habit currentHabit : this.habitTable) {
             if (currentHabit.getHabitName().equals(habitName)) {
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getId() == id) {
+                    if (event.getId() == id && !event.isDeleted()) {
                         return event;
                     }
                 }
             }
         }
         return null;
+    }
+
+    /**
+     * Removes a habit event.
+     * @return
+     */
+    public void deleteHabitEvent(HabitEvent eventToDelete, String habitId) {
+        for (Habit currentHabit : this.habitTable) {
+            if (currentHabit.getId().equals(habitId)) {
+                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                    if (event.equals(eventToDelete)) {
+                        event.setDeleted(true);
+                        return;
+                    }
+                }
+                break;
+            }
+        }
+        return;
     }
 
     public Bitmap getPfp() {

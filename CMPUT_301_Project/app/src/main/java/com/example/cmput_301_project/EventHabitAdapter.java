@@ -1,7 +1,7 @@
 package com.example.cmput_301_project;
 
 import android.app.Activity;
-import android.media.metrics.Event;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,12 +12,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.ItemVH>{
@@ -101,6 +98,7 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
         LinearLayout expandableLayout;
         Button iconButton;
         Button locationButton;
+        Account userAccount;
 
         /**
          *
@@ -115,21 +113,24 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
             iconButton = itemView.findViewById(R.id.photoIconButton);
             locationButton = itemView.findViewById(R.id.editLocationButton);
             expandableLayout = itemView.findViewById(R.id.expandableHELayout);
+            userAccount = AccountData.create().getActiveUserAccount();
             // Give itemView a listener for expansion and deletion
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    HabitEvent habit = habitEventList.get(getAdapterPosition());
+                    HabitEvent currentEvent = habitEventList.get(getAdapterPosition());
                     if (isDelMode())
                     {
 
                         habitEventList.remove(habitEventList.get(getAdapterPosition()));
-                        //userAccount.deleteHabit(habit); #NEED TO IMPLEMENT THIS
-                        //userAccount.updateFirestore();
+                        Bundle extras = context.getIntent().getExtras();
+                        ArrayList<HabitEvent> events = new ArrayList<HabitEvent>();
+                        userAccount.deleteHabitEvent(currentEvent, extras.getString("habitId"));
+                        userAccount.updateFirestore();
                     }
                     else {
-                        habit.setExpanded(!habit.isExpanded());
-                        commentView.setText(habit.getComment());
+                        currentEvent.setExpanded(!currentEvent.isExpanded());
+                        commentView.setText(currentEvent.getComment());
                     }
                     notifyDataSetChanged();
 

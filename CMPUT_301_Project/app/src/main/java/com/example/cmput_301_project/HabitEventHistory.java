@@ -1,34 +1,34 @@
 package com.example.cmput_301_project;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class HabitEventHistory extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EventHabitAdapter eventHabitAdapter;
-    List<HabitEvent> test;
+    ArrayList<HabitEvent> test;
     private Button cancelButton;
     private Button delButton;
     private TextView delText;
+    Account userAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_event_history);
+        userAccount = AccountData.create().getActiveUserAccount();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         cancelButton = (Button) findViewById(R.id.cancelEventDeletion);
         delButton = (Button) findViewById(R.id.removeHabitEventButton);
         delText = findViewById(R.id.deleteHabitEventText);
-        mockData();
+        getHabitEvents();
         eventHabitAdapter = new EventHabitAdapter(test,this, false);
         recyclerView.setAdapter(eventHabitAdapter);
 
@@ -39,7 +39,6 @@ public class HabitEventHistory extends AppCompatActivity {
                 cancelButton.setVisibility(View.VISIBLE);
                 delButton.setVisibility(View.GONE);
                 delText.setVisibility(View.VISIBLE);
-
             }
         });
 
@@ -56,12 +55,10 @@ public class HabitEventHistory extends AppCompatActivity {
     }
 
 
-    public void mockData(){
+    public void getHabitEvents(){
         test = new ArrayList<>();
-        test.add(new HabitEvent("2000/11/15", "Test"));
-        test.add(new HabitEvent("2000/11/15", "Test2"));
-        test.add(new HabitEvent("2000/11/15", "Test3"));
-
+        Bundle extras = getIntent().getExtras();
+        userAccount.getHabitEventsForHabit(test, extras.getString("habitId"));
 
     }
 
