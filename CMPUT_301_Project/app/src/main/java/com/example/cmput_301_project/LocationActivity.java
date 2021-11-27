@@ -11,6 +11,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -28,11 +30,13 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class LocationActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -43,10 +47,13 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
 
 
     HabitLocation locationDetail;
+    String coordinates [];
     String mLongitude;
     String mAddress;
     String mLatitude;
     LatLng latLng;
+    FloatingActionButton addLocation;
+    boolean updatingLocation;
 
     // Location classes
     private FusedLocationProviderClient mFusedLocationClient;
@@ -57,7 +64,8 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        initializeHabitLocation();
+        updatingLocation=false;
+        addLocation = findViewById(R.id.floating_btn);
 
         String apiKey = getString(R.string.api_key);
 
@@ -65,9 +73,17 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             Places.initialize(getApplicationContext(), apiKey);
 
         }
+
         PlacesClient placesClient = Places.createClient(this);
 
+        getLocation();
+        updatingLocation= true;
+        initAutocompleteUI();
+        getLocation();
 
+
+    }
+    public void initAutocompleteUI(){
         // Initialize the AutocompleteSupportFragment.
 
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
@@ -80,9 +96,26 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+
+                parseLatLng(Objects.requireNonNull(place.getLatLng()));
+                addLocation.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        if(mAddress != place.getAddress()) {
+                            locationDetail.setLocationName(place.getName());
+                            locationDetail.setAddress(place.getAddress());
+                            locationDetail.setLatitude(coordinates[0]);
+                            locationDetail.setLongitude(coordinates[1]);
+                        }
+                        //setHabitLocation(place.getName(), place.getAddress(),coordinates[0],coordinates[1]);
+                        Log.i(TAG, "Place: " + place.getName() + ", " + locationDetail.getLatitude());
+
+                    }
+                });
+
+
+
                 setUpMap(place.getLatLng());
+
             }
 
 
@@ -94,6 +127,8 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         });
 
     }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -112,10 +147,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    private void initializeHabitLocation() {
-        getLocation();
-        HabitLocation locationDetail= new HabitLocation(mAddress,mLongitude,mLatitude);
-
+    private void parseLatLng( LatLng latLng){
+        coordinates = latLng.toString().split(",");
+        coordinates[0] = coordinates[0].replace("lat/lng: (", "");
+        coordinates[1] = coordinates[1].replace(")", "");
     }
 
 
@@ -203,6 +238,9 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             resultMessage = out.toString();
         }
         mAddress = resultMessage;
+        locationDetail= new HabitLocation("Home", mAddress,mLatitude,mLongitude);
+        //setHabitLocation("Home", resultMessage,mLatitude,mLongitude);
+
     }
 
 
@@ -214,4 +252,5 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         googleMap.addMarker(markerOptions);
 
     }
+
 }

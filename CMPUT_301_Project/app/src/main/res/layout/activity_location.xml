@@ -8,6 +8,19 @@
     tools:context=".LocationActivity">
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_btn"
+        android:layout_width="78dp"
+        android:layout_height="67dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:layout_marginTop="555dp"
+        android:src="@drawable/ic_baseline_add_location_24"
+        android:visibility="visible"
+        app:backgroundTint="@color/purple_500"
+        app:elevation="10dp" />
+
     <fragment
         android:id="@+id/map"
         class="com.google.android.gms.maps.SupportMapFragment"
@@ -15,8 +28,10 @@
         android:layout_height="672dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
         android:layout_marginTop="57dp"
+        android:layout_marginBottom="2dp"
         app:mapId="@string/map_id" />
 
     <fragment
@@ -26,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp" />
 
 
 </RelativeLayout>

@@ -8,19 +8,20 @@ public class HabitLocation {
 
 
     public HabitLocation(String address, String longitude, String latitude){
-        locationName = "Home";
+        this.locationName = locationName;
         this.address = address;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public HabitLocation(String locationName,String address, String longitude, String latitude){
+    public HabitLocation(String locationName,String address, String latitude,String longitude){
         this.locationName = locationName;
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
 
     }
+
 
 
     public String getAddress() {
