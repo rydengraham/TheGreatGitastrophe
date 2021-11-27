@@ -3,31 +3,18 @@
  */
 package com.example.cmput_301_project;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
-import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -66,6 +53,7 @@ public class LoginScreenPage extends AppCompatActivity {
         transaction.commit();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onSignInClick(View view) throws NoSuchAlgorithmException {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
@@ -76,6 +64,7 @@ public class LoginScreenPage extends AppCompatActivity {
                 // TODO: Set this account to be the active user
                 AccountData accountData = AccountData.create();
                 accountData.setActiveUserId(existingAccount.getId());
+                accountData.getActiveUserAccount().backfillHabitEvents();
                 validated = true;
                 break;
             }

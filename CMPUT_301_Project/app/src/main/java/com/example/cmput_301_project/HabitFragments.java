@@ -59,7 +59,7 @@ public class HabitFragments extends DialogFragment {
     public interface OnFragmentInteractionListener{
         void onOkPressed(Habit newHabit);
 
-        void onOkPressed(Habit retrivedHabit, String name, String reason, Date date , int weekdays, boolean publicHabit);
+        void onOkPressed(Habit retrievedHabit, String name, String reason, Date date , int weekdays, boolean publicHabit);
     }
 
 
@@ -133,7 +133,7 @@ public class HabitFragments extends DialogFragment {
         monday = view.findViewById(R.id.mondayBox);
         tuesday = view.findViewById(R.id.tuesdayBox);
         wednesday = view.findViewById(R.id.wednesdayBox);
-        thursday = view.findViewById(R.id.wednesdayBox);
+        thursday = view.findViewById(R.id.thursdayBox);
         friday = view.findViewById(R.id.fridayBox);
         saturday = view.findViewById(R.id.saturdayBox);
         sunday = view.findViewById(R.id.sundayBox);
@@ -173,34 +173,34 @@ public class HabitFragments extends DialogFragment {
 
         // Handles an edit, that is if we get a habit to edit via bundle
         if (args != null) {
-            Habit retrivedHabit = (Habit) args.getSerializable("habit");
-            // Setting text and calendar according to retrivedHabit
-            habitTitle.setText(retrivedHabit.getHabitName());
-            startDate.setText(retrivedHabit.getReason());
-            long toConvert = retrivedHabit.getStartDate().getTime();
+            Habit retrievedHabit = (Habit) args.getSerializable("habit");
+            // Setting text and calendar according to retrievedHabit
+            habitTitle.setText(retrievedHabit.getHabitName());
+            startDate.setText(retrievedHabit.getReason());
+            long toConvert = retrievedHabit.getStartDate().getTime();
             calendarView.setDate(toConvert);
 
             // We check which check boxes need to be checked off.
             CheckBox checkBox = view.findViewById(R.id.mondayBox);
-            if (retrivedHabit.getIsOnDayOfWeek(0))
+            if (retrievedHabit.getIsOnDayOfWeek(0))
                 checkBox.setChecked(true);
             checkBox = view.findViewById(R.id.tuesdayBox);
-            if (retrivedHabit.getIsOnDayOfWeek(1))
+            if (retrievedHabit.getIsOnDayOfWeek(1))
                 checkBox.setChecked(true);
             checkBox = view.findViewById(R.id.wednesdayBox);
-            if (retrivedHabit.getIsOnDayOfWeek(2))
+            if (retrievedHabit.getIsOnDayOfWeek(2))
                 checkBox.setChecked(true);
             checkBox = view.findViewById(R.id.thursdayBox);
-            if (retrivedHabit.getIsOnDayOfWeek(3))
+            if (retrievedHabit.getIsOnDayOfWeek(3))
                 checkBox.setChecked(true);
             checkBox = view.findViewById(R.id.fridayBox);
-            if (retrivedHabit.getIsOnDayOfWeek(4))
+            if (retrievedHabit.getIsOnDayOfWeek(4))
                 checkBox.setChecked(true);
             checkBox = view.findViewById(R.id.saturdayBox);
-            if (retrivedHabit.getIsOnDayOfWeek(5))
+            if (retrievedHabit.getIsOnDayOfWeek(5))
                 checkBox.setChecked(true);
             checkBox = view.findViewById(R.id.sundayBox);
-            if (retrivedHabit.getIsOnDayOfWeek(6))
+            if (retrievedHabit.getIsOnDayOfWeek(6))
                 checkBox.setChecked(true);
 
             // Build Dialog
@@ -215,7 +215,7 @@ public class HabitFragments extends DialogFragment {
 
                             String name = habitTitle.getText().toString();
                             String reason = startDate.getText().toString();
-                            retrivedHabit.setHabitName(habitTitle.getText().toString());
+                            retrievedHabit.setHabitName(habitTitle.getText().toString());
                             Date date = dateToSend;
                             int weekdays = 0;
                             boolean publicHabit = false;
@@ -248,12 +248,11 @@ public class HabitFragments extends DialogFragment {
                             else
                                 publicHabit = false;
                             // Check if fields are empty
-                            listener.onOkPressed(retrivedHabit, name, reason, date, weekdays, publicHabit);
+                            listener.onOkPressed(retrievedHabit, name, reason, date, weekdays, publicHabit);
                         }
                     }).create();
             test.show();
             ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-
         }
             else{
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -304,9 +303,7 @@ public class HabitFragments extends DialogFragment {
                     }).create();
             test.show();
             ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-
         }
-
             startDate.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -419,15 +416,8 @@ public class HabitFragments extends DialogFragment {
                 }
             });
 
-
-
             return test;
         }
-        // Alternative scenario where we are adding in a new habit to list
-
-
-
-
     }
 
 

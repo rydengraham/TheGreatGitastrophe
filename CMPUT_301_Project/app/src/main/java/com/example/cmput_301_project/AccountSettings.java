@@ -12,8 +12,14 @@ import android.widget.Button;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class AccountSettings extends AppCompatActivity {
+
+    FragmentTransaction transaction;
+    FragmentManager manager = getSupportFragmentManager();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,16 +63,13 @@ public class AccountSettings extends AppCompatActivity {
         final Button changePassButton = findViewById(R.id.changePassword);
         changePassButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-                // Standard TBD Alert Dialogue
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setCancelable(true);
-                builder.setTitle("Page Does Not Exist");
-                builder.setMessage("This will be added in project part 4.");
-                builder.setNegativeButton("OK", null);
-                // create the alert dialog and display it over the fragment
-                AlertDialog alertBox = builder.create();
-                alertBox.show();
+                // create a new change password fragment and display it on the appropriate frame
+                Fragment changePassword = new ChangePasswordFragment();
+                // begin fragment transaction and add current activity to backstack
+                transaction = manager.beginTransaction();
+                transaction.add(R.id.changePasswordFrame, changePassword);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
