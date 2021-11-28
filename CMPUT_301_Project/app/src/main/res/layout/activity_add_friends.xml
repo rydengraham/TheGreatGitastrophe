@@ -48,10 +48,11 @@
             android:layout_margin="6dp"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="Id to Add"
+            android:text="User to Add"
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/friendNameField"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">

@@ -31,6 +31,9 @@ public class Account {
     private Bitmap pfp;
 
     private List<Habit> habitTable;
+    // friend account ids
+    private List<String> friendList;
+    private List<String> friendPendingList;
 
     // Account Information
     public Account(String username, String email, String password) {
@@ -38,6 +41,8 @@ public class Account {
         this.email = email;
         this.id = UUID.randomUUID().toString();
         this.habitTable = new ArrayList<>();
+        this.friendPendingList = new ArrayList<String>();
+        this.friendList = new ArrayList<String>();
 
         try {
             updatePassword(password);
@@ -128,6 +133,67 @@ public class Account {
     public void setPassword(String password) {
         // Setter required only for firestore
         this.password = password;
+    }
+
+    public List<String> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(List<String> friendList) {
+        this.friendList = friendList;
+    }
+
+    /**
+     * adds a friend to the friend list
+     * @param id
+     */
+    public void addFriend(String id) {
+        if (!friendList.contains(id)) {
+            this.friendList.add(id);
+        }
+    }
+
+    /**
+     * removes a friend from the friend list
+     * @param id
+     */
+    public void removeFriend(String id) {
+        if (friendList.contains(id)) {
+            this.friendList.remove(id);
+        }
+    }
+
+    public List<String> getFriendPendingList() {
+        return friendPendingList;
+    }
+
+    public void setFriendPendingList(List<String> friendPendingList) {
+        this.friendPendingList = friendPendingList;
+    }
+
+    /**
+     * adds a friend to the pending friend list
+     * @param id
+     */
+    public int addPendingFriend(String id) {
+        if (friendList.contains(id)) {
+            return 1;
+        }
+        if (friendPendingList.contains(id)) {
+            return 2;
+        }
+        this.friendPendingList.add(id);
+        return 0;
+    }
+
+    /**
+     * removes a friend from the pending friend list
+     * @param id
+     */
+    public void removePendingFriend(String id) {
+        if (friendPendingList.contains(id)) {
+            this.friendPendingList.remove(id);
+        }
     }
 
     public String getUserName() {
