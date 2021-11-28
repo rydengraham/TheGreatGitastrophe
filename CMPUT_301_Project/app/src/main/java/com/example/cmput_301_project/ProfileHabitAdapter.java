@@ -50,7 +50,7 @@ public class ProfileHabitAdapter extends RecyclerView.Adapter<ProfileHabitAdapte
         holder.habitNameView.setText(habitEvent.getTitle());
         holder.commentView.setText(habitEvent.getComment());
         holder.DateView.setText(habitEvent.getDate());
-        boolean isExpanded=habitEventList.get(position).isExpanded();
+        boolean isExpanded = habitEventList.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE:View.GONE);
     }
 
