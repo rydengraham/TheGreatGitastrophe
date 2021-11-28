@@ -19,6 +19,7 @@ public class MyFriends extends AppCompatActivity {
     private Button removeButton;
     private Button cancelButton;
     private Button addHabitButton;
+    private Button viewAllHabitsButton;
     private TextView deleteText;
     private ListView friendsListView;
     private static ArrayList<String> friendsList;
@@ -32,6 +33,7 @@ public class MyFriends extends AppCompatActivity {
         // Find our components here
         removeButton = (Button) findViewById(R.id.removeFriendButton);
         cancelButton = (Button) findViewById(R.id.cancelDeleteButton);
+        viewAllHabitsButton = findViewById(R.id.dailyFriendsHabitsButton);
         deleteText = (TextView) findViewById(R.id.deleteFriendText);
         addHabitButton = findViewById(R.id.addApproveButton);
         friendsListView = (ListView) findViewById(R.id.friendList);
@@ -81,6 +83,15 @@ public class MyFriends extends AppCompatActivity {
             public void onClick(View view) {
                 Intent switchToAddFriendsPage = new Intent(MyFriends.this, AddFriends.class);
                 startActivity(switchToAddFriendsPage);
+            }
+        });
+
+        // If viewAllHabits button is pressed, navigate to FriendsHabitEventsPage
+        viewAllHabitsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchToFriendsHabitEventsPage = new Intent(MyFriends.this, FriendsHabitEventsPage.class);
+                startActivity(switchToFriendsHabitEventsPage);
             }
         });
 
