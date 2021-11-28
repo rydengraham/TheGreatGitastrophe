@@ -4,6 +4,8 @@
 package com.example.cmput_301_project;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -195,6 +197,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
                         Account userAccount = AccountData.create().getActiveUserAccount();
                         userAccount.getHabitEvent(selectedHabit.getId(), selectedHabit.getTitle()).setCompleted(false);
                         userAccount.updateFirestore();
+
                     }
                 });
             }
@@ -207,9 +210,17 @@ public class TodayHabitsAdapter extends BaseAdapter {
                         // Standard TBD Alert Dialogue
                         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                         builder.setCancelable(true);
-                        builder.setTitle("Page Does Not Exist");
-                        builder.setMessage("This will be added in project part 4.");
-                        builder.setNegativeButton("OK", null);
+                        builder.setTitle("Use Location Services?");
+                        builder.setMessage("Add location to habit event to commemorate the achievement with yourself and friends.");
+                        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                context.startActivity(new Intent(context.getApplicationContext(), LocationActivity.class));
+
+
+                            }
+                        });
+                        builder.setNegativeButton("DIMISS", null);
                         // create the alert dialog and display it over the fragment
                         AlertDialog alertBox = builder.create();
                         alertBox.show();
