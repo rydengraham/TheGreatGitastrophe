@@ -1,13 +1,18 @@
 package com.example.cmput_301_project;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +24,7 @@ public class FriendDetailedHabitsAdapter extends RecyclerView.Adapter<FriendDeta
     private Context context;
 
     public FriendDetailedHabitsAdapter(Context context, ArrayList<HabitEvent> habits) {
+        this.context = context;
         this.habits = habits;
     }
 
@@ -35,6 +41,7 @@ public class FriendDetailedHabitsAdapter extends RecyclerView.Adapter<FriendDeta
 
         HabitEvent habit = habits.get(i);
         viewHolder.friendHabitTitle.setText(habit.getTitle());
+        viewHolder.habitImage.setImageBitmap(habit.getImage());
         viewHolder.expandedTV.setText(habit.getComment());
 
         boolean isExpanded = habit.isExpanded();
@@ -51,6 +58,7 @@ public class FriendDetailedHabitsAdapter extends RecyclerView.Adapter<FriendDeta
         TextView friendHabitTitle;
         RelativeLayout habitLayout;
         TextView expandedTV;
+        ImageView habitImage;
 
         ConstraintLayout expandedLayout;
 
@@ -59,6 +67,7 @@ public class FriendDetailedHabitsAdapter extends RecyclerView.Adapter<FriendDeta
 
             friendHabitTitle = itemView.findViewById(R.id.friendDetailedHabitTitle);
             habitLayout = itemView.findViewById(R.id.friendsHabitLayout);
+            habitImage = itemView.findViewById(R.id.habitImage);
             expandedTV = itemView.findViewById(R.id.expandedTV);
 
             expandedLayout = itemView.findViewById(R.id.expandedLayout);
