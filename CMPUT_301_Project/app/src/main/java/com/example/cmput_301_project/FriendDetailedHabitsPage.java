@@ -55,7 +55,7 @@ public class FriendDetailedHabitsPage extends AppCompatActivity {
     public ArrayList<HabitEvent> generateHabits(int i) {
         ArrayList<HabitEvent> habits = new ArrayList<>();
         // create some random habit events
-        String expandedText = "Generic expanded text";
+        String expandedText = "12345678901234567890";
         for(int j = 1; j < i; j++) {
             String habitName = "Habit" + String.valueOf(j);
             HabitEvent habit = new HabitEvent("02/02/2021", habitName);
