@@ -46,30 +46,73 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friendInfoHLL">
 
-        <TextView
-            android:id="@+id/friendCompletionPercTV"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/circular_textview"
-            android:gravity="center"
-            android:text="X% of Habits Completed this Month"
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/completedHabitsVLL"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameText" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/btName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Habit completion rate this month"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:indeterminateOnly="false"
+                    android:progressDrawable="@drawable/circle_progress"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.511"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.25"
+                    tools:progress="60" />
+
+                <TextView
+                    android:id="@+id/prg_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+                    app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+                    app:layout_constraintHorizontal_bias="0.503"
+                    app:layout_constraintStart_toStartOf="@+id/progress_bar"
+                    app:layout_constraintTop_toTopOf="@+id/progress_bar"
+                    app:layout_constraintVertical_bias="0.511"
+                    tools:text="60%" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/habitListButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
+            android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:onClick="onDetailedHabitsClick"
             android:text="Detailed\nHabit List" />
@@ -83,7 +126,7 @@
         android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:onClick="onFollowHabitClick"
-        android:text="Follow Habits"
+        android:text="Follow Daily Habits"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/habitInfoHLL" />
 

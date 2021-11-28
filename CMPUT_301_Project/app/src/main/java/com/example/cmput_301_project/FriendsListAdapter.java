@@ -109,6 +109,7 @@ public class FriendsListAdapter extends BaseAdapter {
         textHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AccountData accountData = AccountData.create();
                 if (delMode){
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setCancelable(true);
@@ -117,7 +118,6 @@ public class FriendsListAdapter extends BaseAdapter {
                     builder.setPositiveButton("Remove", ((dialog, which) -> {
                         // change status of follow button to prompt user to follow
                         MyFriends.getFriendsList().remove(friendName);
-                        AccountData accountData = AccountData.create();
                         for (Account friendAccount : accountData.getAccountData().values()) {
                             if (friendAccount.getUserName().equals(friendName)) {
                                 accountData.getActiveUserAccount().removeFriend(friendAccount.getId());
@@ -133,10 +133,9 @@ public class FriendsListAdapter extends BaseAdapter {
                     // create the alert dialog and display it over the fragment
                     AlertDialog alertBox = builder.create();
                     alertBox.show();
-                }
-                else{
+                } else{
                     Intent switchToFriendProfile = new Intent(context, FriendProfilePage.class);
-                    for (Account friendAccount : AccountData.create().getAccountData().values()) {
+                    for (Account friendAccount : accountData.getAccountData().values()) {
                         if (friendAccount.getUserName().equals(friendName)) {
                             switchToFriendProfile.putExtra("friendId", friendAccount.getId());
                             break;
