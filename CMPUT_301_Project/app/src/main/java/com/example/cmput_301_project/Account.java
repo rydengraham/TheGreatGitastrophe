@@ -31,6 +31,9 @@ public class Account {
     private Bitmap pfp;
 
     private List<Habit> habitTable;
+    // friend account ids
+    private List<String> friendList;
+    private List<String> friendPendingList;
 
     // Account Information
     public Account(String username, String email, String password) {
@@ -38,6 +41,8 @@ public class Account {
         this.email = email;
         this.id = UUID.randomUUID().toString();
         this.habitTable = new ArrayList<>();
+        this.friendPendingList = new ArrayList<String>();
+        this.friendList = new ArrayList<String>();
 
         try {
             updatePassword(password);
@@ -130,6 +135,67 @@ public class Account {
         this.password = password;
     }
 
+    public List<String> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(List<String> friendList) {
+        this.friendList = friendList;
+    }
+
+    /**
+     * adds a friend to the friend list
+     * @param id
+     */
+    public void addFriend(String id) {
+        if (!friendList.contains(id)) {
+            this.friendList.add(id);
+        }
+    }
+
+    /**
+     * removes a friend from the friend list
+     * @param id
+     */
+    public void removeFriend(String id) {
+        if (friendList.contains(id)) {
+            this.friendList.remove(id);
+        }
+    }
+
+    public List<String> getFriendPendingList() {
+        return friendPendingList;
+    }
+
+    public void setFriendPendingList(List<String> friendPendingList) {
+        this.friendPendingList = friendPendingList;
+    }
+
+    /**
+     * adds a friend to the pending friend list
+     * @param id
+     */
+    public int addPendingFriend(String id) {
+        if (friendList.contains(id)) {
+            return 1;
+        }
+        if (friendPendingList.contains(id)) {
+            return 2;
+        }
+        this.friendPendingList.add(id);
+        return 0;
+    }
+
+    /**
+     * removes a friend from the pending friend list
+     * @param id
+     */
+    public void removePendingFriend(String id) {
+        if (friendPendingList.contains(id)) {
+            this.friendPendingList.remove(id);
+        }
+    }
+
     public String getUserName() {
         return username;
     }
@@ -213,22 +279,28 @@ public class Account {
      * Gets a list of habit events for today, both completed and todo.
      * @return
      */
-    public void getTodayHabitEvents(ArrayList<HabitEvent> todoHabits, ArrayList<HabitEvent> completedHabits) {
+    public void getTodayHabitEvents(ArrayList<HabitEvent> todoHabits, ArrayList<HabitEvent> completedHabits, boolean includePrivate, boolean showUserNames) {
         int weekday = getWeekday();
         String today = getToday();
 
         for (Habit currentHabit : this.habitTable) {
-            if (currentHabit.getIsOnDayOfWeek(weekday)) {
-                for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getDate().equals(today)) {
-                        if (!event.isDeleted()) {
-                            if (event.isCompleted()) {
-                                completedHabits.add(new HabitEvent(event));
-                            } else {
-                                todoHabits.add(new HabitEvent(event));
+            if (currentHabit.getPublic() || includePrivate) {
+                if (currentHabit.getIsOnDayOfWeek(weekday)) {
+                    for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                        if (event.getDate().equals(today)) {
+                            if (!event.isDeleted()) {
+                                HabitEvent newEvent = new HabitEvent(event);
+                                if (showUserNames) {
+                                    newEvent.setDate(this.getUserName());
+                                }
+                                if (event.isCompleted()) {
+                                    completedHabits.add(newEvent);
+                                } else {
+                                    todoHabits.add(newEvent);
+                                }
                             }
+                            break;
                         }
-                        break;
                     }
                 }
             }
@@ -240,7 +312,7 @@ public class Account {
      * Gets a list of habit events completed in the past week
      * @return
      */
-    public void getRecentHabitEvents(ArrayList<HabitEvent> recentHabits) {
+    public void getRecentHabitEvents(ArrayList<HabitEvent> recentHabits, boolean includePrivate) {
         Calendar oldestDay = Calendar.getInstance();
         oldestDay.add(Calendar.DATE, -7);
         Date sevenDaysAgo = oldestDay.getTime();
@@ -248,15 +320,17 @@ public class Account {
 
         for (Habit currentHabit : this.habitTable) {
             boolean createTodayEvent = true;
-            for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                if (!event.isDeleted() && event.isCompleted()) {
-                    try {
-                        Date eventDate = df.parse(event.getDate());
-                        if (eventDate.after(sevenDaysAgo)) {
-                            recentHabits.add(new HabitEvent(event));
+            if (currentHabit.getPublic() || includePrivate) {
+                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                    if (!event.isDeleted() && event.isCompleted()) {
+                        try {
+                            Date eventDate = df.parse(event.getDate());
+                            if (eventDate.after(sevenDaysAgo)) {
+                                recentHabits.add(new HabitEvent(event));
+                            }
+                        } catch (ParseException e) {
+                            System.err.println("Error!");
                         }
-                    } catch (ParseException e) {
-                        System.err.println("Error!");
                     }
                 }
             }

@@ -62,7 +62,7 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
         updateProgress(progress);
         
         ArrayList<HabitEvent> eventList = new ArrayList<HabitEvent>();
-        userAccount.getRecentHabitEvents(eventList);
+        userAccount.getRecentHabitEvents(eventList, true);
         profileHabitAdapter = new ProfileHabitAdapter(eventList,this);
         recyclerView.setAdapter(profileHabitAdapter);
 
