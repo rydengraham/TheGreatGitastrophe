@@ -7,17 +7,16 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="375dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="128dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="75dp"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/headerLayout"
-        android:fillViewport="true">
+        app:layout_constraintTop_toTopOf="@id/headerLayout">
 
         <ListView
             android:id="@+id/friendList"
@@ -25,8 +24,7 @@
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-        </ListView>
+            app:layout_constraintStart_toStartOf="parent"></ListView>
 
     </androidx.core.widget.NestedScrollView>
 
@@ -102,5 +100,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/dailyFriendsHabitsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:text="View Friend's Habit for Today"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
