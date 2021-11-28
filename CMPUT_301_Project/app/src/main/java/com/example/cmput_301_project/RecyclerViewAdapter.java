@@ -5,37 +5,57 @@ package com.example.cmput_301_project;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * RecyclerViewAdpater helps create the custom list, also handles edits and deletions
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ItemVH> {
     private static final String TAG="Adapter";
-    Account userAccount = AccountData.create().getActiveUserAccount();
+    Account userAccount;
     List<Habit> habitList;
     Activity context;
     boolean delMode;
+    String userId;
 
     /**
      * Constructor, Activity and delMode are essential for handling edits and deletions
      * @param fm
      * @param delMode
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public RecyclerViewAdapter(Activity fm, boolean delMode) {
-        this.habitList = userAccount.getHabitTable();
+        Bundle extras = fm.getIntent().getExtras();
+        AccountData accountData = AccountData.create();
+        userId = extras.getString("userId");
+        for (Account ua: accountData.getAccountData().values()) {
+            if (ua.getId().equals(userId)) {
+                userAccount = ua;
+            }
+        }
+        if (!userAccount.getId().equals(AccountData.create().getActiveUserId())) {
+            this.habitList = userAccount.getHabitTable().stream().filter(h -> h.getPublic()).collect(Collectors.toList());
+        } else {
+            this.habitList = userAccount.getHabitTable();
+        }
         this.context = fm;
         this.delMode = delMode;
     }
@@ -83,7 +103,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.reasonView.setText(habit.getReason());
         boolean isExpanded=habitList.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE:View.GONE);
-
+        if (!userId.equals(AccountData.create().getActiveUserId())) {
+            holder.editButton.setVisibility(View.GONE);
+            holder.historyButton.setVisibility(View.GONE);
+        }
 
     }
 
@@ -99,10 +122,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     class ItemVH extends RecyclerView.ViewHolder {
         private static final String TAG = "Item";
-        TextView habitTitleView, reasonView, startDateView, frequencyView;
+        TextView habitTitleView, reasonView, startDateView, frequencyView, progressView;
         LinearLayout expandableLayout;
         Button editButton;
         Button historyButton;
+        ProgressBar progressPercentage;
+
 
         /**
          *
@@ -118,6 +143,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             editButton = itemView.findViewById(R.id.editButton);
             historyButton = itemView.findViewById(R.id.historyButton);
+            progressView = itemView.findViewById(R.id.prg_value6);
+            progressPercentage =  itemView.findViewById(R.id.progress_bar5);
+            updateProgress();
             // Give itemView a listener for expansion and deletion
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,7 +176,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
-            // TODO: Connect this to the habit event list (does not exist for part 3)
             // Give historyButton a placeholder interaction
             historyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -161,6 +188,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
             
+        }
+
+        public void updateProgress()
+        {
+            progressPercentage.setProgress(68);
+            progressView.setText("68%");
         }
     }
 

@@ -5,15 +5,10 @@ package com.example.cmput_301_project;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -114,6 +109,7 @@ public class FriendsListAdapter extends BaseAdapter {
         textHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AccountData accountData = AccountData.create();
                 if (delMode){
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setCancelable(true);
@@ -122,15 +118,29 @@ public class FriendsListAdapter extends BaseAdapter {
                     builder.setPositiveButton("Remove", ((dialog, which) -> {
                         // change status of follow button to prompt user to follow
                         MyFriends.getFriendsList().remove(friendName);
+                        for (Account friendAccount : accountData.getAccountData().values()) {
+                            if (friendAccount.getUserName().equals(friendName)) {
+                                accountData.getActiveUserAccount().removeFriend(friendAccount.getId());
+                                friendAccount.removeFriend(accountData.getActiveUserId());
+                                accountData.getActiveUserAccount().updateFirestore();
+                                friendAccount.updateFirestore();
+                                break;
+                            }
+                        }
                         MyFriends.getFriendsListAdapter().notifyDataSetChanged();
                     }));
                     builder.setNegativeButton("Cancel", null);
                     // create the alert dialog and display it over the fragment
                     AlertDialog alertBox = builder.create();
                     alertBox.show();
-                }
-                else{
+                } else{
                     Intent switchToFriendProfile = new Intent(context, FriendProfilePage.class);
+                    for (Account friendAccount : accountData.getAccountData().values()) {
+                        if (friendAccount.getUserName().equals(friendName)) {
+                            switchToFriendProfile.putExtra("friendId", friendAccount.getId());
+                            break;
+                        }
+                    }
                     context.startActivity(switchToFriendProfile);
                 }
             }
