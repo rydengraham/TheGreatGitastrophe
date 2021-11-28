@@ -16,6 +16,10 @@
             android:name=".LocationActivity"
             android:exported="true" />
         <activity
+            android:name=".FriendsHabitEventsPage"
+            android:exported="true" />
+        <activity android:name=".FriendHabits" />
+        <activity
             android:name=".HabitEventHistory"
             android:exported="true" />
         <activity
@@ -27,9 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginTestPage"
-            android:exported="true" />
         <activity android:name=".TodayHabits" />
         <activity
             android:name=".FriendProfilePage"
