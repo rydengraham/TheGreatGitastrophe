@@ -53,6 +53,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     String mLatitude;
     LatLng latLng;
     FloatingActionButton addLocation;
+    boolean userLocationAvailable = false;
     boolean updatingLocation;
 
     // Location classes
@@ -77,9 +78,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         PlacesClient placesClient = Places.createClient(this);
 
         getLocation();
-        updatingLocation= true;
         initAutocompleteUI();
-        getLocation();
 
 
     }
@@ -100,14 +99,14 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                 parseLatLng(Objects.requireNonNull(place.getLatLng()));
                 addLocation.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        if(mAddress != place.getAddress()) {
+                        //UPDATES USER LOCATION WITH EVERY CLICK
+                        //TODO: ONLY UPDATE WHEN GIVEN DIFFERENT INPUT
+                        if(userLocationAvailable) {
                             locationDetail.setLocationName(place.getName());
                             locationDetail.setAddress(place.getAddress());
                             locationDetail.setLatitude(coordinates[0]);
                             locationDetail.setLongitude(coordinates[1]);
                         }
-                        //setHabitLocation(place.getName(), place.getAddress(),coordinates[0],coordinates[1]);
-                        Log.i(TAG, "Place: " + place.getName() + ", " + locationDetail.getLatitude());
 
                     }
                 });
@@ -143,6 +142,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                             R.string.location_permission_denied,
                             Toast.LENGTH_SHORT).show();
                 }
+
                 break;
         }
     }
@@ -163,6 +163,8 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                     REQUEST_LOCATION_PERMISSION);
         } else {
             Log.d(TAG, "getLocation: permissions granted");
+
+            userLocationAvailable = true;
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);

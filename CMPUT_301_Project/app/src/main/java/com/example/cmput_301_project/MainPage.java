@@ -25,7 +25,8 @@ public class MainPage extends AppCompatActivity {
     private int progress = 0;
     // progressBar references progress bar object
     ProgressBar progressBar;
-    int progressMaxCounter = 0, progressCurrentCounter = 0;
+    //used to be zero set it to ONE
+    int progressMaxCounter = 1, progressCurrentCounter = 0;
     int[] progressRate = new int[2];
 
     Account userAccount;
