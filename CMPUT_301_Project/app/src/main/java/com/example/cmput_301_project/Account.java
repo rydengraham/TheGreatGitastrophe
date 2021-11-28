@@ -306,7 +306,7 @@ public class Account {
      * Gets a list of habit events completed in the past week
      * @return
      */
-    public void getRecentHabitEvents(ArrayList<HabitEvent> recentHabits) {
+    public void getRecentHabitEvents(ArrayList<HabitEvent> recentHabits, boolean includePrivate) {
         Calendar oldestDay = Calendar.getInstance();
         oldestDay.add(Calendar.DATE, -7);
         Date sevenDaysAgo = oldestDay.getTime();
@@ -314,15 +314,17 @@ public class Account {
 
         for (Habit currentHabit : this.habitTable) {
             boolean createTodayEvent = true;
-            for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                if (!event.isDeleted() && event.isCompleted()) {
-                    try {
-                        Date eventDate = df.parse(event.getDate());
-                        if (eventDate.after(sevenDaysAgo)) {
-                            recentHabits.add(new HabitEvent(event));
+            if (currentHabit.getPublic() || includePrivate) {
+                for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                    if (!event.isDeleted() && event.isCompleted()) {
+                        try {
+                            Date eventDate = df.parse(event.getDate());
+                            if (eventDate.after(sevenDaysAgo)) {
+                                recentHabits.add(new HabitEvent(event));
+                            }
+                        } catch (ParseException e) {
+                            System.err.println("Error!");
                         }
-                    } catch (ParseException e) {
-                        System.err.println("Error!");
                     }
                 }
             }

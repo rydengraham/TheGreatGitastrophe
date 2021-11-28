@@ -1,13 +1,10 @@
 package com.example.cmput_301_project;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,7 +37,7 @@ public class FriendProfilePage extends AppCompatActivity {
         setContentView(R.layout.activity_friend_profile_page);
 
         // TODO: add code to change friend profile photo here
-        
+
         TextView friendNameView = (TextView) findViewById(R.id.friendUsernameTV);
 
 
@@ -68,23 +65,9 @@ public class FriendProfilePage extends AppCompatActivity {
         updateProgress(progress);
 
         ArrayList<HabitEvent> eventList = new ArrayList<HabitEvent>();
-        friendAccount.getRecentHabitEvents(eventList);
+        friendAccount.getRecentHabitEvents(eventList, false);
         profileHabitAdapter = new ProfileHabitAdapter(eventList,this);
         recyclerView.setAdapter(profileHabitAdapter);
-    }
-
-    /**
-     * @param habitRatio ratio of habits completed/total habits
-     * @return colour of background depending on habitRatio cast as an int
-     */
-    public int setHabitColour(double habitRatio) {
-        // set the HSB step (0 = red, 120 = green) and define the color based on the ratio of habits completed
-        double step = 120*habitRatio;
-        /*
-         * set the colour of the completion drawable depending on the ratio of habits completed
-         * 0% = red, 100% = green, x% = hue between red and green
-         */
-        return Color.HSVToColor(new float[]{(float) step, 1f, 1f});
     }
 
     /**
@@ -94,41 +77,6 @@ public class FriendProfilePage extends AppCompatActivity {
      */
     public void onDetailedHabitsClick(View view) {
         // TODO: add code to go to detailed habits list here
-    }
-
-    /**
-     * This function is called when the 'Follow Habits' button is pressed, updating following status.
-     * @param view current view containing followHabitsButton
-     */
-    public void onFollowHabitClick(View view) {
-        RadioButton followButton = view.findViewById(R.id.followHabitsButton);
-
-        // change status of isFollowing bool and update radio button state
-        // if user is not already following, update button and text
-        if(!isFollowing) {
-            followButton.setText("Following");
-            isFollowing = true;
-            followButton.setChecked(true);
-            // TODO: add code to start following friends habits here
-        }
-        else {
-            // create an alert dialog to confirm the user wants to unfollow friends habits
-            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-            builder.setCancelable(true);
-            builder.setTitle("Unfollow Friends Habits?");
-            builder.setMessage("Are you sure you want to unfollow " + friendName +"'s daily habits?");
-            builder.setPositiveButton("Unfollow", ((dialog, which) -> {
-                // change status of follow button to prompt user to follow
-                followButton.setText("Follow Daily Habits");
-                isFollowing = false;
-                followButton.setChecked(false);
-                // TODO: add code to stop following friends habits here
-            }));
-            builder.setNegativeButton("No", null);
-            // create the alert dialog and display it over the fragment
-            AlertDialog alertBox = builder.create();
-            alertBox.show();
-        }
     }
 
     /**
