@@ -11,7 +11,7 @@
         android:theme="@style/Theme.CMPUT_301_Project">
         <activity
             android:name=".FriendsHabitEventsPage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".HabitEventHistory"
             android:exported="true" />
