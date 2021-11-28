@@ -13,5 +13,6 @@
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="updating_location">\New Location Added to Habit Event\</string>
 
 </resources>
