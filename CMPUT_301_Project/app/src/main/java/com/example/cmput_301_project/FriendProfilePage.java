@@ -1,5 +1,6 @@
 package com.example.cmput_301_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -30,6 +31,7 @@ public class FriendProfilePage extends AppCompatActivity {
     private int progress = 0;
     int progressMaxCounter = 0, progressCurrentCounter = 0;
     int[] progressRate = new int[2];
+    Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class FriendProfilePage extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.prg_value);
 
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         accountData = AccountData.create();
         Account friendAccount = accountData.getAccountData().get(extras.getString("friendId"));
         friendName = friendAccount.getUserName();
@@ -76,7 +78,9 @@ public class FriendProfilePage extends AppCompatActivity {
      * @param view current view containing habitListButton
      */
     public void onDetailedHabitsClick(View view) {
-        // TODO: add code to go to detailed habits list here
+        Intent switchToHabitsPage = new Intent(this, FriendHabits.class);
+        switchToHabitsPage.putExtra("userId", extras.getString("friendId"));
+        startActivity(switchToHabitsPage);
     }
 
     /**

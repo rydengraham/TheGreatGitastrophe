@@ -29,6 +29,7 @@
             android:name=".FriendProfilePage"
             android:exported="true" />
         <activity android:name=".MyHabits" />
+        <activity android:name=".FriendHabits" />
         <activity android:name=".MyFriends"
             android:exported="true" />
         <activity android:name=".AddFriends" />
