@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for displaying recycle view of habits, and deleting habit items. Extends {@link AppCompatActivity} and implements {@link HabitFragments.OnFragmentInteractionListener}}
@@ -18,7 +19,8 @@ public class MyFriends extends AppCompatActivity {
     private Account userAccount = AccountData.create().getActiveUserAccount();
     private Button removeButton;
     private Button cancelButton;
-    private Button addHabitButton;
+    private Button addFriendButton;
+    private Button viewAllHabitsButton;
     private TextView deleteText;
     private ListView friendsListView;
     private static ArrayList<String> friendsList;
@@ -32,22 +34,20 @@ public class MyFriends extends AppCompatActivity {
         // Find our components here
         removeButton = (Button) findViewById(R.id.removeFriendButton);
         cancelButton = (Button) findViewById(R.id.cancelDeleteButton);
+        viewAllHabitsButton = findViewById(R.id.dailyFriendsHabitsButton);
         deleteText = (TextView) findViewById(R.id.deleteFriendText);
-        addHabitButton = findViewById(R.id.addApproveButton);
+        addFriendButton = findViewById(R.id.addApproveButton);
         friendsListView = (ListView) findViewById(R.id.friendList);
+        AccountData accountData;
 
         friendsList = new ArrayList<>();
 
         // Temporary list filling variables
-        friendsList.add("Friend 1");
-        friendsList.add("Friend 2");
-        friendsList.add("Friend 3");
-        friendsList.add("Friend 4");
-        friendsList.add("Friend 5");
-        friendsList.add("Friend 6");
-        friendsList.add("Friend 7");
-        friendsList.add("Friend 8");
-        friendsList.add("Friend 9");
+        accountData = AccountData.create();
+        List<String> friendIdList = accountData.getActiveUserAccount().getFriendList();
+        for (String id : friendIdList) {
+            friendsList.add(accountData.getAccountData().get(id).getUserName());
+        }
 
         friendsListAdapter = new FriendsListAdapter(this, R.layout.friend_custom_list, friendsList, false);
         friendsListView.setAdapter(friendsListAdapter);
@@ -58,7 +58,7 @@ public class MyFriends extends AppCompatActivity {
             public void onClick(View view) {
                 cancelButton.setVisibility(View.VISIBLE);
                 deleteText.setVisibility(View.VISIBLE);
-                addHabitButton.setVisibility(View.GONE);
+                addFriendButton.setVisibility(View.GONE);
                 removeButton.setVisibility(View.GONE);
                 friendsListAdapter.setDelMode(true);
             }
@@ -70,17 +70,26 @@ public class MyFriends extends AppCompatActivity {
             public void onClick(View view) {
                 cancelButton.setVisibility(View.GONE);
                 deleteText.setVisibility(View.GONE);
-                addHabitButton.setVisibility(View.VISIBLE);
+                addFriendButton.setVisibility(View.VISIBLE);
                 removeButton.setVisibility(View.VISIBLE);
                 friendsListAdapter.setDelMode(false);
             }
         });
 
-        addHabitButton.setOnClickListener(new View.OnClickListener() {
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent switchToAddFriendsPage = new Intent(MyFriends.this, AddFriends.class);
                 startActivity(switchToAddFriendsPage);
+            }
+        });
+
+        // If viewAllHabits button is pressed, navigate to FriendsHabitEventsPage
+        viewAllHabitsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchToFriendsHabitEventsPage = new Intent(MyFriends.this, FriendsHabitEventsPage.class);
+                startActivity(switchToFriendsHabitEventsPage);
             }
         });
 

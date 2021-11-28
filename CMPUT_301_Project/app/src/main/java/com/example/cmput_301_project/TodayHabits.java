@@ -40,7 +40,7 @@ public class TodayHabits extends AppCompatActivity {
         toDoEventsList = new ArrayList<>();
         completedEventsList = new ArrayList<>();
 
-        accountData.getActiveUserAccount().getTodayHabitEvents(toDoEventsList, completedEventsList);
+        accountData.getActiveUserAccount().getTodayHabitEvents(toDoEventsList, completedEventsList, true, false);
 
         // Set up adapter for list view
         toDoAdapter = new TodayHabitsAdapter(this, R.layout.today_habits_content, toDoEventsList);
