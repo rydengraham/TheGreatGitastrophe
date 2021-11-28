@@ -40,6 +40,7 @@ public class FriendsHabitEventsPage extends AppCompatActivity {
         completeHabitsView.setLayoutManager(new LinearLayoutManager(this));
 
         // this just adds dividing lines between the values in both recycler views
+        // from: https://stackoverflow.com/questions/24618829/how-to-add-dividers-and-spaces-between-items-in-recyclerview
         DividerItemDecoration incompleteRVDivider = new DividerItemDecoration(incompleteHabitsView.getContext(), LinearLayoutManager.VERTICAL);
         incompleteHabitsView.addItemDecoration(incompleteRVDivider);
         DividerItemDecoration completeRVDivider = new DividerItemDecoration(completeHabitsView.getContext(), LinearLayoutManager.VERTICAL);
