@@ -80,7 +80,7 @@ public class MainPage extends AppCompatActivity {
     /**
      * Method to set the progress value i.e % of progress
      * bar filled out */
-    public void updateProgress()
+    private void updateProgress()
     {
         progressBar.setProgress(progress);
         progressText.setText(progress + "%");
