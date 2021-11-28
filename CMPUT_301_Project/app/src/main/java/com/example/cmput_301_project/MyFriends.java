@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for displaying recycle view of habits, and deleting habit items. Extends {@link AppCompatActivity} and implements {@link HabitFragments.OnFragmentInteractionListener}}
@@ -37,19 +38,16 @@ public class MyFriends extends AppCompatActivity {
         deleteText = (TextView) findViewById(R.id.deleteFriendText);
         addFriendButton = findViewById(R.id.addApproveButton);
         friendsListView = (ListView) findViewById(R.id.friendList);
+        AccountData accountData;
 
         friendsList = new ArrayList<>();
 
         // Temporary list filling variables
-        friendsList.add("Friend 1");
-        friendsList.add("Friend 2");
-        friendsList.add("Friend 3");
-        friendsList.add("Friend 4");
-        friendsList.add("Friend 5");
-        friendsList.add("Friend 6");
-        friendsList.add("Friend 7");
-        friendsList.add("Friend 8");
-        friendsList.add("Friend 9");
+        accountData = AccountData.create();
+        List<String> friendIdList = accountData.getActiveUserAccount().getFriendList();
+        for (String id : friendIdList) {
+            friendsList.add(accountData.getAccountData().get(id).getUserName());
+        }
 
         friendsListAdapter = new FriendsListAdapter(this, R.layout.friend_custom_list, friendsList, false);
         friendsListView.setAdapter(friendsListAdapter);

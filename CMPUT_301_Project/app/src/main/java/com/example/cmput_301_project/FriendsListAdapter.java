@@ -117,6 +117,16 @@ public class FriendsListAdapter extends BaseAdapter {
                     builder.setPositiveButton("Remove", ((dialog, which) -> {
                         // change status of follow button to prompt user to follow
                         MyFriends.getFriendsList().remove(friendName);
+                        AccountData accountData = AccountData.create();
+                        for (Account friendAccount : accountData.getAccountData().values()) {
+                            if (friendAccount.getUserName().equals(friendName)) {
+                                accountData.getActiveUserAccount().removeFriend(friendAccount.getId());
+                                friendAccount.removeFriend(accountData.getActiveUserId());
+                                accountData.getActiveUserAccount().updateFirestore();
+                                friendAccount.updateFirestore();
+                                break;
+                            }
+                        }
                         MyFriends.getFriendsListAdapter().notifyDataSetChanged();
                     }));
                     builder.setNegativeButton("Cancel", null);
