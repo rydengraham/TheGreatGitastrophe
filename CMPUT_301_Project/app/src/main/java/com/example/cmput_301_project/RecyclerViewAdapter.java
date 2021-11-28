@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -120,10 +122,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     class ItemVH extends RecyclerView.ViewHolder {
         private static final String TAG = "Item";
-        TextView habitTitleView, reasonView, startDateView, frequencyView;
+        TextView habitTitleView, reasonView, startDateView, frequencyView, progressView;
         LinearLayout expandableLayout;
         Button editButton;
         Button historyButton;
+        ProgressBar progressPercentage;
+
 
         /**
          *
@@ -139,6 +143,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             editButton = itemView.findViewById(R.id.editButton);
             historyButton = itemView.findViewById(R.id.historyButton);
+            progressView = itemView.findViewById(R.id.prg_value6);
+            progressPercentage =  itemView.findViewById(R.id.progress_bar5);
+            updateProgress();
             // Give itemView a listener for expansion and deletion
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -181,6 +188,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
             
+        }
+
+        public void updateProgress()
+        {
+            progressPercentage.setProgress(68);
+            progressView.setText("68%");
         }
     }
 
