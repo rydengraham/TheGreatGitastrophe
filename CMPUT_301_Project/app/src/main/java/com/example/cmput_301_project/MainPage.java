@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -47,11 +46,12 @@ public class MainPage extends AppCompatActivity {
             progressRate = userAccount.getHabitCompletionRateInLastThirtyDays(habit.getId());
             progressCurrentCounter += progressRate[1];
             progressMaxCounter += progressRate[0];
-            System.out.println(progressCurrentCounter);
-            System.out.println(progressMaxCounter);
         }
-
-        progress = 100 * progressCurrentCounter / progressMaxCounter;
+        if (progressMaxCounter != 0) {
+            progress = 100 * progressCurrentCounter / progressMaxCounter;
+        } else {
+            progress = 0;
+        }
         updateProgress();
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
