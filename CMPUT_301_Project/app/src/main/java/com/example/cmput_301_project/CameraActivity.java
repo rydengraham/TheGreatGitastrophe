@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -11,6 +12,7 @@ import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,6 +30,9 @@ public class CameraActivity extends AppCompatActivity {
     Button btnCamera;
     Button btnGallery;
     ImageView habitImage;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,4 +98,16 @@ public class CameraActivity extends AppCompatActivity {
             // display error state to the user
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            Bitmap capturePhoto = (Bitmap) data.getExtras().get("data");
+            habitImage.setImageBitmap(capturePhoto);
+
+        }
+    }
+
+
 }
