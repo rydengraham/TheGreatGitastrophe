@@ -1,6 +1,7 @@
 package com.example.cmput_301_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,10 +26,15 @@ public class FriendDetailedHabitsPage extends AppCompatActivity {
         ArrayList<Habit> habits = generateHabits(20);
 
         // set up recycler views and adapters for the habit array list
-        RecyclerView friendIncompleteHabitsView = findViewById(R.id.friendHabitsRV);
-        FriendDetailedHabitsAdapter incompleteHabitsAdapter = new FriendDetailedHabitsAdapter(this, habits);
-        friendIncompleteHabitsView.setAdapter(incompleteHabitsAdapter);
-        friendIncompleteHabitsView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView friendsHabitsView = findViewById(R.id.friendHabitsRV);
+        FriendDetailedHabitsAdapter friendsHabitsAdapter = new FriendDetailedHabitsAdapter(this, habits);
+        friendsHabitsView.setAdapter(friendsHabitsAdapter);
+        friendsHabitsView.setLayoutManager(new LinearLayoutManager(this));
+
+        // this just adds dividing lines between the values in both recycler views
+        // from: https://stackoverflow.com/questions/24618829/how-to-add-dividers-and-spaces-between-items-in-recyclerview
+        DividerItemDecoration habitsRvDivider = new DividerItemDecoration(friendsHabitsView.getContext(), LinearLayoutManager.VERTICAL);
+        friendsHabitsView.addItemDecoration(habitsRvDivider);
     }
 
     /**
