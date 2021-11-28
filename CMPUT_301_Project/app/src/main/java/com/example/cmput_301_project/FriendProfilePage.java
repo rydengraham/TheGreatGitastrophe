@@ -15,14 +15,9 @@ public class FriendProfilePage extends AppCompatActivity {
 
     // TODO: random values chosen need to be replaced w real complete/incomplete habits
     private String friendName = "";
-    int totalHabits = 16;
-    int completedHabits = 5;
-    double habitRatio = (double) completedHabits/totalHabits;
     /* TODO: isFollowing should be a real value corresponding to if user is
         following friend's habits, currently set to false to allow follow button to work
      */
-    boolean isFollowing = false;
-    TextView friendUsernameTV;
     private RecyclerView recyclerView;
     private ProfileHabitAdapter profileHabitAdapter;
     AccountData accountData;

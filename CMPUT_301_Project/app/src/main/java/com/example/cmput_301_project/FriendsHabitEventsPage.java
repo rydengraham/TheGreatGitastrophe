@@ -1,42 +1,43 @@
 package com.example.cmput_301_project;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class FriendsHabitEventsPage extends AppCompatActivity {
+    private ProfileHabitAdapter todoHabitAdapter;
+    private ProfileHabitAdapter completedHabitAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_habit_events_page);
 
-        /*
-        TODO: replace these default habit values with the real daily friend habit,
-            using 2 separate lists for incompleteHabits and completeHabits respectively
-         */
-        String[] habitList = {"Habit 1", "Habit 2", "Habit 3", "Habit 4", "Habit 5", "Habit 6",
-                "Habit 7", "Habit 8"};
+        ArrayList<HabitEvent> incompleteHabits = new ArrayList<>();
+        ArrayList<HabitEvent> completeHabits = new ArrayList<>();
+
+        AccountData accountData = AccountData.create();
         // convert the incomplete/complete habits to corresponding ArrayLists
-        ArrayList<String> incompleteHabits = new ArrayList<>(Arrays.asList(habitList));
-        ArrayList<String> completeHabits = new ArrayList<>(Arrays.asList(habitList));
+        for (String friendId: accountData.getActiveUserAccount().getFriendList()) {
+            accountData.getAccountData().get(friendId).getTodayHabitEvents(incompleteHabits, completeHabits, false, true);
+        }
+
+        todoHabitAdapter = new ProfileHabitAdapter(incompleteHabits,this);
+        completedHabitAdapter = new ProfileHabitAdapter(completeHabits,this);
 
         // set up the recyclerView and adapter for incomplete habits
         RecyclerView incompleteHabitsView = findViewById(R.id.incompleteRV);
-        FriendsHabitAdapter incompleteHabitsAdapter = new FriendsHabitAdapter(this, incompleteHabits);
-        incompleteHabitsView.setAdapter(incompleteHabitsAdapter);
+        incompleteHabitsView.setAdapter(todoHabitAdapter);
         incompleteHabitsView.setLayoutManager(new LinearLayoutManager(this));
 
         // set up the recyclerView and adapter for complete habits
         RecyclerView completeHabitsView = findViewById(R.id.completeRV);
-        FriendsHabitAdapter completeHabitsAdapter = new FriendsHabitAdapter(this, completeHabits);
-        completeHabitsView.setAdapter(completeHabitsAdapter);
+        completeHabitsView.setAdapter(completedHabitAdapter);
         completeHabitsView.setLayoutManager(new LinearLayoutManager(this));
 
         // this just adds dividing lines between the values in both recycler views

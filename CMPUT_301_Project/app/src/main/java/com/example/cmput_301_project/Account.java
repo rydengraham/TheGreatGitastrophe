@@ -279,22 +279,28 @@ public class Account {
      * Gets a list of habit events for today, both completed and todo.
      * @return
      */
-    public void getTodayHabitEvents(ArrayList<HabitEvent> todoHabits, ArrayList<HabitEvent> completedHabits) {
+    public void getTodayHabitEvents(ArrayList<HabitEvent> todoHabits, ArrayList<HabitEvent> completedHabits, boolean includePrivate, boolean showUserNames) {
         int weekday = getWeekday();
         String today = getToday();
 
         for (Habit currentHabit : this.habitTable) {
-            if (currentHabit.getIsOnDayOfWeek(weekday)) {
-                for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getDate().equals(today)) {
-                        if (!event.isDeleted()) {
-                            if (event.isCompleted()) {
-                                completedHabits.add(new HabitEvent(event));
-                            } else {
-                                todoHabits.add(new HabitEvent(event));
+            if (currentHabit.getPublic() || includePrivate) {
+                if (currentHabit.getIsOnDayOfWeek(weekday)) {
+                    for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                        if (event.getDate().equals(today)) {
+                            if (!event.isDeleted()) {
+                                HabitEvent newEvent = new HabitEvent(event);
+                                if (showUserNames) {
+                                    newEvent.setDate(this.getUserName());
+                                }
+                                if (event.isCompleted()) {
+                                    completedHabits.add(newEvent);
+                                } else {
+                                    todoHabits.add(newEvent);
+                                }
                             }
+                            break;
                         }
-                        break;
                     }
                 }
             }
