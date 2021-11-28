@@ -4,11 +4,8 @@
 package com.example.cmput_301_project;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,17 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class UserProfilePage extends AppCompatActivity implements VerifyPasswordFragment.OnPasswordVerify {
-
-    // TODO: random values chosen need to be replaced w real complete/incomplete habits
-    int totalHabits = 16;
-    int completedHabits = 5;
-    int habitRatio = 100 * completedHabits/totalHabits;
 
     boolean passwordVerified = false;
     // define fragment manager and transaction for opening/closing settings fragment
@@ -36,6 +27,13 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
     TextView usernameTextView;
     TextView progressText;
     ProgressBar progressBar;
+    private int progress = 0;
+    int progressMaxCounter = 0, progressCurrentCounter = 0;
+    int[] progressRate = new int[2];
+    Account userAccount;
+    private RecyclerView recyclerView;
+    private ProfileHabitAdapter profileHabitAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,24 +45,26 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
         usernameTextView.setText(activeUserAccount.getUserName());
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.prg_value);
+        userAccount = AccountData.create().getActiveUserAccount();
+        recyclerView = (RecyclerView) findViewById(R.id.habitList);
 
-        updateProgress(habitRatio);
-
-        // calculate the % of habits completed this month and update the habit complete TV
-        DecimalFormat df = new DecimalFormat("#");
-        String habitPercent = df.format(habitRatio*100) + "% of habits completed this month";
-
-        // create a list of completed habits and add them to the habit LV
-        ListView habitList = findViewById(R.id.habitList);
-
-        // TODO: need to use a list of real recently-completed habits instead of examples here
-        String []habits ={"Habit 1", "Habit 2", "Habit 3", "Habit 4", "Habit 5",
-                "Habit 6" ,"Habit 7", "Habit 8", "Habit 9", "Habit 10"};
-        // set up the dataList & adapter for converting habit array to ListView
-        ArrayList<String> dataList = new ArrayList<>(Arrays.asList(habits));
-        ArrayAdapter<String> habitAdapter = new ArrayAdapter<>(this, R.layout.habit_list_textview, dataList);
-
-        habitList.setAdapter(habitAdapter);
+        // Percent completed habits per month graphic update
+        for (Habit habit : userAccount.getHabitTable()) {
+            progressRate = userAccount.getHabitCompletionRateInLastThirtyDays(habit.getId());
+            progressCurrentCounter += progressRate[1];
+            progressMaxCounter += progressRate[0];
+        }
+        if (progressMaxCounter != 0) {
+            progress = 100 * progressCurrentCounter / progressMaxCounter;
+        } else {
+            progress = 0;
+        }
+        updateProgress(progress);
+        
+        ArrayList<HabitEvent> eventList = new ArrayList<HabitEvent>();
+        userAccount.getRecentHabitEvents(eventList);
+        profileHabitAdapter = new ProfileHabitAdapter(eventList,this);
+        recyclerView.setAdapter(profileHabitAdapter);
 
     }
 
