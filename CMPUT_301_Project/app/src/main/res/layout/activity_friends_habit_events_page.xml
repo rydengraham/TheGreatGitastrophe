@@ -28,7 +28,7 @@
         android:text="Incomplete"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/incompleteRV"
+        app:layout_constraintBottom_toTopOf="@+id/friendIncompleteRV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friendHabitEventsTV" />
@@ -40,14 +40,14 @@
         android:text="Completed"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/completeRV"
+        app:layout_constraintBottom_toTopOf="@+id/friendCompleteRV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incompleteRV" />
+        app:layout_constraintTop_toBottomOf="@+id/friendIncompleteRV" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/incompleteRV"
+        android:id="@+id/friendIncompleteRV"
         android:layout_width="0dp"
         android:layout_height="225dp"
         android:layout_marginStart="32dp"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/incompleteTV" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/completeRV"
+        android:id="@+id/friendCompleteRV"
         android:layout_width="0dp"
         android:layout_height="225dp"
         android:layout_marginStart="32dp"

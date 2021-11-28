@@ -28,13 +28,13 @@ public class FriendsHabitEventsPage extends AppCompatActivity {
         ArrayList<String> completeHabits = new ArrayList<>(Arrays.asList(habitList));
 
         // set up the recyclerView and adapter for incomplete habits
-        RecyclerView incompleteHabitsView = findViewById(R.id.incompleteRV);
+        RecyclerView incompleteHabitsView = findViewById(R.id.friendIncompleteRV);
         FriendsHabitAdapter incompleteHabitsAdapter = new FriendsHabitAdapter(this, incompleteHabits);
         incompleteHabitsView.setAdapter(incompleteHabitsAdapter);
         incompleteHabitsView.setLayoutManager(new LinearLayoutManager(this));
 
         // set up the recyclerView and adapter for complete habits
-        RecyclerView completeHabitsView = findViewById(R.id.completeRV);
+        RecyclerView completeHabitsView = findViewById(R.id.friendCompleteRV);
         FriendsHabitAdapter completeHabitsAdapter = new FriendsHabitAdapter(this, completeHabits);
         completeHabitsView.setAdapter(completeHabitsAdapter);
         completeHabitsView.setLayoutManager(new LinearLayoutManager(this));

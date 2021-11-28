@@ -24,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FriendDetailedHabitsPage"
+            android:exported="true" />
         <activity android:name=".TodayHabits" />
         <activity
             android:name=".FriendProfilePage"
