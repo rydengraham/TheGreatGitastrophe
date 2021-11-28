@@ -47,15 +47,20 @@ public class FriendProfilePage extends AppCompatActivity {
         friendCompletionPerc.getBackground().setTint(setHabitColour(habitRatio));
 
         // create a list of completed habits and add them to the habit LV
-        ListView habitList = findViewById(R.id.friendHabitList);
+        ListView friendHabitList = findViewById(R.id.friendProfileHabitList);
         // TODO: need to use a list of real recently-completed habits instead of examples here
-        String []habits ={"Habit 1", "Habit 2", "Habit 3", "Habit 4", "Habit 5",
+        String[] testHabits ={"Habit 1", "Habit 2", "Habit 3", "Habit 4", "Habit 5",
                 "Habit 6" ,"Habit 7", "Habit 8", "Habit 9", "Habit 10"};
         // set up the dataList & adapter for converting habit array to ListView
-        ArrayList<String> dataList = new ArrayList<>(Arrays.asList(habits));
-        ArrayAdapter<String> habitAdapter = new ArrayAdapter<>(this, R.layout.habit_list_textview, dataList);
+        ArrayList<String> dataList = new ArrayList<>(Arrays.asList(testHabits));
+        /*
+            TODO: commit on habit_list_textview.xml broke this since it used the same layout as the
+                user profile page, if we're changing the layout for this one as well, I'll just leave
+                it commented out until changes are made.
+         */
+        ArrayAdapter recentHabitsAdapter = new ArrayAdapter(this, R.layout.habit_list_textview, dataList);
 
-        habitList.setAdapter(habitAdapter);
+        //friendHabitList.setAdapter(recentHabitsAdapter);
     }
 
     /**
