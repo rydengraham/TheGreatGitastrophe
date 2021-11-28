@@ -1,19 +1,17 @@
 package com.example.cmput_301_project;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class FriendProfilePage extends AppCompatActivity {
 
@@ -26,6 +24,8 @@ public class FriendProfilePage extends AppCompatActivity {
      */
     boolean isFollowing = false;
     TextView friendUsernameTV;
+    private RecyclerView recyclerView;
+    private ProfileHabitAdapter profileHabitAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +45,12 @@ public class FriendProfilePage extends AppCompatActivity {
          */
         friendCompletionPerc.getBackground().setTint(setHabitColour(habitRatio));
 
-        // create a list of completed habits and add them to the habit LV
-        ListView habitList = findViewById(R.id.friendHabitList);
-        // TODO: need to use a list of real recently-completed habits instead of examples here
-        String []habits ={"Habit 1", "Habit 2", "Habit 3", "Habit 4", "Habit 5",
-                "Habit 6" ,"Habit 7", "Habit 8", "Habit 9", "Habit 10"};
-        // set up the dataList & adapter for converting habit array to ListView
-        ArrayList<String> dataList = new ArrayList<>(Arrays.asList(habits));
-        ArrayAdapter<String> habitAdapter = new ArrayAdapter<>(this, R.layout.habit_list_textview, dataList);
-
-        habitList.setAdapter(habitAdapter);
+        ArrayList<HabitEvent> eventList = new ArrayList<HabitEvent>();
+        Bundle extras = getIntent().getExtras();
+        Account friendAccount = AccountData.create().getAccountData().get(extras.getString("friendId"));
+        friendAccount.getRecentHabitEvents(eventList);
+        profileHabitAdapter = new ProfileHabitAdapter(eventList,this);
+        recyclerView.setAdapter(profileHabitAdapter);
     }
 
     /**

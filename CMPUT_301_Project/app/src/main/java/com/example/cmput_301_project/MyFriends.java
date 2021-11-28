@@ -18,7 +18,7 @@ public class MyFriends extends AppCompatActivity {
     private Account userAccount = AccountData.create().getActiveUserAccount();
     private Button removeButton;
     private Button cancelButton;
-    private Button addHabitButton;
+    private Button addFriendButton;
     private Button viewAllHabitsButton;
     private TextView deleteText;
     private ListView friendsListView;
@@ -35,7 +35,7 @@ public class MyFriends extends AppCompatActivity {
         cancelButton = (Button) findViewById(R.id.cancelDeleteButton);
         viewAllHabitsButton = findViewById(R.id.dailyFriendsHabitsButton);
         deleteText = (TextView) findViewById(R.id.deleteFriendText);
-        addHabitButton = findViewById(R.id.addApproveButton);
+        addFriendButton = findViewById(R.id.addApproveButton);
         friendsListView = (ListView) findViewById(R.id.friendList);
 
         friendsList = new ArrayList<>();
@@ -60,7 +60,7 @@ public class MyFriends extends AppCompatActivity {
             public void onClick(View view) {
                 cancelButton.setVisibility(View.VISIBLE);
                 deleteText.setVisibility(View.VISIBLE);
-                addHabitButton.setVisibility(View.GONE);
+                addFriendButton.setVisibility(View.GONE);
                 removeButton.setVisibility(View.GONE);
                 friendsListAdapter.setDelMode(true);
             }
@@ -72,13 +72,13 @@ public class MyFriends extends AppCompatActivity {
             public void onClick(View view) {
                 cancelButton.setVisibility(View.GONE);
                 deleteText.setVisibility(View.GONE);
-                addHabitButton.setVisibility(View.VISIBLE);
+                addFriendButton.setVisibility(View.VISIBLE);
                 removeButton.setVisibility(View.VISIBLE);
                 friendsListAdapter.setDelMode(false);
             }
         });
 
-        addHabitButton.setOnClickListener(new View.OnClickListener() {
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent switchToAddFriendsPage = new Intent(MyFriends.this, AddFriends.class);

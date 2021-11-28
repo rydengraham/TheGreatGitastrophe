@@ -5,15 +5,10 @@ package com.example.cmput_301_project;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -131,6 +126,12 @@ public class FriendsListAdapter extends BaseAdapter {
                 }
                 else{
                     Intent switchToFriendProfile = new Intent(context, FriendProfilePage.class);
+                    for (Account friendAccount : AccountData.create().getAccountData().values()) {
+                        if (friendAccount.getUserName().equals(friendName)) {
+                            switchToFriendProfile.putExtra("friendId", friendAccount.getId());
+                            break;
+                        }
+                    }
                     context.startActivity(switchToFriendProfile);
                 }
             }

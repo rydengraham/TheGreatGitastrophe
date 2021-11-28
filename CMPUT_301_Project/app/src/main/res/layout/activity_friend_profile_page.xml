@@ -107,19 +107,18 @@
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ListView
-            android:id="@+id/friendHabitList"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/habitList"
             style="@style/Widget.AppCompat.ListView"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="0dp"
             android:layout_weight="1"
-            android:paddingBottom="50dp">
-
-        </ListView>
+            android:paddingBottom="75dp">
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
     <FrameLayout
