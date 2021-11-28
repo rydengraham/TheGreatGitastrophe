@@ -17,11 +17,15 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.util.ArrayUtils;
+
 import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class FriendDetailedHabitsAdapter extends RecyclerView.Adapter<FriendDetailedHabitsAdapter.ViewHolder> {
 
@@ -37,8 +41,7 @@ public class FriendDetailedHabitsAdapter extends RecyclerView.Adapter<FriendDeta
     @Override
     public FriendDetailedHabitsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.friend_detailed_habit, viewGroup, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -105,13 +108,14 @@ public class FriendDetailedHabitsAdapter extends RecyclerView.Adapter<FriendDeta
 
     private String getDays(int weekdays) {
         boolean[] isOnDays = toBinary(weekdays, 7);
-        String days = "MTWTFSS";
-        for(int i = 0; i < isOnDays.length; i++) {
-            // TODO: doesn't work for number == 1
-            if(!isOnDays[i]) {
-                days = days.substring(i-1, i+1);
+        StringBuilder days = new StringBuilder();
+        String[] allDays = {"Sn", "S", "F", "Th", "W", "T", "M"};
+        for(int i = isOnDays.length-1; i >= 0; i--) {
+            if(isOnDays[i]) {
+                days.append(" ").append(allDays[i]);
             }
         }
-        return days;
+
+        return days.toString();
     }
 }

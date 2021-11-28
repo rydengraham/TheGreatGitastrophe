@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * Backend class for FriendDetailedHabitsPage
+ */
 public class FriendDetailedHabitsPage extends AppCompatActivity {
 
     @Override
@@ -19,6 +21,7 @@ public class FriendDetailedHabitsPage extends AppCompatActivity {
         setContentView(R.layout.activity_friend_detailed_habits_page);
 
         // create an arraylist of 20 generic habits
+        // TODO: when accounts are implemented, replace this with ArrayList of friend's habits
         ArrayList<Habit> habits = generateHabits(20);
 
         // set up recycler views and adapters for the habit array list
@@ -35,6 +38,7 @@ public class FriendDetailedHabitsPage extends AppCompatActivity {
      * @return array list of all created habit events
      */
     public ArrayList<Habit> generateHabits(int i) {
+        // TODO: method is for testing only, remove when account implementation is complete
         ArrayList<Habit> habits = new ArrayList<>();
         // create some random habits
         String expandedText = "123456789012345678901234567890";
