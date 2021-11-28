@@ -46,15 +46,15 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     private static final String TAG = LocationActivity.class.getSimpleName();
 
 
-    HabitLocation locationDetail;
-    String coordinates [];
-    String mLongitude;
-    String mAddress;
-    String mLatitude;
-    LatLng latLng;
-    FloatingActionButton addLocation;
-    boolean userLocationAvailable = false;
-    boolean updatingLocation;
+    private HabitLocation locationDetail;
+    private String coordinates [];
+    private String mLongitude;
+    private String mAddress;
+    private String mLatitude;
+    private  LatLng latLng;
+    private  FloatingActionButton addLocation;
+    private boolean userLocationAvailable = false;
+    private boolean updatingLocation;
 
     // Location classes
     private FusedLocationProviderClient mFusedLocationClient;
@@ -106,6 +106,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                             locationDetail.setAddress(place.getAddress());
                             locationDetail.setLatitude(coordinates[0]);
                             locationDetail.setLongitude(coordinates[1]);
+                            Toast.makeText(LocationActivity.this,
+                                    R.string.updating_location,
+                                    Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
