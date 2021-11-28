@@ -219,7 +219,6 @@ public class Account {
 
         for (Habit currentHabit : this.habitTable) {
             if (currentHabit.getIsOnDayOfWeek(weekday)) {
-                boolean createTodayEvent = true;
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
                     if (event.getDate().equals(today)) {
                         if (!event.isDeleted()) {
@@ -230,6 +229,34 @@ public class Account {
                             }
                         }
                         break;
+                    }
+                }
+            }
+        }
+        return;
+    }
+
+    /**
+     * Gets a list of habit events completed in the past week
+     * @return
+     */
+    public void getRecentHabitEvents(ArrayList<HabitEvent> recentHabits) {
+        Calendar oldestDay = Calendar.getInstance();
+        oldestDay.add(Calendar.DATE, -7);
+        Date sevenDaysAgo = oldestDay.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+
+        for (Habit currentHabit : this.habitTable) {
+            boolean createTodayEvent = true;
+            for(HabitEvent event : currentHabit.getHabitEventTable()) {
+                if (!event.isDeleted() && event.isCompleted()) {
+                    try {
+                        Date eventDate = df.parse(event.getDate());
+                        if (eventDate.after(sevenDaysAgo)) {
+                            recentHabits.add(new HabitEvent(event));
+                        }
+                    } catch (ParseException e) {
+                        System.err.println("Error!");
                     }
                 }
             }
