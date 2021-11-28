@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class FriendDetailedHabitsPage extends AppCompatActivity {
@@ -18,33 +18,14 @@ public class FriendDetailedHabitsPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_detailed_habits_page);
 
-        // create an arraylist of 10 generic habits
-        ArrayList<HabitEvent> habits = generateHabits(20);
+        // create an arraylist of 20 generic habits
+        ArrayList<Habit> habits = generateHabits(20);
 
-        // create 2 array lists to store complete and incomplete habits
-        ArrayList<HabitEvent> incompleteHabits = new ArrayList<>();
-        ArrayList<HabitEvent> completeHabits = new ArrayList<>();
-
-        // iterate through all habits and separate them into complete and incomplete habits
-        for(int i = 0; i < habits.size(); i++) {
-            if(habits.get(i).isCompleted()) {
-                completeHabits.add(habits.get(i));
-            }
-            else {
-                incompleteHabits.add(habits.get(i));
-            }
-        }
-
-        // set up recycler views and adapters for both complete and incomplete habits
-        RecyclerView friendIncompleteHabitsView = findViewById(R.id.friendIncompleteHabitRV);
-        FriendDetailedHabitsAdapter incompleteHabitsAdapter = new FriendDetailedHabitsAdapter(this, incompleteHabits);
+        // set up recycler views and adapters for the habit array list
+        RecyclerView friendIncompleteHabitsView = findViewById(R.id.friendHabitsRV);
+        FriendDetailedHabitsAdapter incompleteHabitsAdapter = new FriendDetailedHabitsAdapter(this, habits);
         friendIncompleteHabitsView.setAdapter(incompleteHabitsAdapter);
         friendIncompleteHabitsView.setLayoutManager(new LinearLayoutManager(this));
-
-        RecyclerView friendCompleteHabitsView = findViewById(R.id.friendCompleteHabitRV);
-        FriendDetailedHabitsAdapter completeHabitsAdapter = new FriendDetailedHabitsAdapter(this, completeHabits);
-        friendCompleteHabitsView.setAdapter(completeHabitsAdapter);
-        friendCompleteHabitsView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     /**
@@ -53,16 +34,15 @@ public class FriendDetailedHabitsPage extends AppCompatActivity {
      * @param i number of habit events to be created
      * @return array list of all created habit events
      */
-    public ArrayList<HabitEvent> generateHabits(int i) {
-        ArrayList<HabitEvent> habits = new ArrayList<>();
-        // create some random habit events
-        String expandedText = "12345678901234567890";
+    public ArrayList<Habit> generateHabits(int i) {
+        ArrayList<Habit> habits = new ArrayList<>();
+        // create some random habits
+        String expandedText = "123456789012345678901234567890";
         for(int j = 1; j < i; j++) {
-            String habitName = "Habit" + String.valueOf(j);
-            HabitEvent habit = new HabitEvent("02/02/2021", habitName);
-            habit.setComment(expandedText);
+            String habitName = "Habit " + String.valueOf(j);
+            Habit habit = new Habit(habitName, Calendar.getInstance().getTime(), expandedText, 127, true);
+            habit.setReason(expandedText);
             habit.setExpanded(false);
-            habit.setCompleted(j%2 == 0);
 
             habits.add(habit);
         }
