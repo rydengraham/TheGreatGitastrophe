@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,13 +27,15 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
     // TODO: random values chosen need to be replaced w real complete/incomplete habits
     int totalHabits = 16;
     int completedHabits = 5;
-    double habitRatio = (double) completedHabits/totalHabits;
+    int habitRatio = 100 * completedHabits/totalHabits;
 
     boolean passwordVerified = false;
     // define fragment manager and transaction for opening/closing settings fragment
     FragmentManager manager = getSupportFragmentManager();
     FragmentTransaction transaction;
     TextView usernameTextView;
+    TextView progressText;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +45,14 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
         usernameTextView = findViewById(R.id.usernameText);
         Account activeUserAccount = AccountData.create().getActiveUserAccount();
         usernameTextView.setText(activeUserAccount.getUserName());
+        progressBar = findViewById(R.id.progress_bar);
+        progressText = findViewById(R.id.prg_value);
+
+        updateProgress(habitRatio);
 
         // calculate the % of habits completed this month and update the habit complete TV
         DecimalFormat df = new DecimalFormat("#");
         String habitPercent = df.format(habitRatio*100) + "% of habits completed this month";
-        TextView habitPercentText = (TextView) findViewById(R.id.completionPercText);
-        habitPercentText.setText(habitPercent);
-        /*
-         * set the background of the completion percentage drawable as a hue between red & green
-         * depending on the ratio of completed habits/total habits
-        */
-        habitPercentText.getBackground().setTint(setHabitColour(habitRatio));
 
         // create a list of completed habits and add them to the habit LV
         ListView habitList = findViewById(R.id.habitList);
@@ -73,20 +73,6 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
         new VerifyPasswordFragment().show(getSupportFragmentManager(),"VERIFY_PASSWORD");
     }
 
-    /**
-     * @param habitRatio ratio of habits completed/total habits
-     * @return colour of background depending on habitRatio cast as an int
-     */
-    public int setHabitColour(double habitRatio) {
-        // set the HSB step (0 = red, 120 = green) and define the color based on the ratio of habits completed
-        double step = 120*habitRatio;
-        /*
-         * set the colour of the completion drawable depending on the ratio of habits completed
-         * 0% = red, 100% = green, x% = hue between red and green
-         */
-        return Color.HSVToColor(new float[]{(float) step, 1f, 1f});
-    }
-
     public void onPasswordVerify(boolean verified, Context context) {
         if (verified) {
             Fragment userSettings = new UserSettingsFragment();
@@ -105,6 +91,15 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
             alertBox.show();
             return;
         }
+    }
+
+    /**
+     * Method to set the progress value i.e % of progress
+     * bar filled out */
+    public void updateProgress(int progress)
+    {
+        progressBar.setProgress(progress);
+        progressText.setText(progress + "%");
     }
 
 }
