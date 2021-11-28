@@ -125,7 +125,10 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             int fromPosition = viewHolder.getAdapterPosition();
             int toPosition = target.getAdapterPosition();
+
             Collections.swap(userAccount.getHabitTable(), fromPosition, toPosition);
+            userAccount.updateFirestore();
+
             recyclerView.getAdapter().notifyItemMoved(fromPosition,toPosition);
             return false;
         }
