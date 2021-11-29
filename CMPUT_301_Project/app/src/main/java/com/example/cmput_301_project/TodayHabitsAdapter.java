@@ -197,7 +197,6 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
                 });
             }
-            // Need to implement later when we have backend
             if (addLocationButton != null) {
                 addLocationButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -222,7 +221,6 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
                 });
             }
-            // Need to implement later when we have backend
             if (addPhotoButton != null){
                 addPhotoButton.setOnClickListener(new View.OnClickListener() {
                     @Override

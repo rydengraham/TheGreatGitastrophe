@@ -1,6 +1,7 @@
 package com.example.cmput_301_project;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -123,9 +124,6 @@ public class CameraActivity extends AppCompatActivity {
                             FileInputStream fileInputStreamReader = new FileInputStream(file);
                             byte[] bytes = new byte[(int)file.length()];
                             fileInputStreamReader.read(bytes);
-//                            System.out.println(file);
-//                            System.out.println(Base64.encodeToString(bytes, Base64.DEFAULT));
-//                            System.out.println(file.toString());
                             String stringImage = Base64.encodeToString(bytes, Base64.DEFAULT);
                             userAccount = AccountData.create().getActiveUserAccount();
                             userAccount.getHabitEvent(eventId, habitName).setImage(stringImage);
@@ -145,6 +143,11 @@ public class CameraActivity extends AppCompatActivity {
             CameraX.bindToLifecycle(CameraActivity.this, preview, imageCapture);
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
 
     @Override

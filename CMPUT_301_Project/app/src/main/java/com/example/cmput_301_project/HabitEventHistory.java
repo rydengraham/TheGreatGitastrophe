@@ -67,4 +67,10 @@ public class HabitEventHistory extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         userAccount.getHabitEventsForHabit(test, extras.getString("habitId"));
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        eventHabitAdapter.notifyDataSetChanged();
+    }
 }
