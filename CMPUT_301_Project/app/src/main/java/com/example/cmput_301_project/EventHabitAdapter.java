@@ -22,7 +22,6 @@ import java.util.List;
 
 public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.ItemVH>{
     private static final String TAG="Adapter";
-    //Account userAccount = AccountData.create().getActiveUserAccount();
     List<HabitEvent> habitEventList;
     Activity context;
     boolean delMode;
@@ -63,7 +62,6 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
     @Override
     public EventHabitAdapter.ItemVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.habit_event_custom_list, parent, false);
-
         return new EventHabitAdapter.ItemVH(view);
     }
 
@@ -80,8 +78,6 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
         holder.DateView.setText(habitEvent.getDate());
         boolean isExpanded=habitEventList.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE:View.GONE);
-
-
     }
 
     /**
@@ -92,7 +88,6 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
     public int getItemCount() {
         return habitEventList.size();
     }
-
 
     class ItemVH extends RecyclerView.ViewHolder {
         private static final String TAG = "Item";
@@ -117,14 +112,13 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
             locationButton = itemView.findViewById(R.id.editLocationButton);
             expandableLayout = itemView.findViewById(R.id.expandableHELayout);
             userAccount = AccountData.create().getActiveUserAccount();
+
             // Give itemView a listener for expansion and deletion
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     HabitEvent currentEvent = habitEventList.get(getAdapterPosition());
-                    if (isDelMode())
-                    {
-
+                    if (isDelMode()) {
                         habitEventList.remove(habitEventList.get(getAdapterPosition()));
                         Bundle extras = context.getIntent().getExtras();
                         ArrayList<HabitEvent> events = new ArrayList<HabitEvent>();
@@ -141,9 +135,7 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
             });
             commentView.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -153,9 +145,7 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                 }
 
                 @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
+                public void afterTextChanged(Editable editable) { }
             });
             locationButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -175,16 +165,11 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                         }
                     });
                     builder.setNegativeButton("DIMISS", null);
-                    // create the alert dialog and display it over the fragment
+                    // Create the alert dialog and display it over the fragment
                     AlertDialog alertBox = builder.create();
                     alertBox.show();
                 }
             });
-
-            // TODO: Connect this to the habit event list (does not exist for part 3)
-            // Give historyButton a placeholder interaction
-
         }
     }
-
 }

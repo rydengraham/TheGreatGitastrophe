@@ -9,13 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,9 +21,6 @@ import java.util.HashMap;
  * create an instance of this fragment.
  */
 public class ChangePasswordFragment extends Fragment implements View.OnClickListener {
-
-    private AccountData accountDataClass = AccountData.create();
-
     EditText oldPasswordField;
     EditText newPasswordField;
     EditText reenterPasswordField;
@@ -72,7 +67,7 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
     public void onClick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(true);
-        // depending on the view passed to onClick, execute some action
+        // Depending on the view passed to onClick, execute some action
         switch (view.getId()) {
             case R.id.saveButton:
                 String oldPassword = oldPasswordField.getText().toString();
@@ -152,8 +147,8 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
                 // if the user chooses to stay on the fragment, simply close the dialog
                 builder.setNegativeButton("Go Back", null);
                 // create the alert dialog and display it over the fragment
-                AlertDialog confirmExitdialog = builder.create();
-                confirmExitdialog.show();
+                AlertDialog confirmExitDialog = builder.create();
+                confirmExitDialog.show();
                 break;
         }
     }
