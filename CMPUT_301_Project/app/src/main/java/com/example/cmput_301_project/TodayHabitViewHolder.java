@@ -111,5 +111,4 @@ public class TodayHabitViewHolder {
     public void setCompletedButton(boolean completedButton) {
         this.completedButton = completedButton;
     }
-
 }

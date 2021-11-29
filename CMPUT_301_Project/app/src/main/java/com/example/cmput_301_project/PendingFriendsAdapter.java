@@ -19,7 +19,6 @@ import java.util.ArrayList;
  * Custom adapter class for Pending Friends
  */
 public class PendingFriendsAdapter extends BaseAdapter {
-
     // Variable Declaration
     int resource;
     Context context;

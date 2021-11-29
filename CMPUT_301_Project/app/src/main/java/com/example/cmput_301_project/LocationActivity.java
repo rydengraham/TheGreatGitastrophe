@@ -42,20 +42,18 @@ import java.util.Objects;
  * https://github.com/dimitardanailov/FusedLocationProviderClient/blob/master/app/src/main/java/demo/client/provider/location/fused/fusedlocationproviderclientexample/MainActivity.java
  */
 public class LocationActivity extends AppCompatActivity implements OnMapReadyCallback {
-
     // Constants
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     private static final String TRACKING_LOCATION_KEY = "tracking_location";
     private static final String TAG = LocationActivity.class.getSimpleName();
-
 
     private HabitLocation locationDetail;
     private String coordinates [];
     private String mLongitude;
     private String mAddress;
     private String mLatitude;
-    private  LatLng latLng;
-    private  FloatingActionButton addLocation;
+    private LatLng latLng;
+    private FloatingActionButton addLocation;
     private boolean userLocationAvailable = false;
 
     // Location classes
@@ -63,7 +61,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     private Location mLastLocation;
 
     private Account userAccount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +80,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
 
         getLocation();
         initAutocompleteUI();
-
-
     }
+
     public void initAutocompleteUI(){
         // Initialize the AutocompleteSupportFragment.
-
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
@@ -99,12 +94,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-
                 parseLatLng(Objects.requireNonNull(place.getLatLng()));
                 addLocation.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        //UPDATES USER LOCATION WITH EVERY CLICK
-                        //TODO: ONLY UPDATE WHEN GIVEN DIFFERENT INPUT
+                        // Updates user location with every click
                         if(userLocationAvailable) {
                             locationDetail.setLocationName(place.getName());
                             locationDetail.setAddress(place.getAddress());
@@ -121,18 +114,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                             userAccount.getHabitEvent(eventId, habitName).setLocation(new HabitLocation(locationDetail));
                             userAccount.updateFirestore();
                             finish();
-
                         }
-
                     }
                 });
 
-
-
                 setUpMap(place.getLatLng());
-
             }
-
 
             @Override
             public void onError(@NonNull Status status) {
@@ -140,9 +127,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -158,7 +143,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                             R.string.location_permission_denied,
                             Toast.LENGTH_SHORT).show();
                 }
-
                 break;
         }
     }
@@ -169,7 +153,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         coordinates[1] = coordinates[1].replace(")", "");
     }
 
-
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -179,7 +162,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                     REQUEST_LOCATION_PERMISSION);
         } else {
             Log.d(TAG, "getLocation: permissions granted");
-
             userLocationAvailable = true;
         }
 
@@ -194,12 +176,8 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
 
                     setUpMap(new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()));
 
-
-
                     mLatitude = Double.toString(location.getLatitude());
                     mLongitude = Double.toString(location.getLongitude());
-
-
 
                     setAddress(location);
                 } else {
@@ -224,7 +202,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         if (location != null) {
             latLng = new LatLng(Double.parseDouble(location.getLatitude()), Double.parseDouble(location.getLongitude()));
         }
-
     }
 
     private void setAddress(Location location) {
@@ -255,8 +232,11 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         } else {
             Address address = addresses.get(0);
             StringBuilder out = new StringBuilder();
-            // Fetch the address lines using getAddressLine,
-            // join them, and send them to the thread
+
+            /**
+             * Fetch the address lines using getAddressLine,
+             * join them, and send them to the thread
+             */
             for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                 out.append(address.getAddressLine(i));
             }
@@ -265,7 +245,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
         mAddress = resultMessage;
         locationDetail= new HabitLocation("Home", mAddress,mLatitude,mLongitude);
-
     }
 
 
@@ -275,7 +254,5 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
         googleMap.addMarker(markerOptions);
-
     }
-
 }
