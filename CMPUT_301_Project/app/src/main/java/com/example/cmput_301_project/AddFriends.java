@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Activity that handles the process of adding friends to an account, and fetches Account data related to pending and actual friends
+ */
 public class AddFriends extends AppCompatActivity {
 
     private ListView pendingFriendsView;

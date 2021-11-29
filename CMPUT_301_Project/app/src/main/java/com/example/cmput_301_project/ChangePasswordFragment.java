@@ -18,6 +18,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 /**
+ * Creates a fragment responsible for changing passwords for an account.
  * A simple {@link Fragment} subclass.
  * Use the {@link ChangePasswordFragment#newInstance} factory method to
  * create an instance of this fragment.

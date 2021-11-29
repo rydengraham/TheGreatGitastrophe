@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+/**
+ * Activity for allowing user to manage personal settings
+ */
 public class AccountSettings extends AppCompatActivity {
 
     FragmentTransaction transaction;

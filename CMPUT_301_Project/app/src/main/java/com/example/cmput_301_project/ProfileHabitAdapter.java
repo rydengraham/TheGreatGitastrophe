@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * Adapter for holding Habits of profiles
+ */
+
 public class ProfileHabitAdapter extends RecyclerView.Adapter<ProfileHabitAdapter.ItemVH>{
     private static final String TAG="Adapter";
     List<HabitEvent> habitEventList;

@@ -28,6 +28,7 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
     private RecyclerViewAdapter recycleAdapter;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

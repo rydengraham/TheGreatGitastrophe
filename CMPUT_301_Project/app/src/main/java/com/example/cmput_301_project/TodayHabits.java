@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 /**
+ * Activity that shows all relevant habits based on the day
  * Class that creates the page and sets up everything
  */
 public class TodayHabits extends AppCompatActivity {
