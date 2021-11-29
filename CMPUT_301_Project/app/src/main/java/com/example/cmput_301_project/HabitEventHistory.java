@@ -26,6 +26,7 @@ public class HabitEventHistory extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_habit_event_history);
         userAccount = AccountData.create().getActiveUserAccount();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -33,6 +34,7 @@ public class HabitEventHistory extends AppCompatActivity {
         delButton = (Button) findViewById(R.id.removeHabitEventButton);
         delText = findViewById(R.id.deleteHabitEventText);
         getHabitEvents();
+
         eventHabitAdapter = new EventHabitAdapter(test,this, false);
         recyclerView.setAdapter(eventHabitAdapter);
 
@@ -55,15 +57,20 @@ public class HabitEventHistory extends AppCompatActivity {
                 delText.setVisibility(View.GONE);
             }
         });
-
     }
 
-
+    /**
+     * Gets habit events for a given habit
+     */
     public void getHabitEvents(){
         test = new ArrayList<>();
         Bundle extras = getIntent().getExtras();
         userAccount.getHabitEventsForHabit(test, extras.getString("habitId"));
-
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        eventHabitAdapter.notifyDataSetChanged();
+    }
 }

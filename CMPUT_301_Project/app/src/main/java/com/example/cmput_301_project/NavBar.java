@@ -13,14 +13,12 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
 /**
  * Navbar object that is used as a footer to allow navigation to various activities
  * A simple {@link Fragment} subclass.
  * create an instance of the navbar fragment.
  */
 public class NavBar extends Fragment {
-
     public NavBar() { /* Required empty public constructor */ }
 
     BottomNavigationView bottomNavigationView;
@@ -83,5 +81,3 @@ public class NavBar extends Fragment {
         return view;
     }
 }
-
-

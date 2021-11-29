@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -133,7 +132,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return habitList.size();
     }
 
-
     class ItemVH extends RecyclerView.ViewHolder {
         private static final String TAG = "Item";
         TextView habitTitleView, reasonView, startDateView, frequencyView, progressView;
@@ -145,7 +143,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         int[] progressRate = {0, 0};
 
         /**
-         *
          * Constructor that finds the textviews and buttons needed to assign habit attributes to
          * @param itemView
          */
@@ -176,9 +173,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         habit.setExpanded(!habit.isExpanded());
                     }
                     notifyDataSetChanged();
-
                 }
             });
+
             // Give editButton a listener for editing habits.
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -202,15 +199,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     context.startActivity(switchActivityIntent);
                 }
             });
-            
         }
 
-        private void updateProgress(int progress)
-        {
+        private void updateProgress(int progress) {
             progressPercentage.setProgress(progress);
             progressView.setText(progress + "%");
         }
     }
-
-
 }

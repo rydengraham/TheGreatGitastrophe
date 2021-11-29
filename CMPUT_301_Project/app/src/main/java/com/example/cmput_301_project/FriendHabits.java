@@ -14,7 +14,6 @@ public class FriendHabits extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recycleAdapter;
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +24,5 @@ public class FriendHabits extends AppCompatActivity {
         // Initialize adapter and set recycleView to it
         recycleAdapter = new RecyclerViewAdapter(this, false);
         recyclerView.setAdapter(recycleAdapter);
-
     }
 }

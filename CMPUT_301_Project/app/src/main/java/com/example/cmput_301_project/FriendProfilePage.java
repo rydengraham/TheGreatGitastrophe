@@ -15,12 +15,7 @@ import java.util.ArrayList;
  *  Activity that handles showcasing a friend's profile page that the user's account has access to
  */
 public class FriendProfilePage extends AppCompatActivity {
-
-    // TODO: random values chosen need to be replaced w real complete/incomplete habits
     private String friendName = "";
-    /* TODO: isFollowing should be a real value corresponding to if user is
-        following friend's habits, currently set to false to allow follow button to work
-     */
     private RecyclerView recyclerView;
     private ProfileHabitAdapter profileHabitAdapter;
     AccountData accountData;
@@ -39,7 +34,6 @@ public class FriendProfilePage extends AppCompatActivity {
         // TODO: add code to change friend profile photo here
 
         TextView friendNameView = (TextView) findViewById(R.id.friendUsernameTV);
-
 
         recyclerView = (RecyclerView) findViewById(R.id.habitList);
         progressBar = findViewById(R.id.progress_bar);
@@ -90,8 +84,7 @@ public class FriendProfilePage extends AppCompatActivity {
     /**
      * Method to set the progress value i.e % of progress
      * bar filled out */
-    public void updateProgress(int progress)
-    {
+    public void updateProgress(int progress) {
         progressBar.setProgress(progress);
         progressText.setText(progress + "%");
     }

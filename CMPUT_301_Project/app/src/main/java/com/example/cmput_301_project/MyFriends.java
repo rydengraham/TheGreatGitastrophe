@@ -16,7 +16,6 @@ import java.util.List;
  * Class responsible for displaying recycle view of habits, and deleting habit items. Extends {@link AppCompatActivity} and implements {@link HabitFragments.OnFragmentInteractionListener}}
  */
 public class MyFriends extends AppCompatActivity {
-    private Account userAccount = AccountData.create().getActiveUserAccount();
     private Button removeButton;
     private Button cancelButton;
     private Button addFriendButton;
@@ -25,7 +24,6 @@ public class MyFriends extends AppCompatActivity {
     private ListView friendsListView;
     private static ArrayList<String> friendsList;
     private static FriendsListAdapter friendsListAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +90,6 @@ public class MyFriends extends AppCompatActivity {
                 startActivity(switchToFriendsHabitEventsPage);
             }
         });
-
     }
 
     /**

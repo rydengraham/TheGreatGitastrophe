@@ -3,8 +3,6 @@
  */
 package com.example.cmput_301_project;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -14,8 +12,7 @@ import java.util.UUID;
 public class HabitEvent implements Serializable {
     private String id;
     private String date;
-    private Bitmap image;
-    //added Habit location
+    private String image;
     private HabitLocation location;
     private String comment;
     private String title;
@@ -41,10 +38,9 @@ public class HabitEvent implements Serializable {
         this.holder = otherHabitEvent.getHolder();
     }
 
-    public HabitEvent() {
-        /* required empty constructor */
-    }
+    public HabitEvent() { /* required empty constructor */ }
 
+    // Getters and Setters
     public boolean isDeleted() {
         return isDeleted;
     }
@@ -81,11 +77,11 @@ public class HabitEvent implements Serializable {
         this.date = date;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
