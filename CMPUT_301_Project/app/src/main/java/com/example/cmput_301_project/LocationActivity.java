@@ -37,6 +37,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Code partially sourced from :
+ * https://github.com/dimitardanailov/FusedLocationProviderClient/blob/master/app/src/main/java/demo/client/provider/location/fused/fusedlocationproviderclientexample/MainActivity.java
+ */
 public class LocationActivity extends AppCompatActivity implements OnMapReadyCallback {
     // Constants
     private static final int REQUEST_LOCATION_PERMISSION = 1;

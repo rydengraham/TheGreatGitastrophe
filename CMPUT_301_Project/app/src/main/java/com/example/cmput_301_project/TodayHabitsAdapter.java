@@ -197,12 +197,10 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
                 });
             }
-            // Need to implement later when we have backend
             if (addLocationButton != null) {
                 addLocationButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // Standard TBD Alert Dialogue
                         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                         builder.setCancelable(true);
                         builder.setTitle("Use Location Services?");
@@ -223,18 +221,25 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
                 });
             }
-            // Need to implement later when we have backend
             if (addPhotoButton != null){
                 addPhotoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // Standard TBD Alert Dialogue
                         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                         builder.setCancelable(true);
-                        builder.setTitle("Page Does Not Exist");
-                        builder.setMessage("This will be added in project part 4.");
-                        builder.setNegativeButton("OK", null);
-                        // Create the alert dialog and display it over the fragment
+                        builder.setTitle("Use Camera?");
+                        builder.setMessage("Add a picture to habit event to commemorate the achievement with yourself and friends.");
+                        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent cameraIntent = new Intent(context.getApplicationContext(), CameraActivity.class);
+                                cameraIntent.putExtra("eventId", selectedHabit.getId());
+                                cameraIntent.putExtra("habitName", selectedHabit.getTitle());
+                                context.startActivity(cameraIntent);
+                            }
+                        });
+                        builder.setNegativeButton("DIMISS", null);
+                        // create the alert dialog and display it over the fragment
                         AlertDialog alertBox = builder.create();
                         alertBox.show();
                     }

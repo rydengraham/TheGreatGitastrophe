@@ -3,14 +3,19 @@ package com.example.cmput_301_project;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -71,6 +76,31 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
     }
 
     /**
+     * Converts an input string to a bitmap and rotates it 90 degrees.
+     * @param inputString
+     * @return
+     */
+    private Bitmap stringToRotatedBitmap(String inputString) {
+        // String to bitmap from: https://stackoverflow.com/questions/23005948/convert-string-to-bitmap
+        try{
+            byte [] encodeByte = Base64.decode(inputString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            //Bitmap rotation from: https://stackoverflow.com/questions/9015372/how-to-rotate-a-bitmap-90-degrees/29369579
+            Matrix matrix = new Matrix();
+
+            matrix.postRotate(90);
+
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+            return Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+        }
+        catch(Exception e){
+            e.getMessage();
+        }
+        return null;
+    }
+
+    /**
      * Used to translate habit stats to the list item holder
      * @param holder
      * @param position
@@ -81,6 +111,9 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
         holder.habitNameView.setText(habitEvent.getTitle());
         holder.commentView.setText(habitEvent.getComment());
         holder.DateView.setText(habitEvent.getDate());
+        if (habitEvent.getImage() != null) {
+            holder.imageView.setImageBitmap(stringToRotatedBitmap(habitEvent.getImage()));
+        }
         boolean isExpanded=habitEventList.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE:View.GONE);
     }
@@ -101,7 +134,9 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
         LinearLayout expandableLayout;
         Button iconButton;
         Button locationButton;
+        Button photoButton;
         Account userAccount;
+        ImageView imageView;
 
         /**
          *
@@ -115,7 +150,9 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
             commentView = itemView.findViewById(R.id.editTextTextPassword);
             iconButton = itemView.findViewById(R.id.photoIconButton);
             locationButton = itemView.findViewById(R.id.editLocationButton);
+            photoButton = itemView.findViewById(R.id.photoIconButton);
             expandableLayout = itemView.findViewById(R.id.expandableHELayout);
+            imageView = itemView.findViewById(R.id.imageView);
             userAccount = AccountData.create().getActiveUserAccount();
 
             // Give itemView a listener for expansion and deletion
@@ -171,6 +208,30 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                     });
                     builder.setNegativeButton("DIMISS", null);
                     // Create the alert dialog and display it over the fragment
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                }
+            });
+            photoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setCancelable(true);
+                    builder.setTitle("Edit Habit Photo?");
+                    builder.setMessage("This will mean updating previously saved photo");
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            HabitEvent currentEvent = habitEventList.get(getAdapterPosition());
+                            Intent cameraIntent = new Intent(context.getApplicationContext(), CameraActivity.class);
+                            cameraIntent.putExtra("eventId", currentEvent.getId());
+                            cameraIntent.putExtra("habitName", currentEvent.getTitle());
+                            context.startActivity(cameraIntent);
+                            notifyDataSetChanged();
+                        }
+                    });
+                    builder.setNegativeButton("DIMISS", null);
+                    // create the alert dialog and display it over the fragment
                     AlertDialog alertBox = builder.create();
                     alertBox.show();
                 }
