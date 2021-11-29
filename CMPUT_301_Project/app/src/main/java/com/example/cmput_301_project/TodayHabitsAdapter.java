@@ -26,7 +26,6 @@ import java.util.ArrayList;
  * Custom adapter class for Today's Habits
  */
 public class TodayHabitsAdapter extends BaseAdapter {
-
     // Variable Declaration
     int resource;
     Context context;
@@ -103,11 +102,10 @@ public class TodayHabitsAdapter extends BaseAdapter {
         textHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(commentHolder.getVisibility() == View.GONE){
+                if (commentHolder.getVisibility() == View.GONE) {
                     commentHolder.setVisibility(View.VISIBLE);
                     iconLocationHolder.setVisibility(View.VISIBLE);
-
-                }else{
+                } else {
                     commentHolder.setVisibility(View.GONE);
                     iconLocationHolder.setVisibility(View.GONE);
                     InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -118,13 +116,13 @@ public class TodayHabitsAdapter extends BaseAdapter {
         // Set which item is selected
         HabitEvent selectedHabit = getItem(i);
         // Create new holder if none
-        if (selectedHabit.getHolder() == null){
+        if (selectedHabit.getHolder() == null) {
             holder = new TodayHabitViewHolder(commentHolder, iconLocationHolder, eventHolder, textHolder, true);
             if (selectedHabit.isCompleted()) {
                 holder.setCompletedButton(false);
             }
         }
-        else{
+        else {
             holder = selectedHabit.getHolder();
         }
         selectedHabit.setHolder(holder);
@@ -139,8 +137,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
                 // Update comment in real time
                 comment.addTextChangedListener(new TextWatcher() {
                     @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    }
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -151,22 +148,21 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
 
                     @Override
-                    public void afterTextChanged(Editable editable) {
-                    }
+                    public void afterTextChanged(Editable editable) { }
                 });
             }
             // Update completed button if clicked
-            if (selectedHabit.getHolder().getCompletedButton()){
+            if (selectedHabit.getHolder().getCompletedButton()) {
                 completedButtonX.setVisibility(View.VISIBLE);
                 completedButtonX.setBackgroundResource(R.drawable.circle_red);
                 completedButtonC.setVisibility(View.GONE);
             }
-            else{
+            else {
                 completedButtonX.setVisibility(View.GONE);
                 completedButtonC.setVisibility(View.VISIBLE);
                 completedButtonX.setBackgroundResource(R.drawable.circle_green);
             }
-            if (completedButtonX != null){
+            if (completedButtonX != null) {
                 completedButtonX.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -183,7 +179,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
                     }
                 });
             }
-            if (completedButtonC != null){
+            if (completedButtonC != null) {
                 completedButtonC.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -202,11 +198,10 @@ public class TodayHabitsAdapter extends BaseAdapter {
                 });
             }
             // Need to implement later when we have backend
-            if (addLocationButton != null){
+            if (addLocationButton != null) {
                 addLocationButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // TODO: Add link to add photo page
                         // Standard TBD Alert Dialogue
                         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                         builder.setCancelable(true);
@@ -222,7 +217,7 @@ public class TodayHabitsAdapter extends BaseAdapter {
                             }
                         });
                         builder.setNegativeButton("DIMISS", null);
-                        // create the alert dialog and display it over the fragment
+                        // Create the alert dialog and display it over the fragment
                         AlertDialog alertBox = builder.create();
                         alertBox.show();
                     }
@@ -233,14 +228,13 @@ public class TodayHabitsAdapter extends BaseAdapter {
                 addPhotoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // TODO: Add link to add location page
                         // Standard TBD Alert Dialogue
                         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                         builder.setCancelable(true);
                         builder.setTitle("Page Does Not Exist");
                         builder.setMessage("This will be added in project part 4.");
                         builder.setNegativeButton("OK", null);
-                        // create the alert dialog and display it over the fragment
+                        // Create the alert dialog and display it over the fragment
                         AlertDialog alertBox = builder.create();
                         alertBox.show();
                     }

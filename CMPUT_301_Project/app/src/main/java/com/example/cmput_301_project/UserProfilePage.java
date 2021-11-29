@@ -19,9 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class UserProfilePage extends AppCompatActivity implements VerifyPasswordFragment.OnPasswordVerify {
-
     boolean passwordVerified = false;
-    // define fragment manager and transaction for opening/closing settings fragment
+    // Define fragment manager and transaction for opening/closing settings fragment
     FragmentManager manager = getSupportFragmentManager();
     FragmentTransaction transaction;
     TextView usernameTextView;
@@ -33,7 +32,6 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
     Account userAccount;
     private RecyclerView recyclerView;
     private ProfileHabitAdapter profileHabitAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +69,6 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
         userAccount.getRecentHabitEvents(eventList, true);
         profileHabitAdapter = new ProfileHabitAdapter(eventList,this);
         recyclerView.setAdapter(profileHabitAdapter);
-
     }
 
     public void onSettingsClick(View view) {
@@ -82,7 +79,7 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
     public void onPasswordVerify(boolean verified, Context context) {
         if (verified) {
             Fragment userSettings = new UserSettingsFragment();
-            // begin fragment transaction and add current activity to backstack
+            // Begin fragment transaction and add current activity to backstack
             transaction = manager.beginTransaction();
             transaction.add(R.id.settingsFrame, userSettings);
             transaction.addToBackStack(null);
@@ -102,10 +99,8 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
     /**
      * Method to set the progress value i.e % of progress
      * bar filled out */
-    public void updateProgress(int progress)
-    {
+    public void updateProgress(int progress) {
         progressBar.setProgress(progress);
         progressText.setText(progress + "%");
     }
-
 }
