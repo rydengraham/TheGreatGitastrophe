@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Habit Object responsible for holding attributes related to the habits the user wants to track for themselves
+ */
 public class Habit implements Serializable {
     private String id;
     private String habitName;

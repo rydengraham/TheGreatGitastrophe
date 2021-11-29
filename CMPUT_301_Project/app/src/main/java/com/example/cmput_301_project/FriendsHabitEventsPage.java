@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ *  Page for seeing a friend's Publicly viewable habit events
+ */
 public class FriendsHabitEventsPage extends AppCompatActivity {
     private ProfileHabitAdapter todoHabitAdapter;
     private ProfileHabitAdapter completedHabitAdapter;

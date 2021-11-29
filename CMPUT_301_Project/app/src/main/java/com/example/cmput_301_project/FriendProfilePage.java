@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ *  Activity that handles showcasing a friend's profile page that the user's account has access to
+ */
 public class FriendProfilePage extends AppCompatActivity {
     private String friendName = "";
     private RecyclerView recyclerView;

@@ -18,6 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Activity that showcases the user's account profile
+ */
+
 public class UserProfilePage extends AppCompatActivity implements VerifyPasswordFragment.OnPasswordVerify {
     boolean passwordVerified = false;
     // Define fragment manager and transaction for opening/closing settings fragment

@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 /**
  * RecyclerViewAdpater helps create the custom list, also handles edits and deletions
+ * ItemHolder is needed to handle clicking views in an item list
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ItemVH> {
     private static final String TAG="Adapter";

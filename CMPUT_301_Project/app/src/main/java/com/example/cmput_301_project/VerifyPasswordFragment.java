@@ -18,7 +18,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 /**
- * A {@link Fragment} subclass that helps create habit objects through dialog.
+ * Fragment that allows verification of passwords
+ * A {@link Fragment} subclass that helps verify passwords through dialog.
  * Use the {@link VerifyPasswordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */

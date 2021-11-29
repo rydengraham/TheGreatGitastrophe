@@ -20,6 +20,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+/**
+ * Accounts are essential for operating the app, accounts are used for register and sign in, as well as finding friends
+ */
+
 public class Account {
     // Identification Information
     private String username;

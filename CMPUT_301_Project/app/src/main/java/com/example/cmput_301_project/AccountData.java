@@ -22,6 +22,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
+/**
+ * Account Data is responsible for storing Habits, friends, and habit events for each account
+ */
+
 // Singleton Global Variable Access From:
 // https://stackoverflow.com/questions/1944656/android-global-variable
 public class AccountData {

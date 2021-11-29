@@ -23,7 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import java.util.ArrayList;
 
 /**
- * Custom adapter class for Today's Habits
+ * Custom adapter class for Today's Habits, needed to list today's habits in list view correctly
  */
 public class TodayHabitsAdapter extends BaseAdapter {
     // Variable Declaration

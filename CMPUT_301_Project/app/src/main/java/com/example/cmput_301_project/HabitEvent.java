@@ -8,6 +8,9 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * Habit event object class that has attributes that are meant to track the Habit Events the user wants to create
+ */
 public class HabitEvent implements Serializable {
     private String id;
     private String date;

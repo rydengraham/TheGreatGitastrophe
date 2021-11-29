@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Activity that is used to display all Habit Events the user has pertaining to them, Uses the EventHabitAdapter to display a list item
+ */
+
 public class HabitEventHistory extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EventHabitAdapter eventHabitAdapter;

@@ -19,6 +19,9 @@ import androidx.fragment.app.FragmentTransaction;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
+/**
+ * Activity that allows the user to log into their own account
+ */
 public class LoginScreenPage extends AppCompatActivity {
     FragmentManager manager = getSupportFragmentManager();
     FragmentTransaction transaction;
