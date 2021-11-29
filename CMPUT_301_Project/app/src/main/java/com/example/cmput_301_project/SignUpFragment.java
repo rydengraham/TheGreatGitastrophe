@@ -3,28 +3,16 @@
  */
 package com.example.cmput_301_project;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -36,7 +24,6 @@ import java.util.regex.Pattern;
  * create an instance of this fragment.
  */
 public class SignUpFragment extends Fragment  implements View.OnClickListener {
-
     EditText emailField;
     EditText usernameField;
     EditText passwordField;
@@ -74,7 +61,7 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
         passwordField = (EditText) view.findViewById(R.id.createPasswordEV);
         reenterPasswordField = (EditText) view.findViewById(R.id.reenterPasswordEV);
 
-        // add buttons for sign-up and exit and set their onClick listeners to current class
+        // Add buttons for sign-up and exit and set their onClick listeners to current class
         Button signUpButton = (Button) view.findViewById(R.id.signUpButton);
         Button exitButton = (Button) view.findViewById(R.id.cancelButton);
         signUpButton.setOnClickListener(this);
@@ -89,7 +76,7 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
     public void onClick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(true);
-        // override onClick depending on if the 'sign-up' or 'cancel' button is pressed
+        // Override onClick depending on if the 'sign-up' or 'cancel' button is pressed
         switch(view.getId()) {
             case R.id.signUpButton:
                 String username = usernameField.getText().toString();
@@ -154,16 +141,16 @@ public class SignUpFragment extends Fragment  implements View.OnClickListener {
                 getActivity().onBackPressed();
                 break;
             case R.id.cancelButton:
-                // if the cancel button is pressed, warn the user before exiting
+                // If the cancel button is pressed, warn the user before exiting
                 builder.setTitle("Exit Without Saving?");
                 builder.setMessage("Any changes you've made will be lost.");
-                // if the user chooses to exit, return to the user profile activity
+                // If the user chooses to exit, return to the user profile activity
                 builder.setPositiveButton("Exit", (dialog, which) -> {
                     getActivity().onBackPressed();
                 });
-                // if the user chooses to stay on the fragment, simply close the dialog
+                // If the user chooses to stay on the fragment, simply close the dialog
                 builder.setNegativeButton("Go Back", null);
-                // create the alert dialog and display it over the fragment
+                // Create the alert dialog and display it over the fragment
                 AlertDialog confirmExitdialog = builder.create();
                 confirmExitdialog.show();
                 break;

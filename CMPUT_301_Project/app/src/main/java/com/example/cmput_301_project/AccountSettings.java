@@ -5,7 +5,6 @@ package com.example.cmput_301_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,7 +30,7 @@ public class AccountSettings extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         /**
-         * link to profile page
+         * Link to profile page
          */
         final Button viewProfileButton = findViewById(R.id.viewProfile);
         viewProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +41,7 @@ public class AccountSettings extends AppCompatActivity {
         });
 
         /**
-         * password change page link
+         * Password change page link
          */
         final Button changePassButton = findViewById(R.id.changePassword);
         changePassButton.setOnClickListener(new View.OnClickListener() {
@@ -63,13 +62,12 @@ public class AccountSettings extends AppCompatActivity {
         final Button deleteAccountButton = findViewById(R.id.delete);
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
                 // Standard TBD Alert Dialogue
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setCancelable(true);
                 builder.setTitle("Are You Sure You Want To Delete Your Account?");
                 builder.setMessage("This action cannot be undone");
-                // if the user chooses to exit, return to the user profile activity
+                // If the user chooses to exit, return to the user profile activity
                 builder.setPositiveButton("Delete Account", (dialog, which) -> {
                     AccountData accountData = AccountData.create();
                     Account activeFriendAccount;
@@ -89,9 +87,9 @@ public class AccountSettings extends AppCompatActivity {
                     Intent switchActivityIntent = new Intent(AccountSettings.this, LoginScreenPage.class);
                     startActivity(switchActivityIntent);
                 });
-                // if the user chooses to stay on the fragment, simply close the dialog
+                // If the user chooses to stay on the fragment, simply close the dialog
                 builder.setNegativeButton("Cancel", null);
-                // create the alert dialog and display it over the fragment
+                // Create the alert dialog and display it over the fragment
                 AlertDialog confirmDeleteDialogue = builder.create();
                 confirmDeleteDialogue.show();
             }
@@ -105,15 +103,5 @@ public class AccountSettings extends AppCompatActivity {
                 startActivity(switchActivityIntent);
             }
         });
-    }
-
-    /**
-     * NOT YET IMPLEMENTED
-     * @param item
-     * @return
-     */
-    public boolean onOptionsItemSelected (MenuItem item){
-        finish();
-        return true;
     }
 }

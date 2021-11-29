@@ -33,7 +33,6 @@ import java.util.Date;
  */
 
 public class HabitFragments extends DialogFragment {
-
     private EditText habitTitle;
     private EditText startDate;
     private HabitFragments.OnFragmentInteractionListener listener; //Comforting to have.
@@ -43,10 +42,8 @@ public class HabitFragments extends DialogFragment {
     private CalendarView calendarView;
     private Date dateToSend;
     private Switch publicSwitcher;
-    private CheckBox monday,tuesday,wednesday,thursday,friday,saturday,sunday;
+    private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private Integer weekday;
-
-
 
     /**
      * Fragment interaction listener used in MyHabits class
@@ -56,7 +53,6 @@ public class HabitFragments extends DialogFragment {
 
         void onOkPressed(Habit retrievedHabit, String name, String reason, Date date , int weekdays, boolean publicHabit);
     }
-
 
     @Override
     public void onAttach(Context context){
@@ -125,6 +121,7 @@ public class HabitFragments extends DialogFragment {
         tableLayout.setVisibility(View.GONE);
         dateToSend = new Date(calendarView.getDate());
         publicSwitcher = view.findViewById(R.id.privateSwitch);
+
         monday = view.findViewById(R.id.mondayBox);
         tuesday = view.findViewById(R.id.tuesdayBox);
         wednesday = view.findViewById(R.id.wednesdayBox);
@@ -135,8 +132,6 @@ public class HabitFragments extends DialogFragment {
         weekday = 0;
         Dialog test;
 
-
-
         // Toggles frequency view
         frequencyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +139,7 @@ public class HabitFragments extends DialogFragment {
                 tableLayout.setVisibility(tableLayout.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
             }
         });
+
         // Toggles date view
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +158,6 @@ public class HabitFragments extends DialogFragment {
                 dateToSend = new Date(i-1900, i1, i2);
             }
         });
-
 
         Bundle args = getArguments();
 
@@ -208,7 +203,6 @@ public class HabitFragments extends DialogFragment {
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
-
                             String name = habitTitle.getText().toString();
                             String reason = startDate.getText().toString();
                             retrievedHabit.setHabitName(habitTitle.getText().toString());
@@ -217,7 +211,7 @@ public class HabitFragments extends DialogFragment {
                             boolean publicHabit = false;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
 
-                            // add to weekday bit wise to reflect the checked boxes
+                            // Add to weekday bit wise to reflect the checked boxes
                             if (checkBox.isChecked() == true)
                                 weekdays = weekdays + 1;
                             checkBox = view.findViewById(R.id.tuesdayBox);
@@ -250,7 +244,7 @@ public class HabitFragments extends DialogFragment {
             test.show();
             ((AlertDialog) test).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
         }
-            else{
+            else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             test = builder
                     .setView(view)
@@ -259,7 +253,6 @@ public class HabitFragments extends DialogFragment {
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
-
                             String name = habitTitle.getText().toString();
                             String reason = startDate.getText().toString();
                             Date date = dateToSend;
@@ -267,7 +260,7 @@ public class HabitFragments extends DialogFragment {
                             boolean publicHabit = false;
                             CheckBox checkBox = view.findViewById(R.id.mondayBox);
 
-                            // add to weekday bit wise to reflect the checked boxes
+                            // Add to weekday bit wise to reflect the checked boxes
                             if (checkBox.isChecked() == true)
                                 weekdays = weekdays + 1;
                             checkBox = view.findViewById(R.id.tuesdayBox);
@@ -302,9 +295,7 @@ public class HabitFragments extends DialogFragment {
         }
             startDate.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -316,15 +307,11 @@ public class HabitFragments extends DialogFragment {
                 }
 
                 @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
+                public void afterTextChanged(Editable editable) { }
             });
             habitTitle.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -336,9 +323,7 @@ public class HabitFragments extends DialogFragment {
                 }
 
                 @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
+                public void afterTextChanged(Editable editable) { }
             });
 
             monday.setOnClickListener(new View.OnClickListener() {
@@ -415,6 +400,3 @@ public class HabitFragments extends DialogFragment {
             return test;
         }
     }
-
-
-

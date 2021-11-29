@@ -20,7 +20,6 @@ import java.util.ArrayList;
  * Custom adapter class for Today's Habits
  */
 public class FriendsListAdapter extends BaseAdapter {
-
     // Variable Declaration
     int resource;
     Context context;
@@ -94,7 +93,7 @@ public class FriendsListAdapter extends BaseAdapter {
      */
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view=null;
+        view = null;
         View v = view;
         if (v == null) {
             LayoutInflater vi;
@@ -116,7 +115,7 @@ public class FriendsListAdapter extends BaseAdapter {
                     builder.setTitle("Remove Friend?");
                     builder.setMessage("Are you sure you want to remove this friend?");
                     builder.setPositiveButton("Remove", ((dialog, which) -> {
-                        // change status of follow button to prompt user to follow
+                        // Change status of follow button to prompt user to follow
                         MyFriends.getFriendsList().remove(friendName);
                         for (Account friendAccount : accountData.getAccountData().values()) {
                             if (friendAccount.getUserName().equals(friendName)) {
@@ -130,7 +129,7 @@ public class FriendsListAdapter extends BaseAdapter {
                         MyFriends.getFriendsListAdapter().notifyDataSetChanged();
                     }));
                     builder.setNegativeButton("Cancel", null);
-                    // create the alert dialog and display it over the fragment
+                    // Create the alert dialog and display it over the fragment
                     AlertDialog alertBox = builder.create();
                     alertBox.show();
                 } else{
@@ -145,7 +144,6 @@ public class FriendsListAdapter extends BaseAdapter {
                 }
             }
         });
-
 
         if (friendName != null){
             friendsName.setText(friendName);
