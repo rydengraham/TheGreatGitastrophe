@@ -1,5 +1,8 @@
 package com.example.cmput_301_project;
 
+/**
+ *  HabitLocation object to handle locations specified by user
+ */
 public class HabitLocation {
     private String locationName;
     private String address;

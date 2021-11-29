@@ -20,6 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An adapter for holding event habit objects, as a recycler view it also comes with a holder to which
+ * we assign attributes to various views
+ */
+
 public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.ItemVH>{
     private static final String TAG="Adapter";
     //Account userAccount = AccountData.create().getActiveUserAccount();

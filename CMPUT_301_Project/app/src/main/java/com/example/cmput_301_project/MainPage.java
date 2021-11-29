@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Activity that serves as a main hub and overview of the User's progression of their own habits
+ */
 
 public class MainPage extends AppCompatActivity {
 
