@@ -15,20 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CMPUT_301_Project">
         <activity
-            android:name=".CameraActivity"
+            android:name=".pages.CameraPage"
             android:exported="true" />
         <activity
-            android:name=".LocationActivity"
+            android:name=".pages.LocationPage"
             android:exported="true" />
         <activity
-            android:name=".FriendsHabitEventsPage"
+            android:name=".pages.FriendsHabitEventsPage"
             android:exported="true" />
-        <activity android:name=".FriendHabits" />
+        <activity android:name=".pages.FriendHabitsPage" />
         <activity
-            android:name=".HabitEventHistory"
+            android:name=".pages.HabitEventHistoryPage"
             android:exported="true" />
         <activity
-            android:name=".LoginScreenPage"
+            android:name=".pages.LoginScreenPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,23 +36,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TodayHabits" />
+        <activity android:name=".pages.TodayHabitsPage" />
         <activity
-            android:name=".FriendProfilePage"
+            android:name=".pages.FriendProfilePage"
             android:exported="true" />
-        <activity android:name=".MyHabits" />
-        <activity android:name=".MyFriends" />
-        <activity android:name=".AddFriends" />
+        <activity android:name=".pages.MyHabitsPage" />
+        <activity android:name=".pages.MyFriendsPage" />
+        <activity android:name=".pages.AddFriendsPage" />
         <activity
-            android:name=".UserProfilePage"
+            android:name=".pages.UserProfilePage"
             android:exported="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".AccountSettings"
+            android:name=".pages.AccountSettingsPage"
             android:label="@string/app_name" />
         <activity
-            android:name=".MainPage"
+            android:name=".pages.MainPage"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

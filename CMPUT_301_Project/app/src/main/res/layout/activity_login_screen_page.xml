@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:exported="true"
-    tools:context=".LoginScreenPage">
+    tools:context=".pages.LoginScreenPage">
 
     <!-- TODO: replace placeholder drawable with actual logo -->
 

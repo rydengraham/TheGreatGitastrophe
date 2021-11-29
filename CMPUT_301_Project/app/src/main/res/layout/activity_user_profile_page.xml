@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:exported="true"
-    tools:context=".UserProfilePage">
+    tools:context=".pages.UserProfilePage">
 
     <TextView
         android:id="@+id/usernameText"
@@ -145,7 +145,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
-            android:name="com.example.cmput_301_project.NavBar"
+            android:name="com.example.cmput_301_project.fragments.NavBarFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
