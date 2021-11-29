@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
+ * Fragment used to allow user to sign up by creating an acccount
  * A simple {@link Fragment} subclass.
  * Use the {@link SignUpFragment#newInstance} factory method to
  * create an instance of this fragment.

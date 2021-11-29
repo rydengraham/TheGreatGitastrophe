@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import java.util.HashMap;
 
 /**
+ * Fragment that showcases user settings
  * A simple {@link Fragment} subclass.
  * Use the {@link UserSettingsFragment#newInstance} factory method to
  * create an instance of this fragment.

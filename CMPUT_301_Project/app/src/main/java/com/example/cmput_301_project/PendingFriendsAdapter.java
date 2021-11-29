@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Custom adapter class for Today's Habits
+ * Custom adapter class for Pending Friends
  */
 public class PendingFriendsAdapter extends BaseAdapter {
 
