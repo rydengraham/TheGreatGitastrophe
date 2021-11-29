@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+/**
+ * Activity for allowing user to manage personal settings
+ */
 public class AccountSettings extends AppCompatActivity {
 
     FragmentTransaction transaction;
@@ -26,25 +29,6 @@ public class AccountSettings extends AppCompatActivity {
         setContentView(R.layout.account_settings);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        /**
-         * Used to toggle profile privacy settings
-         */
-        final Button viewToggleButton = findViewById(R.id.privViewToggle);
-        viewToggleButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-                // Standard TBD Alert Dialogue
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setCancelable(true);
-                builder.setTitle("Page Does Not Exist");
-                builder.setMessage("This will be added in project part 4.");
-                builder.setNegativeButton("OK", null);
-                // create the alert dialog and display it over the fragment
-                AlertDialog alertBox = builder.create();
-                alertBox.show();
-            }
-        });
 
         /**
          * link to profile page
@@ -87,7 +71,21 @@ public class AccountSettings extends AppCompatActivity {
                 builder.setMessage("This action cannot be undone");
                 // if the user chooses to exit, return to the user profile activity
                 builder.setPositiveButton("Delete Account", (dialog, which) -> {
-                    AccountData.create().deleteActiveUserAccount();
+                    AccountData accountData = AccountData.create();
+                    Account activeFriendAccount;
+                    // Deletion of account from other user's friend and pending list
+                    for (String id : accountData.getActiveUserAccount().getFriendList()) {
+                        activeFriendAccount = accountData.getAccountData().get(id);
+                        activeFriendAccount.removeFriend(accountData.getActiveUserId());
+                        activeFriendAccount.updateFirestore();
+                    }
+                    for (Account friendAccount : accountData.getAccountData().values()) {
+                        if (friendAccount.getFriendPendingList().contains(accountData.getActiveUserId())) {
+                            friendAccount.removePendingFriend(accountData.getActiveUserId());
+                            friendAccount.updateFirestore();
+                        }
+                    }
+                    accountData.deleteActiveUserAccount();
                     Intent switchActivityIntent = new Intent(AccountSettings.this, LoginScreenPage.class);
                     startActivity(switchActivityIntent);
                 });

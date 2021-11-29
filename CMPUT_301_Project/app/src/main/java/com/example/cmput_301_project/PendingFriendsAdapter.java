@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Custom adapter class for Today's Habits
+ * Custom adapter class for Pending Friends
  */
 public class PendingFriendsAdapter extends BaseAdapter {
 
@@ -97,6 +97,8 @@ public class PendingFriendsAdapter extends BaseAdapter {
             }
         });
 
+        AccountData accountData = AccountData.create();
+
         String friendName = getItem(i);
         if (friendName != null){
             pendingFriendName.setText(friendName);
@@ -107,6 +109,18 @@ public class PendingFriendsAdapter extends BaseAdapter {
                     MyFriends.getFriendsListAdapter().notifyDataSetChanged();
                     AddFriends.getPendingList().remove(friendName);
                     AddFriends.getPendingListAdapter().notifyDataSetChanged();
+                    for (Account friendAccount : accountData.getAccountData().values()) {
+                        if (friendAccount.getUserName().equals(friendName)) {
+                            String friendID = friendAccount.getId();
+                            accountData.getActiveUserAccount().removePendingFriend(friendID);
+                            accountData.getActiveUserAccount().addFriend(friendID);
+                            friendAccount.addFriend(accountData.getActiveUserId());
+                            friendAccount.removePendingFriend(accountData.getActiveUserId());
+                            friendAccount.updateFirestore();
+                            accountData.getActiveUserAccount().updateFirestore();
+                            break;
+                        }
+                    }
                 }
             });
             declineButton.setOnClickListener(new View.OnClickListener(){
@@ -114,6 +128,14 @@ public class PendingFriendsAdapter extends BaseAdapter {
                 public void onClick(View view) {
                     AddFriends.getPendingList().remove(friendName);
                     AddFriends.getPendingListAdapter().notifyDataSetChanged();
+                    for (Account friendAccount : accountData.getAccountData().values()) {
+                        if (friendAccount.getUserName().equals(friendName)) {
+                            String friendID = friendAccount.getId();
+                            accountData.getActiveUserAccount().removePendingFriend(friendID);
+                            accountData.getActiveUserAccount().updateFirestore();
+                            break;
+                        }
+                    }
                 }
             });
         }

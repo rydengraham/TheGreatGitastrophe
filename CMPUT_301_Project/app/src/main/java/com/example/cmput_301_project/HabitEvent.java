@@ -8,10 +8,15 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * Habit event object class that has attributes that are meant to track the Habit Events the user wants to create
+ */
 public class HabitEvent implements Serializable {
     private String id;
     private String date;
     private Bitmap image;
+    //added Habit location
+    private HabitLocation location;
     private String comment;
     private String title;
     private TodayHabitViewHolder holder;
@@ -42,6 +47,14 @@ public class HabitEvent implements Serializable {
 
     public boolean isDeleted() {
         return isDeleted;
+    }
+
+    public HabitLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(HabitLocation location) {
+        this.location = location;
     }
 
     public void setDeleted(boolean deleted) {

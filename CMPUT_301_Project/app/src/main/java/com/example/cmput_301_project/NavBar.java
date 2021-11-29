@@ -9,13 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 /**
+ * Navbar object that is used as a footer to allow navigation to various activities
  * A simple {@link Fragment} subclass.
  * create an instance of the navbar fragment.
  */
@@ -57,6 +57,7 @@ public class NavBar extends Fragment {
                 case R.id.habits:
                     if (getActivity().getClass() != MyHabits.class) {
                         Intent switchToHabitsPage = new Intent(getActivity(), MyHabits.class);
+                        switchToHabitsPage.putExtra("userId", AccountData.create().getActiveUserId());
                         startActivity(switchToHabitsPage);
                     }
                     break;

@@ -19,6 +19,9 @@ import androidx.fragment.app.FragmentTransaction;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
+/**
+ * Activity that allows the user to log into their own account
+ */
 public class LoginScreenPage extends AppCompatActivity {
 
     FragmentManager manager = getSupportFragmentManager();
@@ -61,7 +64,6 @@ public class LoginScreenPage extends AppCompatActivity {
         boolean validated = false;
         for (Account existingAccount : accountData.values()) {
             if (existingAccount.getUserName().equals(username) && existingAccount.checkPassword(password)) {
-                // TODO: Set this account to be the active user
                 AccountData accountData = AccountData.create();
                 accountData.setActiveUserId(existingAccount.getId());
                 accountData.getActiveUserAccount().backfillHabitEvents();

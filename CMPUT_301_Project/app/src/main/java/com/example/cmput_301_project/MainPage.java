@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Activity that serves as a main hub and overview of the User's progression of their own habits
+ */
 
 public class MainPage extends AppCompatActivity {
 
@@ -47,17 +49,24 @@ public class MainPage extends AppCompatActivity {
             progressRate = userAccount.getHabitCompletionRateInLastThirtyDays(habit.getId());
             progressCurrentCounter += progressRate[1];
             progressMaxCounter += progressRate[0];
-            System.out.println(progressCurrentCounter);
-            System.out.println(progressMaxCounter);
         }
-
-        progress = 100 * progressCurrentCounter / progressMaxCounter;
-        updateProgress();
+        if (progressMaxCounter != 0) {
+            progress = 100 * progressCurrentCounter / progressMaxCounter;
+        } else {
+            progress = 0;
+        }
+        // Progress bar library bug fix (not our fault)
+        if (progress < 100) {
+            updateProgress(progress + 1);
+        } else {
+            updateProgress(progress - 1);
+        }
+        updateProgress(progress);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent switchToTodayHabitsPage = new Intent(MainPage.this, TodayHabits.class);
-                updateProgress();
+                updateProgress(progress);
                 startActivity(switchToTodayHabitsPage);
             }
         });
@@ -80,7 +89,7 @@ public class MainPage extends AppCompatActivity {
     /**
      * Method to set the progress value i.e % of progress
      * bar filled out */
-    public void updateProgress()
+    private void updateProgress(int progress)
     {
         progressBar.setProgress(progress);
         progressText.setText(progress + "%");

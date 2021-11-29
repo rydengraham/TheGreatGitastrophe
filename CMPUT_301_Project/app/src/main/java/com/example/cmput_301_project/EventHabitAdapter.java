@@ -1,6 +1,8 @@
 package com.example.cmput_301_project;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,10 +14,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * An adapter for holding event habit objects, as a recycler view it also comes with a holder to which
+ * we assign attributes to various views
+ */
 
 public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.ItemVH>{
     private static final String TAG="Adapter";
@@ -152,6 +160,29 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                 @Override
                 public void afterTextChanged(Editable editable) {
 
+                }
+            });
+            locationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setCancelable(true);
+                    builder.setTitle("Edit Habit Location?");
+                    builder.setMessage("This will mean updating previously saved location data");
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            HabitEvent currentEvent = habitEventList.get(getAdapterPosition());
+                            Intent locationIntent = new Intent(context.getApplicationContext(), LocationActivity.class);
+                            locationIntent.putExtra("eventId", currentEvent.getId());
+                            locationIntent.putExtra("habitName", currentEvent.getTitle());
+                            context.startActivity(locationIntent);
+                        }
+                    });
+                    builder.setNegativeButton("DIMISS", null);
+                    // create the alert dialog and display it over the fragment
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
                 }
             });
 

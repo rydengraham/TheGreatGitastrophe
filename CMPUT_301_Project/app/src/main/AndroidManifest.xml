@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CMPUT_301_Project">
         <activity
-            android:name=".LocationActivity"
+            android:name=".CameraActivity"
             android:exported="true" />
         <activity
-            android:name=".CameraActivity"
+            android:name=".LocationActivity"
             android:exported="true" />
         <activity
             android:name=".FriendsHabitEventsPage"
