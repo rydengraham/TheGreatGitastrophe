@@ -28,7 +28,7 @@ public class CameraActivity extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA_PERMISSION = 2;
     private static final String TAG =CameraActivity.class.getSimpleName() ;
-    TextureView viewFinder;
+    private TextureView viewFinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

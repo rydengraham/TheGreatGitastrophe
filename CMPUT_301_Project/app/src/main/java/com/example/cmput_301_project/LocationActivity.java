@@ -48,7 +48,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     private static final String TRACKING_LOCATION_KEY = "tracking_location";
     private static final String TAG = LocationActivity.class.getSimpleName();
 
-
+    //Habit Location and required parameters
     private HabitLocation locationDetail;
     private String coordinates [];
     private String mLongitude;
@@ -73,7 +73,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         addLocation = findViewById(R.id.floating_btn);
 
         String apiKey = getString(R.string.api_key);
-
+// places Api required for autocomplete search
         if(!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), apiKey);
 
@@ -86,6 +86,11 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
 
 
     }
+    /**
+     * Function responsible for initializing autocomplete search bar
+     * sets Habit location to user search iff they pressed location add button
+     * updates value in firestore
+     */
     public void initAutocompleteUI(){
         // Initialize the AutocompleteSupportFragment.
 
@@ -162,6 +167,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                 break;
         }
     }
+    /**
+     *Parses LatLng to convert it into a string format
+     * @param latLng
+     */
 
     private void parseLatLng( LatLng latLng){
         coordinates = latLng.toString().split(",");
@@ -169,6 +178,11 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         coordinates[1] = coordinates[1].replace(")", "");
     }
 
+    /**
+     * Checks user permission for location
+     * sets up fusedLocationClient, api used to determine
+     * location of device
+     */
 
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(this,
@@ -211,6 +225,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         });
     }
 
+    /**
+     * initalizes google maps fragment
+     * @param newLatLng
+     *
+     */
+
     private void setUpMap(LatLng newLatLng){
         latLng = newLatLng;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -226,6 +246,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
     }
+
+    /**
+     * geocoder parses location to obtain latitude and longitude
+     * from user default location
+     * @param location
+     */
 
     private void setAddress(Location location) {
         Geocoder geocoder = new Geocoder(LocationActivity.this,
