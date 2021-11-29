@@ -31,7 +31,7 @@ public class Account {
     private Bitmap pfp;
 
     private List<Habit> habitTable;
-    // friend account ids
+    // Friend Account IDs
     private List<String> friendList;
     private List<String> friendPendingList;
 
@@ -82,6 +82,11 @@ public class Account {
         return this.password.equals(candidatePassword);
     }
 
+    /**
+     * Gets the total events and completed events of a given habit in the last 30 days
+     * @param habitId
+     * @return
+     */
     public int[] getHabitCompletionRateInLastThirtyDays(String habitId) {
         // Index 0 = Total, 1 = Completed
         int[] completionRate = {0, 0};
@@ -114,37 +119,11 @@ public class Account {
                 return completionRate;
             }
         }
-
         return completionRate;
     }
 
     /**
-     * Forces a Firestore update for the active account
-     */
-    public void updateFirestore() {
-        AccountData.create().modifyAccount(this);
-    }
-
-    public String getPassword() {
-        // Getter required only for firestore
-        return password;
-    }
-
-    public void setPassword(String password) {
-        // Setter required only for firestore
-        this.password = password;
-    }
-
-    public List<String> getFriendList() {
-        return friendList;
-    }
-
-    public void setFriendList(List<String> friendList) {
-        this.friendList = friendList;
-    }
-
-    /**
-     * adds a friend to the friend list
+     * Adds a friend to the friend list
      * @param id
      */
     public void addFriend(String id) {
@@ -154,7 +133,7 @@ public class Account {
     }
 
     /**
-     * removes a friend from the friend list
+     * Removes a friend from the friend list
      * @param id
      */
     public void removeFriend(String id) {
@@ -163,16 +142,8 @@ public class Account {
         }
     }
 
-    public List<String> getFriendPendingList() {
-        return friendPendingList;
-    }
-
-    public void setFriendPendingList(List<String> friendPendingList) {
-        this.friendPendingList = friendPendingList;
-    }
-
     /**
-     * adds a friend to the pending friend list
+     * Adds a friend to the pending friend list
      * @param id
      */
     public int addPendingFriend(String id) {
@@ -187,7 +158,7 @@ public class Account {
     }
 
     /**
-     * removes a friend from the pending friend list
+     * Removes a friend from the pending friend list
      * @param id
      */
     public void removePendingFriend(String id) {
@@ -196,42 +167,27 @@ public class Account {
         }
     }
 
-    public String getUserName() {
-        return username;
-    }
-
-    public void setUserName(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public List<Habit> getHabitTable() {
-        return this.habitTable;
-    }
-
-    public void setHabitTable(List<Habit> habitTable) {
-        this.habitTable = habitTable;
-    }
-
+    /**
+     * Adds a habit to the habit table
+     * @param newHabit
+     */
     public void addHabit(Habit newHabit) {
         this.habitTable.add(newHabit);
     }
 
+    /**
+     * Deletes a habit form the habit table
+     * @param newHabit
+     */
     public void deleteHabit(Habit newHabit) {
         this.habitTable.remove(newHabit);
     }
 
+    /**
+     * Updates a habit in the habit table at a given position
+     * @param position
+     * @param updatedHabit
+     */
     public void updateHabit(int position, Habit updatedHabit) {
         this.habitTable.set(position, updatedHabit);
     }
@@ -319,7 +275,6 @@ public class Account {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
 
         for (Habit currentHabit : this.habitTable) {
-            boolean createTodayEvent = true;
             if (currentHabit.getPublic() || includePrivate) {
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
                     if (!event.isDeleted() && event.isCompleted()) {
@@ -425,6 +380,61 @@ public class Account {
             }
         }
         return;
+    }
+
+    /**
+     * Forces a Firestore update for the active account
+     */
+    public void updateFirestore() {
+        AccountData.create().modifyAccount(this);
+    }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
+
+    public List<String> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(List<String> friendList) {
+        this.friendList = friendList;
+    }
+
+    public List<String> getFriendPendingList() {
+        return friendPendingList;
+    }
+
+    public void setFriendPendingList(List<String> friendPendingList) {
+        this.friendPendingList = friendPendingList;
+    }
+
+    public String getUserName() {
+        return username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<Habit> getHabitTable() {
+        return this.habitTable;
+    }
+
+    public void setHabitTable(List<Habit> habitTable) {
+        this.habitTable = habitTable;
     }
 
     public Bitmap getPfp() {
