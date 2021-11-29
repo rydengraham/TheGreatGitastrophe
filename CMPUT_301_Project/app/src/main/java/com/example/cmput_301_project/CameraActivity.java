@@ -1,5 +1,18 @@
 package com.example.cmput_301_project;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Matrix;
+import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
+import android.util.Rational;
+import android.util.Size;
+import android.view.Surface;
+import android.view.TextureView;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,19 +23,10 @@ import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.graphics.Matrix;
-import android.os.Bundle;
-import android.util.Log;
-import android.util.Rational;
-import android.util.Size;
-import android.view.Surface;
-import android.view.TextureView;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -30,13 +34,17 @@ public class CameraActivity extends AppCompatActivity {
     private static final String TAG =CameraActivity.class.getSimpleName() ;
     TextureView viewFinder;
 
+    private Account userAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userAccount = AccountData.create().getActiveUserAccount();
         setContentView(R.layout.activity_camera);
         viewFinder = findViewById(R.id.view_finder);
         getCameraPermissions();
     }
+
     public void getCameraPermissions() {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
@@ -51,6 +59,7 @@ public class CameraActivity extends AppCompatActivity {
 
         }
     }
+
     private Runnable startCamera = new Runnable() {
         @Override
         public void run() {
@@ -98,6 +107,7 @@ public class CameraActivity extends AppCompatActivity {
                         if (exc != null) {
                             exc.printStackTrace();
                         }
+                        finish();
                     }
 
                     @Override
@@ -105,6 +115,27 @@ public class CameraActivity extends AppCompatActivity {
                         String msg = "Photo capture succeeded: " + file.getAbsolutePath();
                         Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
                         Log.d(TAG, msg);
+                        Bundle extras = getIntent().getExtras();
+                        String eventId = extras.getString("eventId");
+                        String habitName = extras.getString("habitName");
+                        try {
+                            // Jpg to string from: https://stackoverflow.com/questions/36492084/how-to-convert-an-image-to-base64-string-in-java
+                            FileInputStream fileInputStreamReader = new FileInputStream(file);
+                            byte[] bytes = new byte[(int)file.length()];
+                            fileInputStreamReader.read(bytes);
+//                            System.out.println(file);
+//                            System.out.println(Base64.encodeToString(bytes, Base64.DEFAULT));
+//                            System.out.println(file.toString());
+                            String stringImage = Base64.encodeToString(bytes, Base64.DEFAULT);
+                            userAccount = AccountData.create().getActiveUserAccount();
+                            userAccount.getHabitEvent(eventId, habitName).setImage(stringImage);
+                            userAccount.updateFirestore();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        finish();
                     }
                 });
 
