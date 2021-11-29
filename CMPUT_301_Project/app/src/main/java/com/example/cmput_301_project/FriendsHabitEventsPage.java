@@ -22,7 +22,7 @@ public class FriendsHabitEventsPage extends AppCompatActivity {
         ArrayList<HabitEvent> completeHabits = new ArrayList<>();
 
         AccountData accountData = AccountData.create();
-        // convert the incomplete/complete habits to corresponding ArrayLists
+        // Convert the incomplete/complete habits to corresponding ArrayLists
         for (String friendId: accountData.getActiveUserAccount().getFriendList()) {
             accountData.getAccountData().get(friendId).getTodayHabitEvents(incompleteHabits, completeHabits, false, true);
         }
@@ -30,17 +30,17 @@ public class FriendsHabitEventsPage extends AppCompatActivity {
         todoHabitAdapter = new ProfileHabitAdapter(incompleteHabits,this);
         completedHabitAdapter = new ProfileHabitAdapter(completeHabits,this);
 
-        // set up the recyclerView and adapter for incomplete habits
+        // Set up the recyclerView and adapter for incomplete habits
         RecyclerView incompleteHabitsView = findViewById(R.id.incompleteRV);
         incompleteHabitsView.setAdapter(todoHabitAdapter);
         incompleteHabitsView.setLayoutManager(new LinearLayoutManager(this));
 
-        // set up the recyclerView and adapter for complete habits
+        // Set up the recyclerView and adapter for complete habits
         RecyclerView completeHabitsView = findViewById(R.id.completeRV);
         completeHabitsView.setAdapter(completedHabitAdapter);
         completeHabitsView.setLayoutManager(new LinearLayoutManager(this));
 
-        // this just adds dividing lines between the values in both recycler views
+        // This just adds dividing lines between the values in both recycler views
         // from: https://stackoverflow.com/questions/24618829/how-to-add-dividers-and-spaces-between-items-in-recyclerview
         DividerItemDecoration incompleteRVDivider = new DividerItemDecoration(incompleteHabitsView.getContext(), LinearLayoutManager.VERTICAL);
         incompleteHabitsView.addItemDecoration(incompleteRVDivider);
