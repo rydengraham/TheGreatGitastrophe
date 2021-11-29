@@ -46,7 +46,6 @@ public class AddFriends extends AppCompatActivity {
         addFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO implelent with back end to read edit text and add to friends list.
                 String friendName = friendNameField.getText().toString();
                 int confirmAdd = -1;
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
@@ -78,12 +77,11 @@ public class AddFriends extends AppCompatActivity {
                     builder.setTitle("Cannot Friend Yourself");
                 }
                 builder.setNegativeButton("OK", null);
-                // create the alert dialog and display it over the fragment
+                // Create the alert dialog and display it over the fragment
                 AlertDialog alertBox = builder.create();
                 alertBox.show();
             }
         });
-
     }
 
     /**

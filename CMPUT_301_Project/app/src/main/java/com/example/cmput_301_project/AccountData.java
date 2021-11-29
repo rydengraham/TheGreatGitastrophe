@@ -30,7 +30,6 @@ public class AccountData {
     private HashMap<String, Account> accountData = new HashMap<String, Account>();
     private String activeUserId = "";
 
-
     private final String TAG = "Sample";
     private FirebaseFirestore db;
     private final CollectionReference collectionReference;
