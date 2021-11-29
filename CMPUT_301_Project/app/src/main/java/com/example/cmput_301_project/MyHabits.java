@@ -27,7 +27,7 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
     private TextView deleteText;
     private RecyclerViewAdapter recycleAdapter;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +76,6 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
     }
 
     /**
@@ -90,8 +89,6 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
         userAccount.backfillHabitEvents();
         userAccount.updateFirestore();
         recycleAdapter.notifyDataSetChanged();
-
-
     }
 
     /**
@@ -134,10 +131,6 @@ public class MyHabits extends AppCompatActivity implements HabitFragments.OnFrag
         }
 
         @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-        }
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) { }
     };
-
-
 }

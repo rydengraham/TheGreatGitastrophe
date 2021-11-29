@@ -3,7 +3,6 @@
  */
 package com.example.cmput_301_project;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,16 +12,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 public class MainPage extends AppCompatActivity {
-
-    // textview represents text that changes depending on menu item clicked
+    // Represents text that changes depending on menu item clicked
     TextView textView;
-    // progressText is a textview represents the % of progress bar filled out
+    // Textview that represents the % of progress bar filled out
     TextView progressText;
-    // amount of circular progress bar filled out
+    // Amount of circular progress bar filled out
     private int progress = 0;
-    // progressBar references progress bar object
+    // References progress bar object
     ProgressBar progressBar;
     int progressMaxCounter = 0, progressCurrentCounter = 0;
     int[] progressRate = new int[2];
@@ -32,13 +29,13 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
-        // initialize circular progress bar
-        progressBar= findViewById(R.id.progress_bar);
-        // initialize updatebutton and friendbutton
-        Button updateButton= findViewById(R.id.updateButton);
-        Button friendButton= findViewById(R.id.friendbutton);
-        textView= findViewById(R.id.btName);
-        progressText= findViewById(R.id.prg_value);
+        // Initialize circular progress bar
+        progressBar = findViewById(R.id.progress_bar);
+        // Initialize updatebutton and friendbutton
+        Button updateButton = findViewById(R.id.updateButton);
+        Button friendButton = findViewById(R.id.friendbutton);
+        textView = findViewById(R.id.btName);
+        progressText = findViewById(R.id.prg_value);
         userAccount = AccountData.create().getActiveUserAccount();
 
         // Percent completed habits per month graphic update
@@ -80,7 +77,6 @@ public class MainPage extends AppCompatActivity {
                 startActivity(switchToAddFriendsPage);
             }
         });
-
     }
 
     /**
@@ -91,8 +87,4 @@ public class MainPage extends AppCompatActivity {
         progressBar.setProgress(progress);
         progressText.setText(progress + "%");
     }
-
-
-
-
 }
