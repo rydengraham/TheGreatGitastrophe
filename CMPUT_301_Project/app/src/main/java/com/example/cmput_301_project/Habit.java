@@ -38,9 +38,7 @@ public class Habit implements Serializable {
         setIsOnDayOfWeek(weekdays);
     }
 
-    public Habit() {
-        /* Required empty public constructor */
-    }
+    public Habit() { /* Required empty public constructor */ }
 
     /**
      * Adds a new habit event to the table
@@ -67,16 +65,35 @@ public class Habit implements Serializable {
         this.habitEventTable.set(position, updatedHabitEvent);
     }
 
+    /**
+     * Gets if a habit occurs on a certain day of the week
+     * @param day
+     * @return
+     */
+    public boolean getIsOnDayOfWeek(int day) {
+        // 0 = Monday, 1 = Tuesday, 2 = Wednesday, etc.
+        return ((weekdays >> day) & 1) == 1;
+    }
+
+    /**
+     * Checks to see if a day applies to a habit
+     * @param weekdays
+     * @return
+     */
+    public boolean setIsOnDayOfWeek(int weekdays) {
+        // only accept numbers in range
+        if (weekdays >= 0) {
+            this.weekdays = weekdays;
+            return true;
+        }
+        return false;
+    }
+
+    // Getters and Setters
     public Boolean getPublic() {
         return isPublic;
     }
 
-
-    // GETTERS
-    /**
-     * Getters/Setters
-     * @return
-     */
     public List<HabitEvent> getHabitEventTable() {
         return this.habitEventTable;
     }
@@ -105,11 +122,6 @@ public class Habit implements Serializable {
         return weekdays;
     }
 
-    public boolean getIsOnDayOfWeek(int day) {
-        // 0 = Monday, 1 = Tuesday, 2 = Wednesday, etc.
-        return ((weekdays >> day) & 1) == 1;
-    }
-
     public void setHabitEventTable(List<HabitEvent> habitEventTable) {
         this.habitEventTable = habitEventTable;
     }
@@ -131,22 +143,4 @@ public class Habit implements Serializable {
     public void setPublic(Boolean isPublic) {
         this.isPublic = isPublic;
     }
-
-
-    /**
-     * Checks to see if a day applies to a habit
-     * @param weekdays
-     * @return
-     */
-    public boolean setIsOnDayOfWeek(int weekdays) {
-        // only accept numbers in range
-        if (weekdays >= 0) {
-            this.weekdays = weekdays;
-            return true;
-        }
-        return false;
-    }
-
-
-
 }
