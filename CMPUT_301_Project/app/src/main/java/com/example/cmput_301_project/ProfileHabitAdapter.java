@@ -63,13 +63,10 @@ public class ProfileHabitAdapter extends RecyclerView.Adapter<ProfileHabitAdapte
         return habitEventList.size();
     }
 
-
     class ItemVH extends RecyclerView.ViewHolder {
         private static final String TAG = "Item";
         TextView habitNameView, DateView, commentView;
         LinearLayout expandableLayout;
-        Button iconButton;
-        Button locationButton;
 
         /**
          *
@@ -90,10 +87,8 @@ public class ProfileHabitAdapter extends RecyclerView.Adapter<ProfileHabitAdapte
                     currentEvent.setExpanded(!currentEvent.isExpanded());
                     commentView.setText(currentEvent.getComment());
                     notifyDataSetChanged();
-
                 }
             });
         }
     }
-
 }

@@ -19,7 +19,6 @@ import java.util.ArrayList;
  * Custom adapter class for Today's Habits
  */
 public class PendingFriendsAdapter extends BaseAdapter {
-
     // Variable Declaration
     int resource;
     Context context;
