@@ -228,7 +228,7 @@ public class CreateDeleteAccountTest {
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                6),
+                                5),
                         isDisplayed()));
         materialButton7.perform(click());
 
