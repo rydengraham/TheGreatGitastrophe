@@ -6,7 +6,6 @@ public class HabitLocation {
     private String longitude;
     private String latitude;
 
-
     public HabitLocation(String address, String longitude, String latitude){
         this.locationName = locationName;
         this.address = address;
@@ -28,11 +27,9 @@ public class HabitLocation {
         this.latitude = otherLocation.getLatitude();
     }
 
-    // empty constuctor for firestore
-    public HabitLocation() {
+    public HabitLocation() { /* Required empty public constructor */ }
 
-    }
-
+    // Getters and Setters
     public String getAddress() {
         return address;
     }
@@ -64,5 +61,4 @@ public class HabitLocation {
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
-
 }

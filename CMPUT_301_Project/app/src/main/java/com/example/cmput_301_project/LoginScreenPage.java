@@ -20,7 +20,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 public class LoginScreenPage extends AppCompatActivity {
-
     FragmentManager manager = getSupportFragmentManager();
     FragmentTransaction transaction;
 
@@ -43,13 +42,13 @@ public class LoginScreenPage extends AppCompatActivity {
     public void onRegisterClick(View view) {
         usernameField.setText("");
         passwordField.setText("");
-        // create a new settings fragment and display it on the appropriate frame
+        // Create a new settings fragment and display it on the appropriate frame
         Fragment registerFragment = new SignUpFragment();
-        // begin fragment transaction and add current activity to backstack
+        // Begin fragment transaction and add current activity to backstack
         transaction = manager.beginTransaction();
         transaction.add(R.id.signUpLayout, registerFragment);
         transaction.addToBackStack(null);
-        // execute transaction and open sign-up fragment
+        // Execute transaction and open sign-up fragment
         transaction.commit();
     }
 
@@ -69,7 +68,7 @@ public class LoginScreenPage extends AppCompatActivity {
             }
         }
 
-        // when 'sign in' button is pressed, open the main page after verification
+        // When 'sign in' button is pressed, open the main page after verification
         if (validated) {
             usernameField.setText("");
             passwordField.setText("");
@@ -79,9 +78,9 @@ public class LoginScreenPage extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
             builder.setCancelable(true);
             builder.setTitle("Username/Password combination does not exist");
-            // if the user chooses to stay on the fragment, simply close the dialog
+            // If the user chooses to stay on the fragment, simply close the dialog
             builder.setNegativeButton("OK", null);
-            // create the alert dialog and display it over the fragment
+            // Create the alert dialog and display it over the fragment
             AlertDialog confirmDialogue = builder.create();
             confirmDialogue.show();
         }
