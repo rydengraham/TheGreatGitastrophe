@@ -108,6 +108,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.historyButton.setVisibility(View.GONE);
         }
 
+        holder.progressRate = userAccount.getHabitCompletionRateInLastThirtyDays(habit.getId());
+        if (holder.progressRate[0] != 0 && holder.progressRate[1] != 0) {
+            holder.progress = (int) (100 * holder.progressRate[1] / holder.progressRate[0]);
+        } else {
+            holder.progress = 0;
+        }
+        // Progress bar library bug fix (not our fault)
+        if (holder.progress < 100) {
+            holder.updateProgress(holder.progress + 1);
+        } else {
+            holder.updateProgress(holder.progress - 1);
+        }
+        holder.updateProgress(holder.progress);
     }
 
     /**
@@ -127,7 +140,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Button editButton;
         Button historyButton;
         ProgressBar progressPercentage;
-
+        private int progress = 0;
+        int[] progressRate = {0, 0};
 
         /**
          *
@@ -144,8 +158,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             editButton = itemView.findViewById(R.id.editButton);
             historyButton = itemView.findViewById(R.id.historyButton);
             progressView = itemView.findViewById(R.id.prg_value6);
-            progressPercentage =  itemView.findViewById(R.id.progress_bar5);
-            updateProgress();
+            progressPercentage = itemView.findViewById(R.id.progress_bar5);
+
             // Give itemView a listener for expansion and deletion
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -190,10 +204,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             
         }
 
-        public void updateProgress()
+        private void updateProgress(int progress)
         {
-            progressPercentage.setProgress(68);
-            progressView.setText("68%");
+            progressPercentage.setProgress(progress);
+            progressView.setText(progress + "%");
         }
     }
 
