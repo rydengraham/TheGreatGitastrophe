@@ -53,7 +53,6 @@ public class HabitEventHistory extends AppCompatActivity {
                 delText.setVisibility(View.GONE);
             }
         });
-
     }
 
     /**
@@ -63,7 +62,5 @@ public class HabitEventHistory extends AppCompatActivity {
         test = new ArrayList<>();
         Bundle extras = getIntent().getExtras();
         userAccount.getHabitEventsForHabit(test, extras.getString("habitId"));
-
     }
-
 }
