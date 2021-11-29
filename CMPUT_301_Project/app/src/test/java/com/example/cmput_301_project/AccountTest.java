@@ -32,6 +32,21 @@ public class AccountTest {
         assertEquals(testAccount.getEmail(), "paint@tas.com");
     }
 
+    @Test
+    public void GetFriends() {
+        Account testAccount = new Account("Maxen", "maximreality@gmail.com", "129430");
+        Account testAccount2 = new Account("Edson", "edsin@gmail.com", "1234");
+        Account testAccount3 = new Account("Wolfgang", "wgang@gmail.com", "534534");
+        testAccount.addFriend(testAccount2.getId());
+        testAccount.addFriend(testAccount3.getId());
+        assertEquals(testAccount.getFriendList().size(), 2);
+        assertEquals(testAccount.getFriendList().get(1),testAccount3.getId());
+        testAccount2.addPendingFriend(testAccount3.getId());
+        assertEquals(testAccount2.getFriendPendingList().get(0),testAccount3.getId());
+        testAccount.removeFriend(testAccount2.getId());
+        assertEquals(testAccount.getFriendList().size(),1);
+    }
+
 
 
 }

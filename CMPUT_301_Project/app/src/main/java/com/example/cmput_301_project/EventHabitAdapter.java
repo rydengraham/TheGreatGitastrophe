@@ -167,9 +167,11 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                     builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            context.startActivity(new Intent(context.getApplicationContext(), LocationActivity.class));
-
-
+                            HabitEvent currentEvent = habitEventList.get(getAdapterPosition());
+                            Intent locationIntent = new Intent(context.getApplicationContext(), LocationActivity.class);
+                            locationIntent.putExtra("eventId", currentEvent.getId());
+                            locationIntent.putExtra("habitName", currentEvent.getTitle());
+                            context.startActivity(locationIntent);
                         }
                     });
                     builder.setNegativeButton("DIMISS", null);

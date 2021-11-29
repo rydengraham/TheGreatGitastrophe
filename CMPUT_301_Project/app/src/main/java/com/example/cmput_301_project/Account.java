@@ -354,7 +354,7 @@ public class Account {
         for (Habit currentHabit : this.habitTable) {
             if (currentHabit.getHabitName().equals(habitName)) {
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getId() == id && !event.isDeleted()) {
+                    if (event.getId().equals(id) && !event.isDeleted()) {
                         return event;
                     }
                 }
