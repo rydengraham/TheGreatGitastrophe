@@ -3,7 +3,6 @@
  */
 package com.example.cmput_301_project;
 
-
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -15,7 +14,6 @@ import java.util.ArrayList;
  * Class that creates the page and sets up everything
  */
 public class TodayHabits extends AppCompatActivity {
-
     // Variable declaration
     ListView toDoList;
     ListView completedList;
@@ -36,6 +34,7 @@ public class TodayHabits extends AppCompatActivity {
         // Find the listview
         toDoList = findViewById(R.id.toDoList);
         completedList = findViewById(R.id.completedList);
+
         // Add elements
         toDoEventsList = new ArrayList<>();
         completedEventsList = new ArrayList<>();
@@ -49,9 +48,7 @@ public class TodayHabits extends AppCompatActivity {
         completedList.setAdapter(completedAdapter);
     }
 
-    public void update() {
-
-    }
+    public void update() { }
 
     /**
      * Returns the ToDo array list
