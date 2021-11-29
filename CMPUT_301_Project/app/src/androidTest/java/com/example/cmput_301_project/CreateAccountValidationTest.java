@@ -478,7 +478,7 @@ public class CreateAccountValidationTest {
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                6),
+                                5),
                         isDisplayed()));
         materialButton18.perform(click());
 
