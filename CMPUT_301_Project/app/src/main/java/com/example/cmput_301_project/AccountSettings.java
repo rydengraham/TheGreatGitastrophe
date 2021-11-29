@@ -28,25 +28,6 @@ public class AccountSettings extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         /**
-         * Used to toggle profile privacy settings
-         */
-        final Button viewToggleButton = findViewById(R.id.privViewToggle);
-        viewToggleButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // TODO: CHANGE SECOND CLASS TO REDIRECT PAGE
-                // Standard TBD Alert Dialogue
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setCancelable(true);
-                builder.setTitle("Page Does Not Exist");
-                builder.setMessage("This will be added in project part 4.");
-                builder.setNegativeButton("OK", null);
-                // create the alert dialog and display it over the fragment
-                AlertDialog alertBox = builder.create();
-                alertBox.show();
-            }
-        });
-
-        /**
          * link to profile page
          */
         final Button viewProfileButton = findViewById(R.id.viewProfile);
