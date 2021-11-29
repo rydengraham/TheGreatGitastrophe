@@ -22,32 +22,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Security Settings"
-        app:layout_constraintBottom_toTopOf="@+id/privViewToggle"
-        app:layout_constraintStart_toStartOf="@+id/privViewToggle" />
-
-    <Button
-        android:id="@+id/privViewToggle"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="50dp"
-        android:text="Private/Public View Toggle"
-        android:backgroundTint="@android:color/holo_green_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintBottom_toTopOf="@+id/viewProfile"
+        app:layout_constraintStart_toStartOf="@+id/viewProfile" />
 
     <Button
         android:id="@+id/viewProfile"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="40dp"
         android:text="View My Profile"
         android:backgroundTint="@android:color/holo_green_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privViewToggle" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <Button
         android:id="@+id/changePassword"

@@ -215,9 +215,10 @@ public class TodayHabitsAdapter extends BaseAdapter {
                         builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                context.startActivity(new Intent(context.getApplicationContext(), LocationActivity.class));
-
-
+                                Intent locationIntent = new Intent(context.getApplicationContext(), LocationActivity.class);
+                                locationIntent.putExtra("eventId", selectedHabit.getId());
+                                locationIntent.putExtra("habitName", selectedHabit.getTitle());
+                                context.startActivity(locationIntent);
                             }
                         });
                         builder.setNegativeButton("DIMISS", null);

@@ -49,6 +49,14 @@ public class HabitEvent implements Serializable {
         return isDeleted;
     }
 
+    public HabitLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(HabitLocation location) {
+        this.location = location;
+    }
+
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
