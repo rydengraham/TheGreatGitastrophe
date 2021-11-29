@@ -87,7 +87,21 @@ public class AccountSettings extends AppCompatActivity {
                 builder.setMessage("This action cannot be undone");
                 // if the user chooses to exit, return to the user profile activity
                 builder.setPositiveButton("Delete Account", (dialog, which) -> {
-                    AccountData.create().deleteActiveUserAccount();
+                    AccountData accountData = AccountData.create();
+                    Account activeFriendAccount;
+                    // Deletion of account from other user's friend and pending list
+                    for (String id : accountData.getActiveUserAccount().getFriendList()) {
+                        activeFriendAccount = accountData.getAccountData().get(id);
+                        activeFriendAccount.removeFriend(accountData.getActiveUserId());
+                        activeFriendAccount.updateFirestore();
+                    }
+                    for (Account friendAccount : accountData.getAccountData().values()) {
+                        if (friendAccount.getFriendPendingList().contains(accountData.getActiveUserId())) {
+                            friendAccount.removePendingFriend(accountData.getActiveUserId());
+                            friendAccount.updateFirestore();
+                        }
+                    }
+                    accountData.deleteActiveUserAccount();
                     Intent switchActivityIntent = new Intent(AccountSettings.this, LoginScreenPage.class);
                     startActivity(switchActivityIntent);
                 });

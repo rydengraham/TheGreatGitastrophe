@@ -12,6 +12,8 @@ public class HabitEvent implements Serializable {
     private String id;
     private String date;
     private Bitmap image;
+    //added Habit location
+    private HabitLocation location;
     private String comment;
     private String title;
     private TodayHabitViewHolder holder;

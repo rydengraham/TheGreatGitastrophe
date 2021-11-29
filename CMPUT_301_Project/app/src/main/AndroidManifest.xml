@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cmput_301_project">
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,8 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CMPUT_301_Project">
         <activity
+            android:name=".LocationActivity"
+            android:exported="true" />
+        <activity
             android:name=".FriendsHabitEventsPage"
             android:exported="true" />
+        <activity android:name=".FriendHabits" />
         <activity
             android:name=".HabitEventHistory"
             android:exported="true" />
@@ -31,24 +38,29 @@
             android:name=".FriendProfilePage"
             android:exported="true" />
         <activity android:name=".MyHabits" />
-        <activity android:name=".MyFriends"
-            android:exported="true" />
+        <activity android:name=".MyFriends" />
         <activity android:name=".AddFriends" />
         <activity
             android:name=".UserProfilePage"
             android:exported="true"
+            android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".AccountSettings" />
+            android:name=".AccountSettings"
+            android:label="@string/app_name" />
         <activity
             android:name=".MainPage"
-            android:exported="true" >
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDdmY9XQ9l5JWcSJy1aAcxpzRiiOTMIxyg" />
     </application>
 
 </manifest>

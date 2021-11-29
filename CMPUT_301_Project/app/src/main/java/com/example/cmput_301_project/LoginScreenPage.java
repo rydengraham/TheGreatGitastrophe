@@ -61,7 +61,6 @@ public class LoginScreenPage extends AppCompatActivity {
         boolean validated = false;
         for (Account existingAccount : accountData.values()) {
             if (existingAccount.getUserName().equals(username) && existingAccount.checkPassword(password)) {
-                // TODO: Set this account to be the active user
                 AccountData accountData = AccountData.create();
                 accountData.setActiveUserId(existingAccount.getId());
                 accountData.getActiveUserAccount().backfillHabitEvents();

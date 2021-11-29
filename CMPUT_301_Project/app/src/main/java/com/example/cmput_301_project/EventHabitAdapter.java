@@ -1,6 +1,8 @@
 package com.example.cmput_301_project;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -152,6 +155,27 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                 @Override
                 public void afterTextChanged(Editable editable) {
 
+                }
+            });
+            locationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setCancelable(true);
+                    builder.setTitle("Edit Habit Location?");
+                    builder.setMessage("This will mean updating previously saved location data");
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            context.startActivity(new Intent(context.getApplicationContext(), LocationActivity.class));
+
+
+                        }
+                    });
+                    builder.setNegativeButton("DIMISS", null);
+                    // create the alert dialog and display it over the fragment
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
                 }
             });
 

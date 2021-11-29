@@ -59,10 +59,16 @@ public class UserProfilePage extends AppCompatActivity implements VerifyPassword
         } else {
             progress = 0;
         }
+        // Progress bar library bug fix (not our fault)
+        if (progress < 100) {
+            updateProgress(progress + 1);
+        } else {
+            updateProgress(progress - 1);
+        }
         updateProgress(progress);
         
         ArrayList<HabitEvent> eventList = new ArrayList<HabitEvent>();
-        userAccount.getRecentHabitEvents(eventList);
+        userAccount.getRecentHabitEvents(eventList, true);
         profileHabitAdapter = new ProfileHabitAdapter(eventList,this);
         recyclerView.setAdapter(profileHabitAdapter);
 

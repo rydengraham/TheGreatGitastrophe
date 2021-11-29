@@ -52,12 +52,18 @@ public class MainPage extends AppCompatActivity {
         } else {
             progress = 0;
         }
-        updateProgress();
+        // Progress bar library bug fix (not our fault)
+        if (progress < 100) {
+            updateProgress(progress + 1);
+        } else {
+            updateProgress(progress - 1);
+        }
+        updateProgress(progress);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent switchToTodayHabitsPage = new Intent(MainPage.this, TodayHabits.class);
-                updateProgress();
+                updateProgress(progress);
                 startActivity(switchToTodayHabitsPage);
             }
         });
@@ -80,7 +86,7 @@ public class MainPage extends AppCompatActivity {
     /**
      * Method to set the progress value i.e % of progress
      * bar filled out */
-    public void updateProgress()
+    private void updateProgress(int progress)
     {
         progressBar.setProgress(progress);
         progressText.setText(progress + "%");

@@ -18,18 +18,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TableLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * A {@link Fragment} subclass that helps create habit objects through dialog.
@@ -177,6 +172,7 @@ public class HabitFragments extends DialogFragment {
             // Setting text and calendar according to retrievedHabit
             habitTitle.setText(retrievedHabit.getHabitName());
             startDate.setText(retrievedHabit.getReason());
+            publicSwitcher.setChecked(retrievedHabit.getPublic());
             long toConvert = retrievedHabit.getStartDate().getTime();
             calendarView.setDate(toConvert);
 
