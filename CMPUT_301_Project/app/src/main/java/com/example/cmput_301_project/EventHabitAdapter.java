@@ -106,6 +106,7 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
         LinearLayout expandableLayout;
         Button iconButton;
         Button locationButton;
+        Button photoButton;
         Account userAccount;
 
         /**
@@ -120,6 +121,7 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
             commentView = itemView.findViewById(R.id.editTextTextPassword);
             iconButton = itemView.findViewById(R.id.photoIconButton);
             locationButton = itemView.findViewById(R.id.editLocationButton);
+            photoButton = itemView.findViewById(R.id.photoIconButton);
             expandableLayout = itemView.findViewById(R.id.expandableHELayout);
             userAccount = AccountData.create().getActiveUserAccount();
             // Give itemView a listener for expansion and deletion
@@ -185,10 +187,29 @@ public class EventHabitAdapter extends RecyclerView.Adapter<EventHabitAdapter.It
                     alertBox.show();
                 }
             });
-
-            // TODO: Connect this to the habit event list (does not exist for part 3)
-            // Give historyButton a placeholder interaction
-
+            photoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setCancelable(true);
+                    builder.setTitle("Edit Habit Photo?");
+                    builder.setMessage("This will mean updating previously saved photo");
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            HabitEvent currentEvent = habitEventList.get(getAdapterPosition());
+                            Intent cameraIntent = new Intent(context.getApplicationContext(), LocationActivity.class);
+                            cameraIntent.putExtra("eventId", currentEvent.getId());
+                            cameraIntent.putExtra("habitName", currentEvent.getTitle());
+                            context.startActivity(cameraIntent);
+                        }
+                    });
+                    builder.setNegativeButton("DIMISS", null);
+                    // create the alert dialog and display it over the fragment
+                    AlertDialog alertBox = builder.create();
+                    alertBox.show();
+                }
+            });
         }
     }
 
