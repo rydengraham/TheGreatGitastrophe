@@ -16,6 +16,7 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
@@ -36,13 +37,13 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class EditUsernameTest {
+public class AddEditRemoveHabitTest {
 
     @Rule
     public ActivityTestRule<LoginScreenPage> mActivityTestRule = new ActivityTestRule<>(LoginScreenPage.class);
 
     @Test
-    public void editUsernameTest() {
+    public void addEditRemoveHabitTest() {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.registerButton), withText("Register"),
                         childAtPosition(
@@ -63,7 +64,7 @@ public class EditUsernameTest {
                                                 0)),
                                 1),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("editUser@mail.com"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("habit@mail.com"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.createUsernameEV),
@@ -74,7 +75,7 @@ public class EditUsernameTest {
                                                 1)),
                                 1),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("editUser"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("habitUser"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.createPasswordEV),
@@ -85,7 +86,7 @@ public class EditUsernameTest {
                                                 2)),
                                 1),
                         isDisplayed()));
-        appCompatEditText3.perform(replaceText("edit"), closeSoftKeyboard());
+        appCompatEditText3.perform(replaceText("habit"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.reenterPasswordEV),
@@ -96,7 +97,7 @@ public class EditUsernameTest {
                                                 3)),
                                 1),
                         isDisplayed()));
-        appCompatEditText4.perform(replaceText("edit"), closeSoftKeyboard());
+        appCompatEditText4.perform(replaceText("habit"), closeSoftKeyboard());
 
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.signUpButton), withText("Sign Up"),
@@ -127,7 +128,7 @@ public class EditUsernameTest {
                                                 0)),
                                 1),
                         isDisplayed()));
-        appCompatEditText5.perform(replaceText("editUser"), closeSoftKeyboard());
+        appCompatEditText5.perform(replaceText("habitUser"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText6 = onView(
                 allOf(withId(R.id.passwordEV),
@@ -138,7 +139,7 @@ public class EditUsernameTest {
                                                 1)),
                                 1),
                         isDisplayed()));
-        appCompatEditText6.perform(replaceText("edit"), closeSoftKeyboard());
+        appCompatEditText6.perform(replaceText("habit"), closeSoftKeyboard());
 
         ViewInteraction materialButton4 = onView(
                 allOf(withId(R.id.signInButton), withText("Sign In"),
@@ -152,126 +153,192 @@ public class EditUsernameTest {
         materialButton4.perform(click());
 
         ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.settings), withContentDescription("More"),
+                allOf(withId(R.id.habits), withContentDescription("My Habits"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.bottomNavigationView),
                                         0),
-                                3),
+                                1),
                         isDisplayed()));
         bottomNavigationItemView.perform(click());
 
         ViewInteraction materialButton5 = onView(
-                allOf(withId(R.id.viewProfile), withText("View My Profile"),
+                allOf(withId(R.id.addButton), withText("Add a Habit"),
                         childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
+                                allOf(withId(R.id.linearLayout),
+                                        childAtPosition(
+                                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                                1)),
+                                0),
                         isDisplayed()));
         materialButton5.perform(click());
 
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.settingsButton),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
-
         ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.verifyPasswordEditText),
+                allOf(withId(R.id.habitTitleEditText),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),
                                         0),
                                 0)));
-        appCompatEditText7.perform(scrollTo(), replaceText("edit"), closeSoftKeyboard());
+        appCompatEditText7.perform(scrollTo(), replaceText("HabitEx"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText8 = onView(
+                allOf(withId(R.id.reasonEditText),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                1)));
+        appCompatEditText8.perform(scrollTo(), replaceText("Reason"), closeSoftKeyboard());
 
         ViewInteraction materialButton6 = onView(
+                allOf(withId(R.id.frequencyButton), withText("Toggle"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        4),
+                                1)));
+        materialButton6.perform(scrollTo(), click());
+
+        ViewInteraction materialCheckBox = onView(
+                allOf(withId(R.id.mondayBox), withText("Monday"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customSelector),
+                                        0),
+                                0)));
+        materialCheckBox.perform(scrollTo(), click());
+
+        ViewInteraction materialCheckBox2 = onView(
+                allOf(withId(R.id.tuesdayBox), withText("Tuesday"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customSelector),
+                                        0),
+                                1)));
+        materialCheckBox2.perform(scrollTo(), click());
+
+        ViewInteraction materialCheckBox3 = onView(
+                allOf(withId(R.id.wednesdayBox), withText("Wednesday"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customSelector),
+                                        0),
+                                2)));
+        materialCheckBox3.perform(scrollTo(), click());
+
+        ViewInteraction materialCheckBox4 = onView(
+                allOf(withId(R.id.thursdayBox), withText("Thursday"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customSelector),
+                                        1),
+                                0)));
+        materialCheckBox4.perform(scrollTo(), click());
+
+        ViewInteraction materialCheckBox5 = onView(
+                allOf(withId(R.id.fridayBox), withText("Friday"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customSelector),
+                                        1),
+                                1)));
+        materialCheckBox5.perform(scrollTo(), click());
+
+        ViewInteraction materialCheckBox6 = onView(
+                allOf(withId(R.id.saturdayBox), withText("Saturday"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customSelector),
+                                        1),
+                                2)));
+        materialCheckBox6.perform(scrollTo(), click());
+
+        ViewInteraction materialCheckBox7 = onView(
+                allOf(withId(R.id.sundayBox), withText("Sunday"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customSelector),
+                                        2),
+                                0)));
+        materialCheckBox7.perform(scrollTo(), click());
+
+        ViewInteraction materialButton7 = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),
                                         0),
                                 3)));
-        materialButton6.perform(scrollTo(), click());
-
-        ViewInteraction editText = onView(
-                allOf(withId(R.id.editUsernamePT), withText("editUser"),
-                        withParent(allOf(withId(R.id.editusernameHLL),
-                                withParent(withId(R.id.fragmentCL)))),
-                        isDisplayed()));
-        editText.check(matches(withText("editUser")));
-
-        ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.editUsernamePT), withText("editUser"),
-                        childAtPosition(
-                                allOf(withId(R.id.editusernameHLL),
-                                        childAtPosition(
-                                                withId(R.id.fragmentCL),
-                                                3)),
-                                1),
-                        isDisplayed()));
-        appCompatEditText8.perform(replaceText("editUsers"));
-
-        ViewInteraction appCompatEditText9 = onView(
-                allOf(withId(R.id.editUsernamePT), withText("editUsers"),
-                        childAtPosition(
-                                allOf(withId(R.id.editusernameHLL),
-                                        childAtPosition(
-                                                withId(R.id.fragmentCL),
-                                                3)),
-                                1),
-                        isDisplayed()));
-        appCompatEditText9.perform(closeSoftKeyboard());
-
-        ViewInteraction materialButton7 = onView(
-                allOf(withId(R.id.saveButton), withText("Save and Exit"),
-                        childAtPosition(
-                                allOf(withId(R.id.navButtonsHLL),
-                                        childAtPosition(
-                                                withId(R.id.fragmentCL),
-                                                4)),
-                                0),
-                        isDisplayed()));
-        materialButton7.perform(click());
-
-        ViewInteraction materialButton8 = onView(
-                allOf(withId(android.R.id.button1), withText("Yes"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
-        materialButton8.perform(scrollTo(), click());
+        materialButton7.perform(scrollTo(), click());
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.usernameText), withText("editUsers"),
-                        withParent(withParent(withId(android.R.id.content))),
+                allOf(withId(R.id.habitTitle), withText("HabitEx"),
+                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class))),
                         isDisplayed()));
-        textView.check(matches(withText("editUsers")));
+        textView.check(matches(withText("HabitEx")));
 
-        ViewInteraction appCompatImageButton2 = onView(
-                allOf(withId(R.id.settingsButton),
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.recyclerView),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                0)));
+        recyclerView.perform(actionOnItemAtPosition(0, click()));
+
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.reason), withText("Reason"),
+                        withParent(allOf(withId(R.id.expandableLayout),
+                                withParent(IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class)))),
+                        isDisplayed()));
+        textView2.check(matches(withText("Reason")));
+
+        ViewInteraction materialButton8 = onView(
+                allOf(withId(R.id.editButton), withText("Edit"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
+                                        withId(R.id.expandableLayout),
+                                        3),
+                                0),
                         isDisplayed()));
-        appCompatImageButton2.perform(click());
+        materialButton8.perform(click());
 
-        ViewInteraction appCompatEditText10 = onView(
-                allOf(withId(R.id.verifyPasswordEditText),
+        ViewInteraction appCompatEditText9 = onView(
+                allOf(withId(R.id.habitTitleEditText), withText("HabitEx"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),
                                         0),
                                 0)));
-        appCompatEditText10.perform(scrollTo(), replaceText("edit"), closeSoftKeyboard());
+        appCompatEditText9.perform(scrollTo(), replaceText("HabitExample"));
+
+        ViewInteraction appCompatEditText10 = onView(
+                allOf(withId(R.id.habitTitleEditText), withText("HabitExample"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                0),
+                        isDisplayed()));
+        appCompatEditText10.perform(closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText11 = onView(
+                allOf(withId(R.id.reasonEditText), withText("Reason"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                1)));
+        appCompatEditText11.perform(scrollTo(), replaceText("Reasons"));
+
+        ViewInteraction appCompatEditText12 = onView(
+                allOf(withId(R.id.reasonEditText), withText("Reasons"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText12.perform(closeSoftKeyboard());
 
         ViewInteraction materialButton9 = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
@@ -282,53 +349,36 @@ public class EditUsernameTest {
                                 3)));
         materialButton9.perform(scrollTo(), click());
 
-        ViewInteraction appCompatEditText11 = onView(
-                allOf(withId(R.id.editUsernamePT), withText("editUsers"),
-                        childAtPosition(
-                                allOf(withId(R.id.editusernameHLL),
-                                        childAtPosition(
-                                                withId(R.id.fragmentCL),
-                                                3)),
-                                1),
+        ViewInteraction textView3 = onView(
+                allOf(withId(R.id.habitTitle), withText("HabitExample"),
+                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class))),
                         isDisplayed()));
-        appCompatEditText11.perform(replaceText("editUser"));
+        textView3.check(matches(withText("HabitExample")));
 
-        ViewInteraction appCompatEditText12 = onView(
-                allOf(withId(R.id.editUsernamePT), withText("editUser"),
-                        childAtPosition(
-                                allOf(withId(R.id.editusernameHLL),
-                                        childAtPosition(
-                                                withId(R.id.fragmentCL),
-                                                3)),
-                                1),
+        ViewInteraction textView4 = onView(
+                allOf(withId(R.id.reason), withText("Reasons"),
+                        withParent(allOf(withId(R.id.expandableLayout),
+                                withParent(IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class)))),
                         isDisplayed()));
-        appCompatEditText12.perform(closeSoftKeyboard());
+        textView4.check(matches(withText("Reasons")));
 
         ViewInteraction materialButton10 = onView(
-                allOf(withId(R.id.exitButton), withText("Exit without Saving"),
+                allOf(withId(R.id.removeButton), withText("Remove a Habit"),
                         childAtPosition(
-                                allOf(withId(R.id.navButtonsHLL),
+                                allOf(withId(R.id.linearLayout),
                                         childAtPosition(
-                                                withId(R.id.fragmentCL),
-                                                4)),
+                                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                                1)),
                                 1),
                         isDisplayed()));
         materialButton10.perform(click());
 
-        ViewInteraction materialButton11 = onView(
-                allOf(withId(android.R.id.button1), withText("Exit"),
+        ViewInteraction recyclerView2 = onView(
+                allOf(withId(R.id.recyclerView),
                         childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
-        materialButton11.perform(scrollTo(), click());
-
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.usernameText), withText("editUsers"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        textView2.check(matches(withText("editUsers")));
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                0)));
+        recyclerView2.perform(actionOnItemAtPosition(0, click()));
 
         ViewInteraction bottomNavigationItemView2 = onView(
                 allOf(withId(R.id.settings), withContentDescription("More"),
@@ -340,7 +390,7 @@ public class EditUsernameTest {
                         isDisplayed()));
         bottomNavigationItemView2.perform(click());
 
-        ViewInteraction materialButton12 = onView(
+        ViewInteraction materialButton11 = onView(
                 allOf(withId(R.id.delete), withText("Delete Account"),
                         childAtPosition(
                                 childAtPosition(
@@ -348,16 +398,16 @@ public class EditUsernameTest {
                                         0),
                                 5),
                         isDisplayed()));
-        materialButton12.perform(click());
+        materialButton11.perform(click());
 
-        ViewInteraction materialButton13 = onView(
+        ViewInteraction materialButton12 = onView(
                 allOf(withId(android.R.id.button1), withText("Delete Account"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.buttonPanel),
                                         0),
                                 3)));
-        materialButton13.perform(scrollTo(), click());
+        materialButton12.perform(scrollTo(), click());
     }
 
     private static Matcher<View> childAtPosition(
