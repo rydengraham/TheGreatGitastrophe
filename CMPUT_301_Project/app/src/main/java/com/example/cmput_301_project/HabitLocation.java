@@ -19,10 +19,19 @@ public class HabitLocation {
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
-
     }
 
+    public HabitLocation(HabitLocation otherLocation){
+        this.locationName = otherLocation.getLocationName();
+        this.address = otherLocation.getAddress();
+        this.longitude = otherLocation.getLongitude();
+        this.latitude = otherLocation.getLatitude();
+    }
 
+    // empty constuctor for firestore
+    public HabitLocation() {
+
+    }
 
     public String getAddress() {
         return address;

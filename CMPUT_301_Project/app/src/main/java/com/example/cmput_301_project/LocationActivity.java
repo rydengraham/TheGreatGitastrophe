@@ -1,9 +1,5 @@
 package com.example.cmput_301_project;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -12,8 +8,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -54,18 +53,19 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     private  LatLng latLng;
     private  FloatingActionButton addLocation;
     private boolean userLocationAvailable = false;
-    private boolean updatingLocation;
 
     // Location classes
     private FusedLocationProviderClient mFusedLocationClient;
     private Location mLastLocation;
+
+    private Account userAccount;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        updatingLocation=false;
+        userAccount = AccountData.create().getActiveUserAccount();
         addLocation = findViewById(R.id.floating_btn);
 
         String apiKey = getString(R.string.api_key);
@@ -109,6 +109,14 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                             Toast.makeText(LocationActivity.this,
                                     R.string.updating_location,
                                     Toast.LENGTH_SHORT).show();
+
+                            Bundle extras = getIntent().getExtras();
+                            String eventId = extras.getString("eventId");
+                            String habitName = extras.getString("habitName");
+                            userAccount = AccountData.create().getActiveUserAccount();
+                            userAccount.getHabitEvent(eventId, habitName).setLocation(new HabitLocation(locationDetail));
+                            userAccount.updateFirestore();
+                            finish();
 
                         }
 
@@ -204,6 +212,14 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(LocationActivity.this::onMapReady);
+        Bundle extras = getIntent().getExtras();
+        String eventId = extras.getString("eventId");
+        String habitName = extras.getString("habitName");
+        userAccount = AccountData.create().getActiveUserAccount();
+        HabitLocation location = userAccount.getHabitEvent(eventId, habitName).getLocation();
+        if (location != null) {
+            latLng = new LatLng(Double.parseDouble(location.getLatitude()), Double.parseDouble(location.getLongitude()));
+        }
 
     }
 
@@ -245,7 +261,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
         mAddress = resultMessage;
         locationDetail= new HabitLocation("Home", mAddress,mLatitude,mLongitude);
-        //setHabitLocation("Home", resultMessage,mLatitude,mLongitude);
 
     }
 

@@ -397,9 +397,11 @@ public class Account {
      */
     public HabitEvent getHabitEvent(String id, String habitName) {
         for (Habit currentHabit : this.habitTable) {
+            System.out.println(currentHabit);
             if (currentHabit.getHabitName().equals(habitName)) {
                 for(HabitEvent event : currentHabit.getHabitEventTable()) {
-                    if (event.getId() == id && !event.isDeleted()) {
+                    System.out.println(event);
+                    if (event.getId().equals(id) && !event.isDeleted()) {
                         return event;
                     }
                 }
