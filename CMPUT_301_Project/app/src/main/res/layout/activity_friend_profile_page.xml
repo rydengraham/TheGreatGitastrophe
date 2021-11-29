@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FriendProfilePage">
+    tools:context=".pages.FriendProfilePage">
 
     <LinearLayout
         android:id="@+id/friendInfoHLL"
@@ -167,7 +167,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
-            android:name="com.example.cmput_301_project.NavBar"
+            android:name="com.example.cmput_301_project.fragments.NavBarFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"

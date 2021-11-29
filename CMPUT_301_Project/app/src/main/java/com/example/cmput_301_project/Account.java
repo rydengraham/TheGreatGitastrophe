@@ -390,7 +390,7 @@ public class Account {
      * Forces a Firestore update for the active account
      */
     public void updateFirestore() {
-        AccountData.create().modifyAccount(this);
+        FirestoreHandler.create().modifyAccount(this);
     }
 
     public String getPassword() { return password; }
