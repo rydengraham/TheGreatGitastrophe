@@ -52,8 +52,6 @@ public class HabitUnitTest {
         testHabit.getHabitEventTable().remove(testHabit.getHabitEventTable().get(0));
         assertEquals(testHabit.getHabitEventTable().size(), 0);
 
-
-
     }
 
 }
