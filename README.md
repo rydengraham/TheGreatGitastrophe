@@ -1,3 +1,3 @@
 # TheGreatGitastrophe
 
-Basic Android Habit tracking track. Uses Firestore to save user credentials.
+Basic Android Habit tracking app. Uses Firestore to save user credentials.
